@@ -1,0 +1,33 @@
+{
+    "system_name": "C-MIS",
+    "dashboard": "admin",
+    "theme": "rand",
+    "session_name": "cmis_session",
+    "system_locale": "sw-TZ",
+    "system_currency": "TSH",
+    "database": {
+        "host": "localhost",
+        "username": "root",
+        "password": "root",
+        "db_name": "cmis_main",
+        "driver": "mysql"
+    },
+    "modules": [
+        "HR",
+        "Sales",
+        "Store",
+        "Projects",
+        "Accounts",
+        "Settings"
+    ],
+    "phpmailer": {
+        "sender": "noreply@cmis.co",
+        "host": "mail.jamboexpedition.com",
+        "username": "mailsender@jamboexpedition.com",
+        "password": "MS@jambo.1"
+    },
+    "nextsms": {
+        "sender": "NEXTSMS",
+        "token": "YmFubnk6QmFzZWFAQkNM"
+    }
+}

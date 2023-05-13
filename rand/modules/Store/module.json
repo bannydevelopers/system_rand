@@ -1,0 +1,26 @@
+{
+    "name":"Store",
+    "icon":"store-alt",
+    "nav":[
+        {"name":"Dispensing","href":"Dispensing/","permission":"can_view_dispense"},
+        {"name":"Tools","href":"Tools/","permission":"can_view_tools"},
+        {"name":"Stores","href":"Stores/","permission":"can_view_stores"}
+   
+    ],
+
+    "permissions":[
+        "can_add_dispense",
+        "can_edit_dispense",
+        "can_delete_dispense",
+        "can_view_dispense",
+ 
+        "can_add_tools",
+        "can_edit_tools",
+        "can_delete_tools",
+        "can_view_tools",
+         
+        "can_add_stores",
+        "can_edit_stores",
+        "can_view_stores"
+  ]
+ }

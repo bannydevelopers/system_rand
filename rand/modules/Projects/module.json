@@ -1,0 +1,39 @@
+{
+    "name": "Projects",
+    "icon": "user-shield",
+    "nav": [
+        {
+            "name": "Projects",
+            "href": "Projects\/",
+            "permission": "can_view_projects"
+        },
+        {
+            "name": "Project report",
+            "href": "Project_report\/",
+            "permission": "can_view_project_report"
+        }
+    ],
+    "permissions": [
+        "can_add_projects",
+        "can_edit_projects",
+        "can_delete_projects",
+        "can_view_projects",
+        "can_add_activities",
+        "can_edit_activities",
+        "can_view_activities",
+        "can_delete_activities",
+        "can_view_activities",
+        "can_add_resources",
+        "can_edit_resources",
+        "can_view_resources",
+        "can_delete_resources",
+        "can_view_resources",
+        "can_add_project_report",
+        "can_edit_project_report",
+        "can_delete_project_report",
+        "can_view_project_report",
+        "can_view_project_budget"
+    ],
+    "pm_manager": 2,
+    "project_assignees": "2,3,4,5,33,34,37,40"
+}

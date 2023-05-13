@@ -1,0 +1,51 @@
+{
+    "name":"Accounts",
+    "icon":"fa-solid fa-money-bills",
+    "nav":[
+        {"name":"Expenses","href":"Expenses/","permission":"can_view_expenses"},
+        {"name":"Debts","href":"Debts/","permission":"can_view_debts"},
+        {"name":"Loan","href":"Loan/","permission":"can_view_debts"},
+        {"name":"Revenues","href":"Revenues/","permission":"can_view_revenues"},
+        {"name":"Business partners","href":"Business_partners/","permission":"can_view_business_partner"},
+        {"name":"Banks","href":"Banks/","permission":"can_view_banks_x"}
+    ],
+    "permissions":[
+        "can_add_business_partner",
+        "can_edit_business_partner",
+        "can_delete_business_partner",
+        "can_view_business_partner",
+
+        "can_add_banks",
+        "can_edit_banks",
+        "can_delete_banks",
+        "can_view_banks",
+        "can_approve_banks",
+        
+        "can_add_debts",
+        "can_edit_debts",
+        "can_delete_debts",
+        "can_view_debts",
+        "can_clear_debts",
+
+        
+        "can_add_expenses",
+        "can_edit_expenses",
+        "can_delete_expenses",
+        "can_view_expenses",
+        
+        "can_add_payroll",
+        "can_edit_payroll",
+        "can_delete_payroll",
+        "can_view_payroll",
+        
+        "can_add_revenues",
+        "can_edit_revenues",
+        "can_delete_revenues",
+        "can_view_revenues",
+        
+        "can_add_salary",
+        "can_edit_salary",
+        "can_delete_salary",
+        "can_view_salary"
+    ]
+}
