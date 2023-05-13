@@ -3,7 +3,7 @@
     "version": "1.0.4",
     "description": "",
     "scripts": {
-        "tailwind": "npx tailwindcss -i assets/css/styles.css -o assets/css/tailwind.output.css --watch",
+        "tailwind": "npx tailwindcss -i rand/system/assets/css/styles.css -o rand/system/assets/css/tailwind.output.css --watch",
         "build": "tailwindcss build -i assets/css/styles.css -o assets/css/tailwind.output.css"
     },
     "devDependencies": {

@@ -3,8 +3,8 @@ const plugin = require("tailwindcss/plugin");
 module.exports = {
   mode: "jit",
   content: [
-    "./assets/**/*.js",
-    "./pages/*.html"
+    "rand/system/assets/**/*.js",
+    "rand/system/templates/rand/*.html"
   ],
   presets: [],
   darkMode: "class",
