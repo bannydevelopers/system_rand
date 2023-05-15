@@ -33,34 +33,6 @@
       <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
         <ul class="flex flex-col pl-0 mb-0">
           <?php foreach($nav as $link){ ?>
-<<<<<<< HEAD
-          <li class="mt-0.5 w-full">
-            <?php if(@$link['children'] != null){?>
-            <ul class="flex flex-col pl-0 mb-0">
-            <a class="py-1.5 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors">
-              <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5"></div>
-              <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft"><?=$link['name']?></span>
-            </a>
-              <?php 
-                foreach($link['children'] as $nav){
-                  if(!in_array($nav->permission, $user_permission)) continue;
-                ?>
-              <li>
-                <a class="py-1.5 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" href="<?=$link['href']?>/<?=$nav->href?>">
-                  <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft"><?=$nav->name?></span>
-                </a>
-              </li>
-              <?php }?>
-            </ul>
-            <?php }else{ ?>
-            <a class="py-1.5 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" href="<?=$link['href']?>">
-              <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5"></div>
-              <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft"><?=$link['name']?></span>
-            </a>
-          </li>
-          <?php }?>
-          <?php }?>
-=======
 
             <li class="mt-0.5 w-full">
               <?php if(@$link['children'] != null){?>
@@ -103,7 +75,6 @@
               <?php }?>
             </li>
             <?php }?>
->>>>>>> 86735625cb3bffcaf37fcd5a9d8f5b901a1fe3b6
           
         </ul>
       </div>
