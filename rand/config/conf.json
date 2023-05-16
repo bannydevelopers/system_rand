@@ -9,7 +9,7 @@
         "host": "localhost",
         "username": "root",
         "password": "root",
-        "db_name": "cmis_main",
+        "db_name": "rand",
         "driver": "mysql"
     },
     "modules": [
