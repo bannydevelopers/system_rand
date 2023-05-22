@@ -52,58 +52,55 @@
         <!-- Page Header End -->
        <?php include('check.html')?>
         <!-- Booking Start -->
+        
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="section-title text-center text-primary text-uppercase">Room Booking</h6>
-                    <h1 class="mb-5">Book A <span class="text-primary text-uppercase">Luxury Room</span></h1>
+                    <h6 class="section-title text-center text-primary text-uppercase">APARTMENT BOOKING</h6>
+                    <h4 class="mb-5">Book A <span class="text-primary text-uppercase">LUXURY APARTMENT</span></h4>
                 </div>
+                
                 <div class="row g-5">
                     <div class="col-lg-6">
                         <div class="row g-3">
-                            <div class="col-6 text-end">
-                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.1s" src="rand/modules/portal/rand/img/about4.webp" style="margin-top: 25%;">
+                           
+                            <div class="col-20 text-start">
+                                <img class="img-fluid rounded w-250 wow zoomIn" data-wow-delay="0.3s" src="rand/modules/portal/rand/img/about2.webp">
                             </div>
-                            <div class="col-6 text-start">
-                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.3s" src="rand/modules/portal/rand/img/about2.webp">
-                            </div>
-                            <div class="col-6 text-end">
-                                <img class="img-fluid rounded w-55 wow zoomIn" data-wow-delay="0.5s" src="rand/modules/portal/rand/img/about5.webp">
-                            </div>
-                            <div class="col-6 text-start">
-                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.7s" src="rand/modules/portal/rand/img/about6.webp">
-                            </div>
+                            
                         </div>
                     </div>
+                    
                     <div class="col-lg-6">
-                        <div class="wow fadeInUp" data-wow-delay="0.2s">
-                            <form>
+                        <div class="wow fadeInUp" data-wow-delay="0.1s">
+                            <?PHP if($helper->check_user_session()){?>
+                            <form method="post">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                            <input type="text" readonly value="<?=$user['first_name']?> <?=$user['middle_name']?><?=$user['last_name']?>" class="form-control" id="customer_name" name="customer_name" placeholder="customer_name">
                                             <label for="name">Your Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                            <input type="email" readonly value="<?=$user['email']?>" class="form-control" id="email" name="customer_email" placeholder="customer_email">
                                             <label for="email">Your Email</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="phone" placeholder="Your phone number">
+                                            <input type="text" readonly value="<?=$user['phone_number']?>" class="form-control" id="phone" name="phone_number" placeholder="phone_number">
                                             <label for="select1">Phone number</label>
-                                          </div>
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <select class="form-select" id="select2">
-                                              <option value="">Any apartment</option>
+                                            <select class="form-select" name="apartment_category" id="select2" required>
+                                              <option value="">Choose...</option>
                                               <?php $selected = isset($_GET['book']) ? $_GET['book'] : '';?>
                                               <?php foreach(get_apartment_cards() as $category=>$val){?>
-                                              <option value="<?=$category?>"<?=$selected == $category ? ' selected':''?>><?=$category?></option>
+                                              <option value="<?=$val[0]['apartment_category']?>"<?=$selected == $category ? ' selected':''?>><?=$category?></option>
                                               <?php }?>
                                             </select>
                                             <label for="select2">Selected apartment</label>
@@ -111,13 +108,13 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating date" id="date3" data-target-input="nearest">
-                                            <input type="text" class="form-control datetimepicker-input" id="checkin" placeholder="Check In" data-target="#date3" data-toggle="datetimepicker" />
+                                            <input type="date" name="checkin" class="form-control datetimepicker-input" id="checkin" placeholder="Check In" data-target="#date3" data-toggle="datetimepicker" />
                                             <label for="checkin">Check In</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating date" id="date4" data-target-input="nearest">
-                                            <input type="text" class="form-control datetimepicker-input" id="checkout" placeholder="Check Out" data-target="#date4" data-toggle="datetimepicker" />
+                                            <input type="date" name="checkout" class="form-control datetimepicker-input" id="checkout" placeholder="Check Out" data-target="#date4" data-toggle="datetimepicker" />
                                             <label for="checkout">Check Out</label>
                                         </div>
                                     </div>
@@ -131,9 +128,16 @@
                                             <label for="select3">Select A Room</label>
                                           </div>
                                     </div-->
+                                    
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <textarea class="form-control" placeholder="Special Request" id="message" style="height: 100px"></textarea>
+                                            <input type="text" readonly value="0" class="form-control" id="order_amount" name="order_amount">
+                                            <label for="order_amount">Order amount</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" name="special_request" placeholder="Special Request" id="message" style="height: 100px"></textarea>
                                             <label for="message">Special Request</label>
                                         </div>
                                     </div>
@@ -142,13 +146,39 @@
                                     </div>
                                 </div>
                             </form>
+                            <?php }else{?>
+                            <form method="post">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <h3>Login to continue</h3>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="login" name="login" placeholder="phone number or e-mail">
+                                            <label for="login">Login</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="password" class="form-control" id="password" name="password" placeholder="password">
+                                            <label for="message">Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100 py-3">Sign in</button>
+                                    </div>
+                                    <div class="col-12">
+                                        <p style="text-align: right;">Don't have account? <a href="">Create account</a></p>
+                                    </div>
+                                </div>
+                            </form>
+                            <?php }?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Booking End -->
-
 
         <!-- Newsletter Start -->
         <div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
