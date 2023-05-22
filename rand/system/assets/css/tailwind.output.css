@@ -2564,6 +2564,11 @@ h6 {
   color: rgb(98 117 148 / var(--tw-text-opacity));
 }
 
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(245 57 57 / var(--tw-text-opacity));
+}
+
 .underline {
   text-decoration-line: underline;
 }
