@@ -1,8 +1,9 @@
 <?php 
-$children = ["Dispensing","Tools","Stores"];
+$children = ["Tenants","Apartments","Contracts"];
 $req = storage::init()->request;
 if(!isset($req[2])){
-    echo helper::find_template('Store', []);
+    $data = []; // coming...
+    echo helper::find_template('hr', ['data'=>$data]);
 }
 else{
     if(in_array($req[2], $children)){

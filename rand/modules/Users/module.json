@@ -1,17 +1,8 @@
 {
-    "name": "Projects",
+    "name": "Users",
     "icon": "user-shield",
     "nav": [
-        {
-            "name": "Projects",
-            "href": "Projects\/",
-            "permission": "can_view_projects"
-        },
-        {
-            "name": "Project report",
-            "href": "Project_report\/",
-            "permission": "can_view_project_report"
-        }
+      
     ],
     "permissions": [
         "can_add_projects",

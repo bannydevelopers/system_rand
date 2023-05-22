@@ -1,13 +1,8 @@
 {
-    "name":"Sales",
+    "name":"Expenses",
     "icon":"shopping-cart",
     "nav":[
-        {"name":"Stock","href":"Stock/","permission":"can_view_stock"},
-        {"name":"Customers","href":"Customers/","permission":"can_view_customers"},
-        {"name":"Invoice","href":"Invoice/","permission":"can_view_invoice"},
-        {"name":"Purchase order","href":"Purchase_order/","permission":"can_view_purchase_order"},
-        {"name":"Products","href":"Products/","permission":"can_view_products"},
-        {"name":"Suppliers","href":"Suppliers/","permission":"can_view_suppliers"}
+       
     ],
 
    "permissions":[

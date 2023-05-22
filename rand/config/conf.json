@@ -13,12 +13,12 @@
         "driver": "mysql"
     },
     "modules": [
-        "HR",
-        "Sales",
-        "Store",
-        "Projects",
-        "Accounts",
+        "Lease",
+        "Expenses",
+        "Assets",
+        "Users",
         "Settings"
+    
     ],
     "phpmailer": {
         "sender": "noreply@cmis.co",

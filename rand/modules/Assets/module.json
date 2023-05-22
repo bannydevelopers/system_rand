@@ -1,11 +1,8 @@
 {
-    "name":"Store",
+    "name":"Assets",
     "icon":"store-alt",
     "nav":[
-        {"name":"Dispensing","href":"Dispensing/","permission":"can_view_dispense"},
-        {"name":"Tools","href":"Tools/","permission":"can_view_tools"},
-        {"name":"Stores","href":"Stores/","permission":"can_view_stores"}
-   
+       
     ],
 
     "permissions":[
