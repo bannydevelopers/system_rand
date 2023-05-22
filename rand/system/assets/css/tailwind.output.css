@@ -3191,6 +3191,15 @@ h6 {
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-red-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 57 57 / var(--tw-bg-opacity));
+}
+
+.hover\:to-blue-400:hover {
+  --tw-gradient-to: #60a5fa var(--tw-gradient-to-position);
+}
+
 .hover\:text-gray-800:hover {
   --tw-text-opacity: 1;
   color: rgb(37 47 64 / var(--tw-text-opacity));
@@ -3229,6 +3238,16 @@ h6 {
 .hover\:text-blue-500:hover {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+
+.hover\:text-red-500:hover {
+  --tw-text-opacity: 1;
+  color: rgb(245 57 57 / var(--tw-text-opacity));
+}
+
+.hover\:text-blue-400:hover {
+  --tw-text-opacity: 1;
+  color: rgb(96 165 250 / var(--tw-text-opacity));
 }
 
 .hover\:underline:hover {
