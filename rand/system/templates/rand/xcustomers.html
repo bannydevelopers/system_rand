@@ -1,267 +1,182 @@
-
-<h2
-  class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
->
-  Customers
-</h2>
-<!-- Modal toggle -->
-<div>
-  <button 
-  data-modal-target="add-customer-modal" data-modal-toggle="add-customer-modal" 
-  class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" type="button">
-  Add customer
-  </button>
-</div>
-
-<!-- Add customer modal -->
-<div id="add-customer-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0  h-full max-h-full">
-    <div class="relative w-full max-w-4xl max-h-full items-center">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 text-gray-900 dark:text-white">
-            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-customer-modal">
-              <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
-                <span class="sr-only">Close modal</span>
-            </button>
-            <div class="px-6 py-6 lg:px-8">
-              <h3 class="mb-4 text-xl font-medium">Add customer </h3>
-              <form class="space-y-6" method="POST">
-                <div class="flex flex-wrap -mx-3 mb-6">
-                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                    <label>Customer name
-                      <input name="customer_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Name" required>
-                    </label>
+<div class="flex flex-wrap -mx-3">
+  <div class="flex-none w-full max-w-full px-3">
+    <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
+      <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+        <h6>Authors table</h6>
+      </div>
+      <div class="flex-auto px-0 pt-0 pb-2">
+        <div class="p-0 overflow-x-auto">
+          <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
+            <thead class="align-bottom">
+              <tr>
+                <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Author</th>
+                <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Function</th>
+                <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Status</th>
+                <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Employed</th>
+                <th class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <div class="flex px-2 py-1">
+                    <div>
+                      <img src="../assets/img/team-2.jpg" class="inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm h-9 w-9 rounded-xl" alt="user1" />
+                    </div>
+                    <div class="flex flex-col justify-center">
+                      <h6 class="mb-0 leading-normal text-sm">John Michael</h6>
+                      <p class="mb-0 leading-tight text-xs text-slate-400">john@creative-tim.com</p>
+                    </div>
                   </div>
-                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                    <label>Phone number
-                      <input name="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="10" placeholder="Phone: 0*********" pattern="[0]{1}[6-7]{1}[1-9]{1}[0-9]{7}">
-                    </label>
+                </td>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <p class="mb-0 font-semibold leading-tight text-xs">Manager</p>
+                  <p class="mb-0 leading-tight text-xs text-slate-400">Organization</p>
+                </td>
+                <td class="p-2 leading-normal text-center align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
+                  <span class="bg-gradient-to-tl from-green-600 to-lime-400 px-3.6 text-xs rounded-1.8 py-2.2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Online</span>
+                </td>
+                <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <span class="font-semibold leading-tight text-xs text-slate-400">23/04/18</span>
+                </td>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <a href="javascript:;" class="font-semibold leading-tight text-xs text-slate-400"> Edit </a>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <div class="flex px-2 py-1">
+                    <div>
+                      <img src="../assets/img/team-3.jpg" class="inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm h-9 w-9 rounded-xl" alt="user2" />
+                    </div>
+                    <div class="flex flex-col justify-center">
+                      <h6 class="mb-0 leading-normal text-sm">Alexa Liras</h6>
+                      <p class="mb-0 leading-tight text-xs text-slate-400">alexa@creative-tim.com</p>
+                    </div>
                   </div>
-                </div>
-                <div class="flex flex-wrap -mx-3 mb-6">
-                  <div class="w-full mob:w-1/2 px-3"> 
-                    <label>E-mail
-                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="email" type="email" placeholder="E-mail">
-                    </label>
+                </td>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <p class="mb-0 font-semibold leading-tight text-xs">Programator</p>
+                  <p class="mb-0 leading-tight text-xs text-slate-400">Developer</p>
+                </td>
+                <td class="p-2 leading-normal text-center align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
+                  <span class="bg-gradient-to-tl from-slate-600 to-slate-300 px-3.6 text-xs rounded-1.8 py-2.2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Offline</span>
+                </td>
+                <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <span class="font-semibold leading-tight text-xs text-slate-400">11/01/19</span>
+                </td>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <a href="javascript:;" class="font-semibold leading-tight text-xs text-slate-400"> Edit </a>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <div class="flex px-2 py-1">
+                    <div>
+                      <img src="../assets/img/team-4.jpg" class="inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm h-9 w-9 rounded-xl" alt="user3" />
+                    </div>
+                    <div class="flex flex-col justify-center">
+                      <h6 class="mb-0 leading-normal text-sm">Laurent Perrier</h6>
+                      <p class="mb-0 leading-tight text-xs text-slate-400">laurent@creative-tim.com</p>
+                    </div>
                   </div>
-                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0"> 
-                    <label>Residence address
-                      <input name="address" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Residence address">
-                    </label>
+                </td>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <p class="mb-0 font-semibold leading-tight text-xs">Executive</p>
+                  <p class="mb-0 leading-tight text-xs text-slate-400">Projects</p>
+                </td>
+                <td class="p-2 leading-normal text-center align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
+                  <span class="bg-gradient-to-tl from-green-600 to-lime-400 px-3.6 text-xs rounded-1.8 py-2.2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Online</span>
+                </td>
+                <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <span class="font-semibold leading-tight text-xs text-slate-400">19/09/17</span>
+                </td>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <a href="javascript:;" class="font-semibold leading-tight text-xs text-slate-400"> Edit </a>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <div class="flex px-2 py-1">
+                    <div>
+                      <img src="../assets/img/team-3.jpg" class="inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm h-9 w-9 rounded-xl" alt="user4" />
+                    </div>
+                    <div class="flex flex-col justify-center">
+                      <h6 class="mb-0 leading-normal text-sm">Michael Levi</h6>
+                      <p class="mb-0 leading-tight text-xs text-slate-400">michael@creative-tim.com</p>
+                    </div>
                   </div>
-                </div>
-                <div class="flex flex-wrap -mx-3 mb-6">
-                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                    <label>TIN number
-                      <input name="tin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="text" maxlength="12" placeholder="TIN">
-                    </label>
+                </td>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <p class="mb-0 font-semibold leading-tight text-xs">Programator</p>
+                  <p class="mb-0 leading-tight text-xs text-slate-400">Developer</p>
+                </td>
+                <td class="p-2 leading-normal text-center align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
+                  <span class="bg-gradient-to-tl from-green-600 to-lime-400 px-3.6 text-xs rounded-1.8 py-2.2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Online</span>
+                </td>
+                <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <span class="font-semibold leading-tight text-xs text-slate-400">24/12/08</span>
+                </td>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <a href="javascript:;" class="font-semibold leading-tight text-xs text-slate-400"> Edit </a>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <div class="flex px-2 py-1">
+                    <div>
+                      <img src="../assets/img/team-2.jpg" class="inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm h-9 w-9 rounded-xl" alt="user5" />
+                    </div>
+                    <div class="flex flex-col justify-center">
+                      <h6 class="mb-0 leading-normal text-sm">Richard Gran</h6>
+                      <p class="mb-0 leading-tight text-xs text-slate-400">richard@creative-tim.com</p>
+                    </div>
                   </div>
-                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                    <label>VRN
-                      <input name="vrn" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="9" placeholder="VRN">
-                    </label>
+                </td>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <p class="mb-0 font-semibold leading-tight text-xs">Manager</p>
+                  <p class="mb-0 leading-tight text-xs text-slate-400">Executive</p>
+                </td>
+                <td class="p-2 leading-normal text-center align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
+                  <span class="bg-gradient-to-tl from-slate-600 to-slate-300 px-3.6 text-xs rounded-1.8 py-2.2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Offline</span>
+                </td>
+                <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <span class="font-semibold leading-tight text-xs text-slate-400">04/10/21</span>
+                </td>
+                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                  <a href="javascript:;" class="font-semibold leading-tight text-xs text-slate-400"> Edit </a>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-2 align-middle bg-transparent border-b-0 whitespace-nowrap shadow-transparent">
+                  <div class="flex px-2 py-1">
+                    <div>
+                      <img src="../assets/img/team-4.jpg" class="inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm h-9 w-9 rounded-xl" alt="user6" />
+                    </div>
+                    <div class="flex flex-col justify-center">
+                      <h6 class="mb-0 leading-normal text-sm">Miriam Eric</h6>
+                      <p class="mb-0 leading-tight text-xs text-slate-400">miriam@creative-tim.com</p>
+                    </div>
                   </div>
-                </div>
-                <div class="pb-8">
-                  <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Create</button>
-                </div>
-              </form>
-            </div>
+                </td>
+                <td class="p-2 align-middle bg-transparent border-b-0 whitespace-nowrap shadow-transparent">
+                  <p class="mb-0 font-semibold leading-tight text-xs">Programtor</p>
+                  <p class="mb-0 leading-tight text-xs text-slate-400">Developer</p>
+                </td>
+                <td class="p-2 leading-normal text-center align-middle bg-transparent border-b-0 text-sm whitespace-nowrap shadow-transparent">
+                  <span class="bg-gradient-to-tl from-slate-600 to-slate-300 px-3.6 text-xs rounded-1.8 py-2.2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">Offline</span>
+                </td>
+                <td class="p-2 text-center align-middle bg-transparent border-b-0 whitespace-nowrap shadow-transparent">
+                  <span class="font-semibold leading-tight text-xs text-slate-400">14/09/20</span>
+                </td>
+                <td class="p-2 align-middle bg-transparent border-b-0 whitespace-nowrap shadow-transparent">
+                  <a href="javascript:;" class="font-semibold leading-tight text-xs text-slate-400"> Edit </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
-</div> 
-<!--/ Add customer modal -->
-<br />
-<?php if($msg) {?>
-  <div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
-    <span>
-      <i class="fa-solid fa-circle-info fa-lg"></i>
-    </span>
-    <div class="ml-3 text-sm font-medium">
-      <?=$msg?>
-    </div> 
-    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
-      <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
-    </button>
   </div>
-<?php } ?>
-<div id="message"></div>
-
-<div class="w-full overflow-hidden rounded-lg shadow-md">
-  <div class="w-full overflow-x-auto">
-    <table class="w-full">
-      <thead>
-        <tr
-          class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
-        >
-          <th class="px-4 py-3">Name</th>
-          <th class="px-4 py-3">Phone number</th>
-          <th class="px-4 py-3">E-mail</th>
-          <th class="px-4 py-3">TIN</th>
-          <th class="px-4 py-3">VRN</th>
-          <th class="px-4 py-3">Address</th>
-          <th class="px-4 py-3">Date registered</th>
-          <th class="px-4 py-3">Actions</th>
-        </tr>
-      </thead>
-      <tbody
-        class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
-      >
-      <?php foreach($customer as $cus){?>
-        <tr id="tr-<?=$cus['customer_id']?>" class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
-          <td class="px-4 py-3">
-            <div class="flex items-center text-sm">
-              <div>
-                <p class="font-semibold"><?=$cus['customer_name']?></p>
-              </div>
-            </div>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$cus['customer_phone_number']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$cus['customer_email']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$cus['tin_number']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$cus['vrn_number']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=$cus['customer_physical_adress']?>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <?=helper::format_time($cus['created_time'],'d M, Y @ H:s')?>
-          </td>
-          <td class="px-4 py-3">
-            <div class="flex items-center space-x-4 text-sm">   
-              <button data-modal-target="add-customer-modal-<?=$cus['customer_id']?>" data-modal-toggle="add-customer-modal-<?=$cus['customer_id']?>" 
-                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
-                aria-label="Edit"
-              >
-              <i class="fa-solid fa-pen-to-square fa-lg"></i>
-              </button>
-              <button id="del-<?=$cus['customer_id']?>" onclick="delCustomer(this)" 
-                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
-                aria-label="Delete"
-              >
-              <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
-              </button>
-            </div>
-          </td>
-        </tr>
-        <!-- Edit customer modal -->
-        <div id="add-customer-modal-<?=$cus['customer_id']?>" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0  h-full max-h-full">
-          <div class="relative w-full max-w-4xl max-h-full items-center">
-              <!-- Modal content -->
-              <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 text-gray-900 dark:text-white">
-                  <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-customer-modal-<?=$cus['customer_id']?>">
-                    <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
-                      <span class="sr-only">Close modal</span>
-                  </button>
-                  <div class="px-6 py-6 lg:px-8">
-                    <h3 class="mb-4 text-xl font-medium">Edit customer </h3>
-                    <form class="space-y-6" method="POST">
-                      <div class="flex flex-wrap -mx-3 mb-6">
-                        <input name="customer_id" type="hidden" value="<?=$cus['customer_id']?>">
-                        <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                          <label>Customer name
-                            <input name="customer_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" value="<?=$cus['customer_name']?>" placeholder="Name" required>
-                          </label>
-                        </div>
-                        <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                          <label>Phone number
-                            <input name="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="10" value="<?=$cus['customer_phone_number']?>" placeholder="Phone: 0*********">
-                          </label>
-                        </div>
-                      </div>
-                      <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full mob:w-1/2 px-3"> 
-                          <label>E-mail
-                            <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" value="<?=$cus['customer_email']?>" name="email" type="email" placeholder="E-mail">
-                          </label>
-                        </div>
-                        <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0"> 
-                          <label>Residence address
-                            <input name="address" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" value="<?=$cus['customer_physical_adress']?>" placeholder="Residence address">
-                          </label>
-                        </div>
-                      </div>
-                      <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                          <label>TIN number
-                            <input name="tin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="text" value="<?=$cus['tin_number']?>" maxlength="12" placeholder="TIN">
-                          </label>
-                        </div>
-                        <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                          <label>VRN
-                            <input name="vrn" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" value="<?=$cus['vrn_number']?>" maxlength="9" placeholder="VRN">
-                          </label>
-                        </div>
-                      </div>
-                      <div class="pb-8">
-                        <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Update</button>
-                      </div>
-                    </form>
-                  </div>
-              </div>
-          </div>
-        </div> 
-        <!--/ Edit customer modal -->
-      <?php }?>
-      </tbody>
-    </table>
-  </div>
-  
 </div>
-  
-<script src="js/sweetalert.min.js"></script>
-<script src="js/flowbite.min.js"></script>
-<script>
-  async function delCustomer(values) {
-    if (!await swal({text: 'Deleting a customer can not be undone!', buttons: true})) {
-      return;
-    }
-    delCustomerBtn = document.getElementById(values.id);
-    delCustomerBtn.disabled = true;
-    delCustomerBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin fa-lg"></i>'
-
-    var customerId = values.id.split('-');
-    const customerData = new FormData();
-    customerData.append('ajax_del_customer', customerId[1]);
-
-    let url = '';
-    let obj = {
-      method: "POST", 
-      body: customerData,
-    }
-
-    let response = await fetch(url, obj)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('The response side is not ok!');
-      }
-      return response.json();
-    })
-    .then(data => {
-      if(data.status == 'success'){
-        swal(data.msg, ` For staff `+data.staff.first_name+` `+data.staff.middle_name+` `+data.staff.last_name, "success");
-        document.getElementById('tr-'+customerId[1]).remove();
-      }
-      if(data.status == 'fail'){
-        swal(data.msg, ` For staff `+data.staff.first_name+` `+data.staff.middle_name+` `+data.staff.last_name, "error");
-        delCustomerBtn.disabled = false;
-        delCustomerBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
-      }
-      if(data.status == 'not-exist' || data.status == 'denied'){
-        swal(data.msg, '', "error");
-      }
-    })
-    .catch(error => {
-      swal('There is an error deleting customer', '', "error");
-      delCustomerBtn.disabled = false;
-      delCustomerBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
-    });
-  }
-</script>
-

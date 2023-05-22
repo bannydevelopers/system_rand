@@ -30,20 +30,20 @@
 
       <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
 
-      <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
+      <div class="items-center block w-auto max-h-screen overflow-y-auto h-sidenav grow basis-full">
         <ul class="flex flex-col pl-0 mb-0">
           <?php foreach($nav as $link){ ?>
 
             <li class="mt-0.5 w-full">
               <?php if(@$link['children'] != null){?>
-              <details>
+              <details class="group">
                 <summary
-                  class="inline-flex w-full pr-6 items-center justify-between text-sm font-semibold transition-colors duration-150 hover:text-gray-800">
-                  <a class="py-1.5 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors">
+                  class="inline-flex w-full pr-6 items-center justify-between text-sm font-semibold transition-colors hover:text-blue-500 duration-150">
+                  <a class="py-1.5 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4">
                     <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5"><i class="fa fa-<?=$link['icon']?>"></i></div>
                     <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft"><?=$link['name']?></span>
                   </a>
-                  <i class="fa fa-angle-down" id="fa-<?=$i?>"></i>
+                  <span class="transition group-open:rotate-180"><i class="fa fa-angle-down" id="fa-<?=$i?>"></i></span>
                 </summary>
                 <div>
                   <ul
@@ -68,7 +68,7 @@
                 </div>
               </details>
               <?php }else{ ?>
-                <a class="py-1.5 text-sm font-semibold ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" href="<?=$link['href']?>">
+                <a class="transition-colors hover:text-blue-500 py-1.5 text-sm font-semibold ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4" href="<?=$link['href']?>">
                   <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5"><i class="fa fa-<?=$link['icon']?>"></i></div>
                   <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft"><?=$link['name']?></span>
                 </a>
