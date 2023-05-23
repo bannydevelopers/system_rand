@@ -159,7 +159,7 @@ class helper{
             if(!isset($info->permissions)) continue;
             //print_r(array_intersect($info->permissions, $user_permission));
             $got_any_permission = (bool) array_intersect($info->permissions, $user_permission);
-            if(!$got_any_permission) continue;
+            // if(!$got_any_permission) continue;
             $nav[] = [
                 'href'=>str_replace('//','/', "/{$home}/$dir"),
                 'icon'=>$info->icon,
