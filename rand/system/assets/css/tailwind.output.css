@@ -1287,6 +1287,18 @@ h6 {
   max-width: 1320px;
 }
 
+.max-w-md {
+  max-width: 28rem;
+}
+
+.max-w-xs {
+  max-width: 20rem;
+}
+
+.max-w-sm {
+  max-width: 24rem;
+}
+
 .flex-auto {
   flex: 1 1 auto;
 }
@@ -2217,6 +2229,18 @@ h6 {
 
 .pt-4 {
   padding-top: 1rem;
+}
+
+.pr-4 {
+  padding-right: 1rem;
+}
+
+.pr-52 {
+  padding-right: 13rem;
+}
+
+.pr-32 {
+  padding-right: 8rem;
 }
 
 .text-left {
