@@ -2181,6 +2181,10 @@ h6 {
   padding-top: 1rem;
 }
 
+.pl-5 {
+  padding-left: 1.25rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -3420,6 +3424,11 @@ h6 {
     right: 0px;
   }
 
+  .lg\:-mx-3 {
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+  }
+
   .lg\:-mt-48 {
     margin-top: -12rem;
   }
@@ -3434,6 +3443,14 @@ h6 {
 
   .lg\:mt-2 {
     margin-top: 0.5rem;
+  }
+
+  .lg\:-ml-3 {
+    margin-left: -0.75rem;
+  }
+
+  .lg\:-ml-0 {
+    margin-left: -0px;
   }
 
   .lg\:block {
@@ -3579,6 +3596,12 @@ h6 {
   .xl\:px-12 {
     padding-left: 3rem;
     padding-right: 3rem;
+  }
+}
+
+@media (min-width: 1320px) {
+  .\32xl\:-ml-0 {
+    margin-left: -0px;
   }
 }
 
