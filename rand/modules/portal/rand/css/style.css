@@ -1,6 +1,6 @@
 /********** Template CSS **********/
 :root {
-    --primary: #1f65a3;
+    --primary: #3691e0;
     --light: #F1F8FF;
     --dark: #0F172B;
 }
@@ -203,7 +203,8 @@
 }
 
 .service-item:hover {
-    background: var(--primary);
+    /* background: var(--primary); */
+    border: 1px solid var(--primary);
 }
 
 .service-item .service-icon {
@@ -219,11 +220,11 @@
     transition: .5s;
 }
 
-.service-item:hover i,
+/* .service-item:hover i,
 .service-item:hover h5,
 .service-item:hover p {
     color: #FFFFFF !important;
-}
+} */
 
 
 /*** Youtube Video ***/
