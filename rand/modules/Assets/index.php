@@ -1,3 +1,3 @@
 <?php 
 
-    echo helper::find_template('Aseets', []);
+    echo helper::find_template('Assets', []);
