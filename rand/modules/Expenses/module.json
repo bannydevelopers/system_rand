@@ -6,36 +6,11 @@
     ],
 
    "permissions":[
-        "can_add_stock",
-        "can_edit_stock",
-        "can_delete_stock",
-        "can_view_stock",
+        "can_add_expenses",
+        "can_edit_expenses",
+        "can_delete_expenses",
+        "can_view_expenses"
         
-        "can_add_customers",
-        "can_edit_customers",
-        "can_delete_customers",
-        "can_view_customers",
-
-        "can_add_invoice",
-        "can_edit_invoice",
-        "can_delete_invoice",
-        "can_view_invoice",
-        
-        "can_add_products",
-        "can_edit_products",
-        "can_delete_products",
-        "can_view_products",
-
-        "can_add_suppliers",
-        "can_edit_suppliers",
-        "can_delete_suppliers",
-        "can_view_suppliers",
-
-        "can_add_purchase_order",
-        "can_edit_purchase_order",
-        "can_delete_purchase_order",
-        "can_view_purchase_order"
-
-
+       
     ]
 }

@@ -34,11 +34,11 @@ $new_roles = $db->select('role','role_name')->fetchAll();
 $legends = $db->select('permission', 'DISTINCT legend')->fetchAll();
 
 $role_tree = [];
-foreach($new_roles as $nr) {
+foreach ((array) $new_roles as $nr) {
     $role_tree[$nr['role_name']] = [];
     foreach($legends as $leg) $role_tree[$nr['role_name']][$leg['legend']] = [];
 }
-foreach($roles as $role){
+foreach ((array) $roles as $role) {
     /*if(!isset($role_tree[$role['role_name']])) {
         $role_tree[$role['role_name']] = [];
     }
@@ -57,7 +57,9 @@ $designations = $db->select('designation','designation_id,designation_name')->fe
     $permission = $db->select('permission')
                     ->fetchAll();
     $perm_tree = [];
-    foreach($permission as $perm){
+
+    foreach ((array) $permission as $perm) {
+   
         if(!isset($perm_tree[$perm['legend']])) {
             $perm_tree[$perm['legend']] = [];
         }
