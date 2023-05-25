@@ -37,8 +37,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav mr-auto py-0">
-                        <a href="index" class="nav-item nav-link active">Home</a>
+                    <div id="links" class="navbar-nav mr-auto py-0">
+                        <a href="index" class="nav-item nav-link">Home</a>
                         <a href="about" class="nav-item nav-link">About</a>
                         <a href="service" class="nav-item nav-link">Services</a>
                         <a href="apartment" class="nav-item nav-link">Apartments</a>
@@ -53,3 +53,13 @@
     </div>
 </div>
 <!-- Header End -->
+
+<script>
+    const links = document.querySelectorAll('#links>a');
+    console.log(links);
+    for (const link of links) {
+        if (window.location.href === link.href) {
+          link.classList.add("active");
+        }
+    }
+</script>
