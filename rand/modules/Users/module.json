@@ -2,7 +2,7 @@
     "name": "Users",
     "icon": "user-shield",
     "nav": [
-      
+        {"name":"Users","href":"Users/","permission":"can_view_users"}
     ],
     "permissions":[
         "can_add_users",

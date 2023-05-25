@@ -2,7 +2,7 @@
     "name":"Expenses",
     "icon":"shopping-cart",
     "nav":[
-       
+        {"name":"Expenses","href":"Expenses/","permission": "can_view_expenses"}
     ],
 
    "permissions":[

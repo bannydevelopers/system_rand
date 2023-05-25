@@ -8,7 +8,7 @@
     "database": {
         "host": "localhost",
         "username": "root",
-        "password": "",
+        "password": "root",
         "db_name": "rand",
         "driver": "mysql"
     },

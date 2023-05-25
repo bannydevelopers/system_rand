@@ -3,7 +3,8 @@
     "icon":"store-alt",
     "nav":[
        
-    ],
+            {"name":"Assets","href":"Assets/","permission":"can_view_assets"}
+           ],
 
     "permissions":[
         "can_add_assets",
