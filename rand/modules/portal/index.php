@@ -14,7 +14,7 @@ function get_apartment_cards($opts = []){
         if(!isset($tree[$apt['category_name']])) $tree[$apt['category_name']] = [];
         $tree[$apt['category_name']][] = $apt;
     }
-    //var_dump('<pre>',$tree);
+    var_dump('<pre>',$tree);
 
     return $tree;
 }
