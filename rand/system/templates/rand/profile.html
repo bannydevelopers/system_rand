@@ -1,4 +1,40 @@
-
+<!-- Modal toggle -->
+<div id="upload-dp-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
+  <div class="relative w-full max-w-md max-h-full items-center">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="upload-dp-modal" id="close-user-modal-id">
+        <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+        <span class="sr-only">Close modal</span>
+      </button>
+      <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
+        <style>
+          .drag-image {margin: auto; border: 1px dashed rgb(117, 226, 245); height: 350px; width: 350px; display: flex; align-items: center; justify-content: center; flex-direction: column;}
+          .drag-image.active {border: 2px solid rgb(65, 102, 224);}
+          .outer-drag-image img {height: 100%; width: 100%; object-fit: cover; border-radius: 5px;}
+        </style>
+        <form method="POST" id="update-dp" enctype="multipart/form-data" class="text-center pt-4">
+          <div class="outer-drag-image">
+              <div class="drag-image">
+                  <div class="icon"><i class="fa fa-cloud fa-2xl"></i></div>
+                  <br>
+                  <h6> Drag & Drop File Here </h6> 
+                  <span> OR </span> 
+                  <label id="load-image" class="text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center"> Browse File </label> 
+              </div>
+              <input type="file" name="avata" id="input-file-image" hidden required>
+          </div>
+          <div class="pt-2 pr-4 text-right">
+            <!-- <button type="reset" class="text-white bg-gray-600 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Reset</button> -->
+            <button type="submit" class="text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Upload</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!--/ Modal content -->
+  </div>
+</div> 
+<!--/ Modal toggle -->
 
     <div class="ease-soft-in-out relative h-full max-h-screen transition-all duration-200">
       <nav class="absolute z-20 flex flex-wrap items-center justify-between w-full px-6 py-2 text-white transition-all shadow-none duration-250 ease-soft-in lg:flex-nowrap lg:justify-start" navbar-profile navbar-scroll="true">
@@ -87,6 +123,7 @@
             <div class="flex-none w-auto max-w-full px-3">
               <div class="text-base ease-soft-in-out h-18.5 w-18.5 relative inline-flex items-center justify-center rounded-xl text-white transition-all duration-200">
                 <img src="img/jr1.jpg" alt="profile_image" class="w-full shadow-soft-sm rounded-xl" />
+                <span data-modal-target="upload-dp-modal" data-modal-toggle="upload-dp-modal" class="absolute w-6 h-6 text-center rounded-1 cursor-pointer bottom-0 right-0 bg-gray-400"><i class="leading-normal fas fa-pen text-sm text-black"></i></span>
               </div>
             </div>
             <div class="flex-none w-auto max-w-full px-3 my-auto">
@@ -114,11 +151,11 @@
                           </g>
                         </g>
                       </svg>
-                      <span class="ml-1">App</span>
+                      <span class="ml-1">Platform</span>
                     </a>
                   </li>
                   <li class="z-30 flex-auto text-center">
-                    <a class="z-30 block w-full px-0 py-1 mb-0 transition-all border-0 rounded-lg ease-soft-in-out bg-inherit text-slate-700" nav-link href="javascript:;" role="tab" aria-selected="false">
+                    <a class="z-30 block w-full px-0 py-1 mb-0 transition-colors border-0 rounded-lg ease-soft-in-out bg-inherit text-slate-700" nav-link href="javascript:;" role="tab" aria-selected="false">
                       <svg class="text-slate-700" width="16px" height="16px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <title>document</title>
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -132,7 +169,7 @@
                           </g>
                         </g>
                       </svg>
-                      <span class="ml-1">Messages</span>
+                      <span class="ml-1">Info</span>
                     </a>
                   </li>
                   <li class="z-30 flex-auto text-center">
@@ -151,7 +188,7 @@
                           </g>
                         </g>
                       </svg>
-                      <span class="ml-1">Settings</span>
+                      <span class="ml-1">Security</span>
                     </a>
                   </li>
                 </ul>
@@ -314,11 +351,56 @@
       
     </div>
     
-
+<script src="js/plugins/flowbite.min.js"></script>
 <script>
+  const dropArea = document.querySelector(".outer-drag-image"),
+  dragText = dropArea.querySelector("h6"),
+  button = dropArea.querySelector("#load-image"),
+  input = dropArea.querySelector("#input-file-image");
+  let file;
+  //link button with input file 
+  button.onclick = ()=>{
+      input.click();
+  }
+  input.addEventListener("change", function(){
+      file = this.files[0];
+      dropArea.classList.add("active");
+      viewfile();
+  });
+  dropArea.addEventListener("dragover", (event)=>{
+      event.preventDefault();
+      dropArea.classList.add("active");
+      dragText.textContent = "Release to Upload File";
+  });
+  dropArea.addEventListener("dragleave", ()=>{
+      dropArea.classList.remove("active");
+      dragText.textContent = "Drag & Drop to Upload File";
+  });
+  dropArea.addEventListener("drop", (event)=>{
+      event.preventDefault();
+      file = event.dataTransfer.files[0];
+      viewfile();
+  });
+  function viewfile(){
+      let fileType = file.type;
+      let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
+      if(validExtensions.includes(fileType)){
+          let fileReader = new FileReader();
+          fileReader.onload = ()=>{
+              let fileURL = fileReader.result;
+              let imgTag = `<img src="${fileURL}" alt="image">`;
+              document.querySelector(".drag-image").innerHTML = imgTag;
+          }
+      fileReader.readAsDataURL(file);
+      }
+      else{
+          alert("This is not an Image File!");
+          dropArea.classList.remove("active");
+          dragText.textContent = "Drag & Drop to Upload File";
+      }
+  }
   indexNav = document.getElementById("index-nav");
   indexNav.remove();
-
   toggleUserEdit = document.getElementById("toggle-user-edit");
   userInfo = document.getElementById("user-info");
   var prevUserInfo = userInfo.innerHTML;
@@ -327,6 +409,7 @@
   const userPhone = document.getElementById("user-phone");
   const userEmail = document.getElementById("user-email");
   const userAddress = document.getElementById("user-address");
+
 
   function editUserInfo() {
     userInfo.innerHTML = `<div class="flex-auto">
