@@ -11,11 +11,8 @@
     ],
 
     "permissions":[
-         "can_view_user",
-         "can_activate_user",
-         "can_deactivate_user",
-         
-         "can_add_system_backup",
+        
+        "can_add_system_backup",
          "can_delete_system_backup",
          "can_view_system_backup",
          "can_edit_system_backup",
@@ -28,8 +25,13 @@
          "can_add_system_configuration",
          "can_edit_system_configuration",
          "can_view_system_configuration",
-         "can_delete_system_configuration"
- 
+         "can_delete_system_configuration",
+
+         "can_add_user_permission",
+         "can_edit_user_permission",
+         "can_delete_user_permission",
+         "can_view_user_permission"
+
         
      ]
  }
