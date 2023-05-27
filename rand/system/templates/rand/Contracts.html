@@ -1,28 +1,28 @@
 
     <h2
-      class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+      class="my-6 text-2xl font-semibold text-gray-700"
     >
     Contracts
     </h2>
     <?=($msg ? "<p>{$msg}</p>" : '')?>
     <div style="display: flex;">
       <?php if($action == 'Edit' or $action == 'New'){?>
-      <form method="post" class="text-gray-900 dark:text-white bg-white dark:bg-gray-900" style="box-shadow: 0 0 2px #999;flex-basis: 100%;">
+      <form method="post" class="text-gray-900 bg-white" style="box-shadow: 0 0 2px #999;flex-basis: 100%;">
         <div style="display: flex;">
           <label>Name</label>
-          <input type="text" name="contract_name" class="font-semibold bg-gray-50 text-gray-900 dark:text-white dark:bg-gray-800 dark:placeholder-gray-400" value="<?=$name?>" style="margin-right: 1em;" required>
+          <input type="text" name="contract_name" class="font-semibold bg-gray-50 text-gray-900" value="<?=$name?>" style="margin-right: 1em;" required>
           <button style="padding: .6em;">
             <i class="fa fa-save">&nbsp;</i>Save
           </button>
         </div>
         <input type="hidden" name="old_name" value="<?=$name?>">
-        <textarea id="page_content" name="content"class="w-full h-full bg-gray-50 text-gray-900 block p-2.5 dark:bg-gray-800 dark:placeholder-gray-400 dark:text-white" required><?=$content?></textarea>
+        <textarea id="page_content" name="content"class="w-full h-full bg-gray-50 text-gray-900 block p-2.5" required><?=$content?></textarea>
       </form>
       <?php }else{?>
-      <div class="text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-900" style="flex-basis: 100%;min-height: 70vh;">
+      <div class="text-gray-900" style="flex-basis: 100%;min-height: 70vh;">
         <div style="display: flex;flex-wrap: wrap;">
           <?php foreach($dirs as $fn){?>
-          <div class="bg-white dark:bg-gray-800" style="padding: 1em;box-shadow: 0 0 2px;border-radius: 8px;width:31%;margin:0 2.3% 2.3% 0">
+          <div class="bg-white" style="padding: 1em;box-shadow: 0 0 2px;border-radius: 8px;width:31%;margin:0 2.3% 2.3% 0">
             <p><b><?=substr(str_replace('_',' ',$fn),0,-5)?></b></p>
             <hr style="margin: 1em 0;" />
             <p>
@@ -43,7 +43,7 @@
         </div>
       </div>
       <?php }?>
-      <div class="text-gray-900 dark:text-white bg-white dark:bg-gray-800" style="box-shadow: 0 0 2px #999;min-width:240px;margin-left: 1em;">
+      <div class="text-gray-900 bg-white" style="box-shadow: 0 0 2px #999;min-width:240px;margin-left: 1em;">
         <h3 style="padding: .6em;font-size: larger;display: flex;">
           <span style="flex-grow: 1;padding: .3em .6em;">Contracts</span>
           <a href='<?="$myhome/New/"?>' style="box-shadow: 0 0 3px #999;padding: .3em .6em;">
