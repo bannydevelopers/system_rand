@@ -108,13 +108,13 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating date" id="date3" data-target-input="nearest">
-                                            <input type="date" name="checkin" class="form-control datetimepicker-input" id="checkin" placeholder="Check In" data-target="#date3" data-toggle="datetimepicker" />
+                                            <input type="date" name="checkin" class="form-control" id="checkin" placeholder="Check In" data-target="#date3" data-toggle="datetimepicker" />
                                             <label for="checkin">Check In</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating date" id="date4" data-target-input="nearest">
-                                            <input type="date" name="checkout" class="form-control datetimepicker-input" id="checkout" placeholder="Check Out" data-target="#date4" data-toggle="datetimepicker" />
+                                            <input type="date" name="checkout" class="form-control" id="checkout" placeholder="Check Out" data-target="#date4" data-toggle="datetimepicker" />
                                             <label for="checkout">Check Out</label>
                                         </div>
                                     </div>
@@ -130,8 +130,8 @@
                                     </div-->
                                     
                                     <div class="col-12">
-                                        <div class="form-floating">
-                                            <input type="text" readonly value="0" class="form-control" id="order_amount" name="order_amount">
+                                        <div class="form-floating" data-price="<?=$price?>">
+                                            <input type="text" value="<?=$price?>" class="form-control" id="order_amount" name="order_amount" readonly>
                                             <label for="order_amount">Order amount</label>
                                         </div>
                                     </div>

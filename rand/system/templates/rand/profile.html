@@ -128,9 +128,8 @@
             </div>
             <div class="flex-none w-auto max-w-full px-3 my-auto">
               <div class="h-full">
-                <h5 class="mb-1">Jusper Wendo</h5>
-                <!--<h5 class="mb-1"><?=$user['first_name'] . " " . $user['middle_name'] . " " . $user['last_name']?></h5>-->
-                <p class="mb-0 font-semibold leading-normal text-sm">CEO / Co-Rand</p>
+                <h5 class="mb-1"><?=$user['first_name'] . " " . $user['middle_name'] . " " . $user['last_name']?></h5>
+                <!-- <p class="mb-0 font-semibold leading-normal text-sm">CEO / Co-Rand</p> -->
               </div>
             </div>
             <div class="w-full max-w-full px-3 mx-auto mt-4 sm:my-auto sm:mr-0 md:w-1/2 md:flex-none lg:w-4/12">
@@ -271,15 +270,18 @@
                 <hr class="h-px my-6 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent" />
                 <ul class="flex flex-col pl-0 mb-0 rounded-lg">
                   <li class="relative block px-4 py-2 pt-0 pl-0 leading-normal bg-white border-0 rounded-t-lg text-sm text-inherit"><strong class="text-slate-700">Full Name:</strong> &nbsp; 
-                    <span id="user-name">Jusper R. Wendo</span>
+                    <span id="user-name"><?=$user['first_name'] . " " . $user['middle_name'] . " " . $user['last_name']?></span>
                   </li>
                   <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit"><strong class="text-slate-700">Mobile:</strong> &nbsp; 
-                  <span id="user-phone">(656) 6111 06</span></li>
+                  <span id="user-phone"><?=$user['phone_number']?></span></li>
                   <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit"><strong class="text-slate-700">Email:</strong> &nbsp; 
-                    <span id="user-email">jusperwendo@mail.com</span>
+                    <span id="user-email"><?=$user['email']?></span>
                   </li>
                   <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit"><strong class="text-slate-700">Location:</strong> &nbsp; 
                     <span id="user-address">TZ</span>
+                  </li>
+                  <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit"><strong class="text-slate-700">Registered:</strong> &nbsp; 
+                    <span id="user-address"><?=$user['created_time']?></span>
                   </li>
                 </ul>
               </div>
@@ -288,59 +290,33 @@
           <div class="w-full max-w-full px-3 lg-max:mt-6 xl:w-4/12">
             <div class="relative flex flex-col h-full min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
               <div class="p-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
-                <h6 class="mb-0">Conversations</h6>
+                <h6 class="mb-0">My activities</h6>
               </div>
               <div class="flex-auto p-4">
                 <ul class="flex flex-col pl-0 mb-0 rounded-lg">
                   <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 rounded-t-lg text-inherit">
-                    <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
-                      <img src="img/jr2.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl" />
-                    </div>
                     <div class="flex flex-col items-start justify-center">
-                      <h6 class="mb-0 leading-normal text-sm">Sotie B.</h6>
-                      <p class="mb-0 leading-tight text-xs">Hi! I need more information..</p>
+                      <h6 class="mb-0 leading-normal text-sm">Login on Windows</h6>
+                      <p class="mb-0 leading-tight text-xs">Today</p>
                     </div>
-                    <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
                   </li>
-                  <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 border-t-0 text-inherit">
-                    <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
-                      <img src="img/jr3.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl" />
-                    </div>
+                  <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 rounded-t-lg text-inherit">
                     <div class="flex flex-col items-start justify-center">
-                      <h6 class="mb-0 leading-normal text-sm">Annesco Marie</h6>
-                      <p class="mb-0 leading-tight text-xs">Awesome work, can you..</p>
+                      <h6 class="mb-0 leading-normal text-sm">Logout on Windows</h6>
+                      <p class="mb-0 leading-tight text-xs">13 May 2023</p>
                     </div>
-                    <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
                   </li>
-                  <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 border-t-0 text-inherit">
-                    <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
-                      <img src="img/jr4.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl" />
-                    </div>
+                  <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 rounded-t-lg text-inherit">
                     <div class="flex flex-col items-start justify-center">
-                      <h6 class="mb-0 leading-normal text-sm">Ivanna</h6>
-                      <p class="mb-0 leading-tight text-xs">About files I can..</p>
+                      <h6 class="mb-0 leading-normal text-sm">Profile picture changed</h6>
+                      <p class="mb-0 leading-tight text-xs">13 May 2023</p>
                     </div>
-                    <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
                   </li>
-                  <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 border-t-0 text-inherit">
-                    <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
-                      <img src="img/jr5.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl" />
-                    </div>
+                  <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 rounded-t-lg text-inherit">
                     <div class="flex flex-col items-start justify-center">
-                      <h6 class="mb-0 leading-normal text-sm">Peterson</h6>
-                      <p class="mb-0 leading-tight text-xs">Have a great afternoon..</p>
+                      <h6 class="mb-0 leading-normal text-sm">Login on Windows</h6>
+                      <p class="mb-0 leading-tight text-xs">12 May 2023</p>
                     </div>
-                    <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
-                  </li>
-                  <li class="relative flex items-center px-0 py-2 bg-white border-0 border-t-0 rounded-b-lg text-inherit">
-                    <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
-                      <img src="img/jr6.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl" />
-                    </div>
-                    <div class="flex flex-col items-start justify-center">
-                      <h6 class="mb-0 leading-normal text-sm">Nick Daniel</h6>
-                      <p class="mb-0 leading-tight text-xs">Hi! I need more information..</p>
-                    </div>
-                    <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
                   </li>
                 </ul>
               </div>

@@ -32,6 +32,7 @@
 
       <div class="items-center block w-auto max-h-screen overflow-y-auto h-sidenav grow basis-full">
         <ul class="flex flex-col pl-0 mb-0">
+          <?php $i = 1;?>
           <?php foreach($nav as $link){ ?>
 
             <li class="mt-0.5 w-full">
@@ -74,6 +75,7 @@
                 </a>
               <?php }?>
             </li>
+            <?php ++$i;?>
             <?php }?>
         </ul>
       </div>
