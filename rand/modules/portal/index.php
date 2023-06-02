@@ -8,13 +8,14 @@ function get_apartment_cards($opts = []){
                      ->join('check_scheduling', 'apartment_reference=apartment_id', 'LEFT')
                      ->where($whr)
                      ->fetchAll();
-
     $tree = [];
-    foreach($apartments as $apt){
-        if(!isset($tree[$apt['category_name']])) $tree[$apt['category_name']] = [];
-        $tree[$apt['category_name']][] = $apt;
+    if(!$db->error()){
+        foreach($apartments as $apt){
+            if(!isset($tree[$apt['category_name']])) $tree[$apt['category_name']] = [];
+            $tree[$apt['category_name']][] = $apt;
+        }
     }
-    var_dump('<pre>',$tree);
+    else print_r($db->error()['message']);
 
     return $tree;
 }
@@ -23,7 +24,14 @@ $helper = helper::init();
 $user = $helper->get_session_user();
 $db = db::get_connection(storage::init()->system_config->database);
 
-if(isset($_POST['customer_name'])){
+$price = 0;
+if(isset($_GET['book'])){
+    $p = $db->select('apartment_category','price')
+            ->where(['category_name'=>addslashes($_GET['book'])])
+            ->fetch();
+    if(!$db->error() && $p) $price = $p['price'];
+}
+if(isset($_POST['customer_name'])){//var_dump($_POST);die;
     if(strtotime($_POST['checkout']) > strtotime($_POST['checkin'])){
         $whr = "apartment_category = '{$_POST['apartment_category']}' AND apartment_id NOT IN (SELECT apartment_reference FROM check_scheduling WHERE check_out < '{$_POST['checkin']}')";
         $available = $db->select('apartments', 'apartment_id')
@@ -53,7 +61,26 @@ if(isset($_POST['customer_name'])){
                 if(!$db->error() && $k) {
                     $msg = 'Order added successful';
                     $ok =true;
-                    include "rand/payment.html";
+                    $pg = storage::init()->system_config->payment_gateway;
+                    $path = realpath(__DIR__.'/../../')."/system/gateways/payment/{$pg}/index.php";
+                    if(is_readable($path)) {
+                        include $path;
+                        $name = explode(' ',$_POST['customer_name']);
+                        $fn = $name[0];
+                        $ln = end($name);
+                        $post_data = [
+                            'first_name'=>$fn,
+                            'last_name'=>$ln,
+                            'phone'=>helper::format_phone_number($_POST['phone_number']),
+                            'email'=>helper::format_email($_POST['customer_email']),
+                            'order_amount'=>200,
+                            'order_description'=>'blah blah',
+                            'order_reference'=>$k
+                        ];
+                        $iframe = send_request($post_data, storage::init()->system_config);
+                        //var_dump('<pre>',$iframe);die;
+                        include "rand/payment.html";
+                    }
                     exit;
                 }
                 else {
@@ -63,6 +90,7 @@ if(isset($_POST['customer_name'])){
                 }
             }
         }
+        $msg = 'The apartment selected is not available in selected dates';
     }
     else $msg = 'Invalid check-in or check-out dates';
 }

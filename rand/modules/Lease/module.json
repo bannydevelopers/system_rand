@@ -9,8 +9,6 @@
       
     ],
     "permissions":[
-       
-
         "can_add_tenants",
         "can_edit_tenants",
         "can_delete_tenants",
@@ -24,8 +22,7 @@
 
         "can_add_designation",
         "can_delete_designation",
-
-       
+        
         "can_add_apartments",
         "can_edit_apartments",
         "can_view_apartments",

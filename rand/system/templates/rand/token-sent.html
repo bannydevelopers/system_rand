@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forgot password - CMIS</title>
+    <link rel="stylesheet" href="/<?=$base?>/css/tailwind.output.css" />
+    <script src="js/toggle-dark-mode-check.js"></script>
+    <script
+      src="js/alpine.min.js"
+      defer
+    ></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="js/init-alpine.js"></script>
+  </head>
+  <body>
+    <div class="flex min-h-screen items-center bg-gray-50 p-6 dark:bg-gray-900">
+      <div
+        class="mx-auto h-full max-w-md flex-1 overflow-hidden rounded-lg bg-white shadow-xl dark:bg-gray-800"
+      >
+        <form method="POST" class="flex flex-col overflow-y-auto">
+          <div class="w-full text-center py-4">
+            <h1 class="text-2xl font-bold text-gray-700 dark:text-gray-200">CMIS</h1>
+          </div>
+          <div class="flex items-center pl-10 pr-10 pb-10 sm:pl-16 sm:pr-16 sm:pb-16 md:px-24">
+            <div class="w-full">
+              <h1
+                class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200"
+              >
+                Forgot password
+              </h1>
+              <p class="mt-4 text-center">
+                  Instruction for recovery has been sent to your e-mail (<?=$email?>) and may be phone number (<?=$phone?>). 
+                  Please check now to continue as the link may expire.
+              </p>
+              <hr class="my-8" />
+
+              <p class="mt-4">
+                <a
+                  class="text-sm font-medium text-purple-600 hover:underline dark:text-purple-400"
+                  href="<?=$home?>"
+                >
+                  Remember login credetials? Login
+                </a>
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -9,7 +9,7 @@
         "host": "localhost",
         "username": "root",
         "password": "root",
-        "db_name": "rand",
+        "db_name": "randapar_main",
         "driver": "mysql"
     },
     "modules": [
@@ -29,5 +29,10 @@
     "nextsms": {
         "sender": "NEXTSMS",
         "token": "YmFubnk6QmFzZWFAQkNM"
+    },
+    "payment_gateway":"pesapal",
+    "pesapal":{
+        "consumer_key":"qkio1BGGYAXTu2JOfm7XSXNruoZsrqEW",
+        "consumer_secret":"osGQ364R49cXKeOYSpaOnT++rHs="
     }
 }

@@ -1,0 +1,148 @@
+<h2
+              class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+            >
+              Account profile 
+            </h2>
+            <!-- Sub eader -->
+            <div class="flex flex-col sm:flex-row">
+              <div>
+                <a href="<?=$home?>/Profile" class="flex flex-row mx-2 mb-6 shadow text-gray-900 hover:bg-purple-800 hover:text-white dark:hover:bg-purple-700 dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                  <i class="fa-regular fa-user mt-1"></i>
+                  <div class="px-2">Account</div>
+                </a>
+              </div>
+              <div>
+                <a href="" class="flex flex-row mx-2 mb-2 lg:mb-6 shadow text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+                  <i class="fa-sharp fa-solid fa-shield-halved mt-1"></i>
+                  <div class="px-2">Security</div>
+                </a>
+              </div>
+              <div>
+                <a href="" class="flex flex-row mx-2 mb-6 shadow text-gray-900 hover:bg-purple-800 hover:text-white dark:hover:bg-purple-700 dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                  <i class="fa-solid fa-money-bills mt-1"></i>
+                  <div class="px-2">Biling and payments</div>
+                </a>
+              </div>
+            </div>
+            <!--/ Sub eader -->
+            <!-- Password -->
+            <div class="flex flex-col sm:flex-row gap-4">
+              <div class="w-full sm:w-3/4 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div>
+                    <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-700 dark:text-white">
+                      Change password
+                    </h5>
+                </div>
+                <form class="w-full" method="POST">
+                  <div class="-mx-3 mb-6 max-w-sm">
+                    <div class="w-full px-3">
+                      <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-200 text-xs font-bold">
+                        <div class="py-2">Current password</div>
+                        <input class="appearance-none block w-full bg-gray-100 text-gray-700 placeholder-gray-600 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:placeholder:text-gray-400" name="current_password" type="password" placeholder="***************">
+                      </label>
+                    </div>
+                    <div class="w-full px-3">
+                      <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-200 text-xs font-bold">
+                        <div class="py-2">New password</div>
+                        <input class="appearance-none block w-full bg-gray-100 text-gray-700 placeholder-gray-600 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:placeholder:text-gray-400" type="password" name="new_password1" placeholder="***************">
+                      </label>
+                    </div>
+                    <div class="w-full px-3">
+                      <label class="block uppercase tracking-wide text-gray-700 dark:text-gray-200 text-xs font-bold">
+                        <div class="py-2">Repeat new password</div>
+                        <input class="appearance-none block w-full bg-gray-100 text-gray-700 placeholder-gray-600 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:placeholder:text-gray-400" type="password" name="new_password2" placeholder="***************">
+                      </label>
+                    </div>
+                  </div>
+                  <div class="block tracking-wide text-gray-700 dark:text-gray-200 text-md"> 
+                    <ul class="list-disc list-inside">
+                      <div class="font-semibold">Password Requirements:</div>
+                      <li>
+                        Minimum 8 characters long - the more, the better
+                      </li>
+                      <li>
+                        At least one lowercase character
+                      </li>
+                      <li>
+                        At least one number, symbol, or whitespace character
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="p-4 text-right gap-x-4">
+                    <button type="submit" class="mx-2 mb-2 lg:mb-6 shadow text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+                      Save changes
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!--/ Password  -->
+            <!-- Recent logs-->
+            <div class="overflow-auto w-full mt-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-white shadow-lg rounded-lg ">
+                <header class="px-5 py-4 border-b border-gray-200 dark:border-gray-400">
+                    <h2 class="font-semibold">Recent devices</h2>
+                </header>
+                <div class="p-3">
+                    <div class="overflow-x-auto">
+                        <table class="table-auto w-full">
+                            <thead class="text-xs font-semibold uppercase text-gray-400">
+                                <tr>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-left">Browser</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-left">Device</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-left">Location</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-left">Date</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-500">
+                                <tr>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="w-6 h-6 flex-shrink-0 mr-2 sm:mr-3">
+                                              <svg fill="currentColor" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M1,15H12a1,1,0,0,0,1-1V4.17a1,1,0,0,0-.35-.77,1,1,0,0,0-.81-.22L.84,5A1,1,0,0,0,0,6v8A1,1,0,0,0,1,15ZM2,6.85l9-1.5V13H2Z"></path> <path d="M30.84,0l-15,2.5a1,1,0,0,0-.84,1V14a1,1,0,0,0,1,1H31a1,1,0,0,0,1-1V1a1,1,0,0,0-.35-.76A1,1,0,0,0,30.84,0ZM30,13H17V4.35L30,2.18Z"></path> <path d="M.84,27l11,1.83H12a1,1,0,0,0,1-1V18a1,1,0,0,0-1-1H1a1,1,0,0,0-1,1v8A1,1,0,0,0,.84,27ZM2,19h9v7.65l-9-1.5Z"></path> <path d="M31,17H16a1,1,0,0,0-1,1V28.5a1,1,0,0,0,.84,1l15,2.5H31a1,1,0,0,0,.65-.24A1,1,0,0,0,32,31V18A1,1,0,0,0,31,17ZM30,29.82,17,27.65V19H30Z"></path> </g></svg>
+                                            </div>
+                                            <div class="font-medium">Chrome on Windows</div>
+                                        </div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="text-left">HP Spectre 360</div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="text-left">Switzerland</div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="text-left">10, July 2021 20:07</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 flex-shrink-0 mr-2 sm:mr-3">
+                                              <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16 3H8M16 3C17.6569 3 19 4.34315 19 6V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V6C5 4.34315 6.34315 3 8 3M16 3H15.8889C14.9684 3 14.2222 3.74619 14.2222 4.66667C14.2222 4.85076 14.073 5 13.8889 5H10.1111C9.92702 5 9.77778 4.85076 9.77778 4.66667C9.77778 3.74619 9.03159 3 8.11111 3H8" stroke="#000000" stroke-width="2"></path> </g></svg>
+                                            </div>
+                                            <div class="font-medium">Chrome on iPhone</div>
+                                        </div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="text-left">iPhone 12x</div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="text-left">Tanzania</div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="text-left">13, July 2021 10:10</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--/ Recent logs  -->
