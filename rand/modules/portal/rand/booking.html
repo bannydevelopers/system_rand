@@ -227,19 +227,16 @@
     setMinimumDate();
 
     function changeCheckoutDate(checkin) {
-        checkoutDate = document.getElementById("checkout") 
-        checkinDateObj = new Date(checkin.value);
-        checkoutVal = new Date(checkout.value);
-        if(checkinVal > checkoutVal){
-            const nextDay = new Date(checkinVal + 86400000);
-            console.log(nextDay)
-            const nextDayString = nextDay.toISOString().slice(0, 10);
-            console.log(nextDayString)
-            console.log(checkout.min)
-            console.log(checkout.value)
-            checkoutDate.value = nextDayString;
-        }else{
-            console.log("valid")
+        var checkout = document.getElementById("checkout") 
+        var checkinDateObj = new Date(checkin.value);
+        var checkoutDateObj = new Date(checkout.value);
+        var nextDay = new Date(checkinDateObj.getTime() + 86400000);
+        const nextDayString = nextDay.toISOString().slice(0, 10);
+        if(checkinDateObj > checkoutDateObj) {
+            checkout.value = nextDayString;
+            checkout.min = nextDayString;
+        }else {
+            checkout.min = nextDayString;
         }
     }
 
