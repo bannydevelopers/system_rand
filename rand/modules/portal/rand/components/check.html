@@ -7,13 +7,13 @@
                     <div class="row g-2">
                         <div class="col-md-4">
                             <div class="date" id="date1" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input"
-                                    placeholder="Check in" data-target="#date1" data-toggle="datetimepicker" />
+                                <input type="date" id="checkin" onchange="changeCheckoutDate(this)" class="form-control datetimepicker-input"
+                                    placeholder="Check in"/>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="date" id="date2" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" placeholder="Check out" data-target="#date2" data-toggle="datetimepicker"/>
+                                <input type="date" id="checkout" class="form-control datetimepicker-input" placeholder="Check out"/>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -41,3 +41,28 @@
     </div>
 </div>
 <!-- Booking End -->
+<script>
+    function setMinimumDate() {
+        const today = new Date();
+        const todayString = today.toISOString().slice(0, 10);
+        document.getElementById("checkin").min = todayString;
+        const tomorrow = new Date(today.getTime() + 86400000);
+        const tomorrowString = tomorrow.toISOString().slice(0, 10);
+        document.getElementById("checkout").min = tomorrowString;
+    }
+    setMinimumDate();
+
+    function changeCheckoutDate(checkin) {
+        var checkout = document.getElementById("checkout") 
+        var checkinDateObj = new Date(checkin.value);
+        var checkoutDateObj = new Date(checkout.value);
+        var nextDay = new Date(checkinDateObj.getTime() + 86400000);
+        const nextDayString = nextDay.toISOString().slice(0, 10);
+        if(checkinDateObj > checkoutDateObj) {
+            checkout.value = nextDayString;
+            checkout.min = nextDayString;
+        }else {
+            checkout.min = nextDayString;
+        }
+    }
+</script>
