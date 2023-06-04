@@ -119,10 +119,17 @@
                                             <label for="checkout">Check Out</label>
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-md-6">
                                         <div class="form-floating" data-price="<?=$price?>">
                                             <input type="text" value="<?=$price?>" class="form-control" id="order_amount" name="order_amount" readonly>
                                             <label for="order_amount">Order amount</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <?php include('components/countries.html')?>
+                                            <input type="hidden" value="<?=$val[0]['apartment_category']?>" name="apartment_category">
+                                            <label for="select2">Selected your country</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
