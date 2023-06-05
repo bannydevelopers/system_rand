@@ -2,7 +2,7 @@
 function get_apartment_cards($opts = []){
     $db = db::get_connection(storage::init()->system_config->database);
     $today = date('Y-m-d H:i:s');
-    $whr = "check_out is null or check_out IN (SELECT MAX(check_out) WHERE check_out < '{$today}')";
+    $whr = 1;//"check_out is null or check_out IN (SELECT MAX(check_out) WHERE check_out < '{$today}')";
     $apartments = $db->select('apartments','*')
                      ->join('apartment_category', 'category_id=apartment_category')
                      ->join('check_scheduling', 'apartment_reference=apartment_id', 'LEFT')
@@ -19,10 +19,10 @@ function get_apartment_cards($opts = []){
 
     return $tree;
 }
-
+$storage= storage::init();
 $helper = helper::init();
 $user = $helper->get_session_user();
-$db = db::get_connection(storage::init()->system_config->database);
+$db = db::get_connection($storage->system_config->database);
 
 $price = 0;
 if(isset($_GET['book'])){
@@ -94,7 +94,11 @@ if(isset($_POST['customer_name'])){//var_dump($_POST);die;
     }
     else $msg = 'Invalid check-in or check-out dates';
 }
-
+if(isset($_REQUEST['pay_order'])){
+    $dash = "{$storage->request_dir}/{$storage->system_config->dashboard}";
+    header("Location: {$dash}");
+    exit;
+}
 if(isset($_POST['login']) && isset($_POST['password'])){
     $helper->login_user($_POST);
     if(!$helper->check_user_session()) $msg = 'Login creditial mismatch';
