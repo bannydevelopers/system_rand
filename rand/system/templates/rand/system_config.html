@@ -4,7 +4,8 @@
     </h2>
     <form method="post" class="w-full overflow-hidden rounded-lg shadow-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <?php foreach($configs as $key=>$val){if(is_array($val)) continue;?>
+
+       <?php foreach($configs as $key=>$val){if(is_array($val)) continue;?>
         <div class="my-4">
           <label for="<?="config_{$key}"?>" class="font-semibold"><?=ucwords($key)?></label>
             <?php if(is_object($val)){?>
@@ -13,21 +14,21 @@
               <div class="pl-4 pt-2">
                 <em id="<?="config_{$key}_{$k}"?>"><?=ucwords($k)?></em>
                 <div class="w-full mob:w-2/3">
-                  <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="<?="{$key}[{$k}]"?>" value="<?=$v?>" />
+                  <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="<?="{$key}[{$k}]"?>" value="<?=$v?>" />
                 </div>
               </div>
               <?php }?>
             </div>
             <?php } else {?>
           <div class="w-full mob:w-2/3 pl-4">
-            <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="<?=$key?>" value="<?=$val?>" />
+            <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="<?=$key?>" value="<?=$val?>" />
           </div>
           <?php }?>
         </div>
         <?php }?>
       </div>
       <hr />
-      <div class="text-right pb-4">
-          <button type="submit" class="text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Save</button>
+      <div class="pb-8">
+          <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Save</button>
       </div>
     </form>

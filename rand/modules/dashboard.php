@@ -64,7 +64,9 @@ if(isset($registry->request[1]) && $registry->request[1] == 'forgot_password'){
         }
     }
     $msg = '';
+    
     if(isset($_POST['login'])){
+        
         $user = $db->select('user')
                     ->where(['email'=>helper::format_email($_POST['login'])])
                     ->or(['phone_number'=>helper::format_phone_number($_POST['login'])])

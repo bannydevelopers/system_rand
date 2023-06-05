@@ -20,9 +20,6 @@
         "can_delete_contracts",
         "can_view_contracts",
 
-        "can_add_designation",
-        "can_delete_designation",
-        
         "can_add_apartments",
         "can_edit_apartments",
         "can_view_apartments",

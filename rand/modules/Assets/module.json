@@ -3,21 +3,15 @@
     "icon":"store-alt",
     "nav":[
        
-    ],
+           
+           ],
 
     "permissions":[
-        "can_add_dispense",
-        "can_edit_dispense",
-        "can_delete_dispense",
-        "can_view_dispense",
+        "can_add_assets",
+        "can_edit_assets",
+        "can_delete_assets",
+        "can_view_assets"
  
-        "can_add_tools",
-        "can_edit_tools",
-        "can_delete_tools",
-        "can_view_tools",
-         
-        "can_add_stores",
-        "can_edit_stores",
-        "can_view_stores"
+       
   ]
  }
