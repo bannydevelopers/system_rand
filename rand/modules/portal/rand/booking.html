@@ -26,13 +26,57 @@
 
 <body>
     <div class="container-xxl bg-white p-0">
-        <!-- Spinner Start -->
-        <!--div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
+        <!-- Spinner  -->
+        
+        <!-- Modal -->
+        <div class="modal fade" id="register" tabindex="-1" aria-labelledby="registerLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="registerLabel">Register user account</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reg-form">
+                        <div class="row g-3">
+                            <div id="reg-smg"></div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="cust_name" name="cust_name" placeholder="Customer name">
+                                    <label for="cust_name">Your Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="cust_email" name="cust_email" placeholder="Your email">
+                                    <label for="cust_email">Your Email</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="mob_number" name="mob_number" placeholder="Phone number">
+                                    <label for="mob_number">Phone number</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <select class="form-select" id="countryReg" name="cust_country">
+                                    <?php include('components/countries.html')?>
+                                    </select>
+                                    <label for="countryReg">Select your country</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="reg-btn" class="btn btn-primary" onclick="regUser()">Register</button>
+                </div>
             </div>
-        </div-->
-        <!-- Spinner End -->
+            </div>
+        </div>
+
         <?php include('components/navigation.html')?>
         <!-- Page Header Start -->
         <div class="container-fluid page-header mb-5 p-0" style="background-image: url(rand/modules/portal/rand/img/opt/8.jpg);">
@@ -96,7 +140,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <select class="form-select" name="apartment_category" id="select2" disabled>
+                                            <select class="form-select" name="apartment_category" id="apartment_category" disabled>
                                               <option value="">Choose...</option>
                                               <?php $selected = isset($_GET['book']) ? $_GET['book'] : '';?>
                                               <?php foreach(get_apartment_cards() as $category=>$val){?>
@@ -104,7 +148,7 @@
                                               <?php }?>
                                             </select>
                                             <input type="hidden" value="<?=$val[0]['apartment_category']?>" name="apartment_category">
-                                            <label for="select2">Selected apartment</label>
+                                            <label for="apartment_category">Selected apartment</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -127,9 +171,10 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
+                                            <select class="form-select" id="country" name="country">
                                             <?php include('components/countries.html')?>
-                                            <input type="hidden" value="<?=$val[0]['apartment_category']?>" name="apartment_category">
-                                            <label for="select2">Selected your country</label>
+                                            </select>
+                                            <label for="select2">Select your country</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -152,12 +197,12 @@
                                     <div class="col-12">
                                         <div class="form-floating">
                                             <input type="text" class="form-control" id="login" name="login" placeholder="phone number or e-mail">
-                                            <label for="login">Login</label>
+                                            <label for="login">Email or Phone number</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="password" class="form-control" id="password" name="password" placeholder="password">
+                                            <input type="password" class="form-control" id="password" name="password" placeholder="password" required>
                                             <label for="message">Password</label>
                                         </div>
                                     </div>
@@ -165,7 +210,7 @@
                                         <button class="btn btn-primary w-100 py-3">Sign in</button>
                                     </div>
                                     <div class="col-12">
-                                        <p style="text-align: right;">Don't have account? <a href="">Create account</a></p>
+                                        <p style="text-align: right;">Don't have account? <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#register">Create account</a></p>
                                     </div>
                                 </div>
                             </form>
@@ -208,6 +253,59 @@
     <script src="rand/modules/portal/rand/js/main.js"></script>
 </body>
 <script>
+    problem = `An error occured! Please refresh the page or try again later.`;
+
+    async function regUser() {
+
+        regForm = document.getElementById("reg-form");
+        regSmg = document.getElementById("reg-smg");
+        regUserBtn = document.getElementById("reg-btn");
+        regUserBtn.disabled = true;
+        regUserBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>'
+    
+        const userData = new FormData(regForm);
+        userData.append('reg_customer', 1);
+        for (let obj of userData) {
+          console.log(obj);
+        }
+        //var name = userData.get('reg_customer');
+        //console.log(name);
+    
+        let url = '';
+        let obj = {
+          method: "POST", 
+          body: userData,
+        }
+    
+        let response = await fetch(url, obj)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('The response side is not ok!');
+          }
+          return response.json();
+        })
+        .then(data => {
+          if(data.status == 'success'){
+            document.getElementById("login").value = `Some output`;
+            //console.log(data);
+          }
+          if(data.status == 'fail'){
+            regSmg.innerHTML = data.msg;
+            regUserBtn.disabled = false;
+            regUserBtn.innerHTML = 'Register';
+          }
+          if(data.status == 'not-exist' || data.status == 'denied'){
+            regSmg.innerHTML = data.msg;
+          }
+        })
+        .catch(error => {
+          regSmg.innerHTML = problem;
+          //console.error('Problem:', error);
+          regUserBtn.disabled = false;
+          regUserBtn.innerHTML = 'Register';
+        });
+    }
+    
     function setMinimumDate() {
         const today = new Date();
         const todayString = today.toISOString().slice(0, 10);
