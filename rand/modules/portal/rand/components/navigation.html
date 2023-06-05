@@ -45,9 +45,15 @@
                         <!-- <a href="booking" class="nav-item nav-link">Booking</a> -->
                         <a href="gallery" class="nav-item nav-link">Gallery</a>
                         <a href="contact" class="nav-item nav-link">Contact</a>
-                    <!-- </div>
-                    <a href="https://htmlcodex.com/apartments-html-template-pro" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">Premium Version<i class="fa fa-arrow-right ms-3"></i></a>
-                </div> -->
+                    </div>
+                    <?PHP if($helper->check_user_session()){?>
+                    <form>
+                        <button type="submit" name="logout" class="btn btn-primary rounded-3 py-1 px-md-2 d-none d-lg-block me-2"><i class="bi bi-box-arrow-left me-1"></i>LogOut</button>
+                    </form>
+                    <?php }else{?>
+                    <a href="" class="btn btn-primary rounded-12 py-1 px-md-2 d-none d-lg-block"><i class="bi bi-box-arrow-in-right me-1"></i>LogIn</a>
+                    <?php }?>
+                </div>
             </nav>
         </div>
     </div>
