@@ -16,17 +16,32 @@
                   <label>Apartment name
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_name" type="text" placeholder="apartment name" required>
                   </label>
-                </div>
               </div>
+            </div>
               <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-1/2 px-3 my-2">
-                  <label>Houses
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_houses" type="number" required>
+                  <label>Apartment block
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_block" type="text" placeholder="apartment block" required>
                   </label>
                 </div>
                 <div class="w-1/2 px-3 my-2">
-                  <label>Taken
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_taken" type="number" required>
+                  <label>Apartment floor
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_floor" type="text" placeholder="apartment floor" required>
+                  </label>
+                </div>
+                <div class="w-1/2 px-3 my-2">
+                  <label>Apartment category
+                    <select class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_category" required>
+                      <?php foreach($apartment as $cat){?>
+                        <option value="<?=$cat['category_id']?>"><?=$cat['category_name']?></option>
+                      <?php }?>
+                      <option value="">Add category</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="w-1/2 px-3 my-2">
+                  <label>Price per day
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="price_per_day" type="text" placeholder="price per day" required>
                   </label>
                 </div>
               </div>
@@ -56,142 +71,37 @@
           <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
             <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
               <tr>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Building</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Houses</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Status</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Accumulation</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Apartment name</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Apartment block</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Apartment floor</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Apartment category</th>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Action</th>
               </tr>
             </thead>
             <tbody>
+              <?php 
+              if (is_array($apartment) || is_object($apartment))
+              foreach ($apartment as $app)
+           {?>
               <tr>
-                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <div class="flex px-2">
-                    <div>
-                      <img src="../assets/img/home-decor-2.jpg" class="inline-flex items-center justify-center mr-2 text-white transition-all duration-200 rounded-2 ease-soft-in-out text-sm h-9 w-9" alt="spotify" />
-                    </div>
-                    <div class="my-auto">
-                      <h6 class="mb-0 leading-normal text-sm">TY1</h6>
-                    </div>
-                  </div>
+                <td class="px-4 py-3 text-sm">
+                  <?=$app['apartment_name']?>
                 </td>
-                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <p class="mb-0 pl-5 font-semibold leading-normal text-sm">0/9</p>
+                <td class="px-4 py-3 text-sm">
+                  <?=$app['apartment_block']?>
                 </td>
-                <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <div class="flex items-center">
-                    <span class="mr-2 font-semibold leading-tight text-xs">60%</span>
-                    <div>
-                      <div class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                        <div class="duration-600 ease-soft bg-gradient-to-tl from-blue-600 to-cyan-400 -mt-0.38 -ml-px flex h-1.5 w-3/5 flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all" apartment="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                    </div>
-                  </div>
+                <td class="px-4 py-3 text-sm">
+                  <?=$app['apartment_floor']?>
                 </td>
-                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <p class="mb-0 font-semibold leading-normal text-sm">$2,500</p>
+                <td class="px-4 py-3 text-sm">
+                  <?=$app['apartment_category']?>
                 </td>
                 <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
                   <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
                   <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Close </a>
                 </td>
               </tr>
-              <tr>
-                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <div class="flex px-2">
-                    <div>
-                      <img src="../assets/img/home-decor-2.jpg" class="inline-flex items-center justify-center mr-2 text-white transition-all duration-200 rounded-2 ease-soft-in-out text-sm h-9 w-9" alt="spotify" />
-                    </div>
-                    <div class="my-auto">
-                      <h6 class="mb-0 leading-normal text-sm">TY2</h6>
-                    </div>
-                  </div>
-                </td>
-                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <p class="mb-0 pl-5 font-semibold leading-normal text-sm">0/6</p>
-                </td>
-                <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <div class="flex items-center">
-                    <span class="mr-2 font-semibold leading-tight text-xs">60%</span>
-                    <div>
-                      <div class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                        <div class="duration-600 ease-soft bg-gradient-to-tl from-blue-600 to-cyan-400 -mt-0.38 -ml-px flex h-1.5 w-3/5 flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all" apartment="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <p class="mb-0 font-semibold leading-normal text-sm">$2,500</p>
-                </td>
-                <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
-                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Close </a>
-                </td>
-              </tr>
-              <tr>
-                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <div class="flex px-2">
-                    <div>
-                      <img src="../assets/img/home-decor-2.jpg" class="inline-flex items-center justify-center mr-2 text-white transition-all duration-200 rounded-2 ease-soft-in-out text-sm h-9 w-9" alt="spotify" />
-                    </div>
-                    <div class="my-auto">
-                      <h6 class="mb-0 leading-normal text-sm">TY3</h6>
-                    </div>
-                  </div>
-                </td>
-                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <p class="mb-0 pl-5 font-semibold leading-normal text-sm">0/6</p>
-                </td>
-                <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <div class="flex items-center">
-                    <span class="mr-2 font-semibold leading-tight text-xs">60%</span>
-                    <div>
-                      <div class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                        <div class="duration-600 ease-soft bg-gradient-to-tl from-blue-600 to-cyan-400 -mt-0.38 -ml-px flex h-1.5 w-3/5 flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all" apartment="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <p class="mb-0 font-semibold leading-normal text-sm">$2,500</p>
-                </td>
-                <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
-                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Close </a>
-                </td>
-              </tr>
-              <tr>
-                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <div class="flex px-2">
-                    <div>
-                      <img src="../assets/img/home-decor-2.jpg" class="inline-flex items-center justify-center mr-2 text-white transition-all duration-200 rounded-2 ease-soft-in-out text-sm h-9 w-9" alt="spotify" />
-                    </div>
-                    <div class="my-auto">
-                      <h6 class="mb-0 leading-normal text-sm">TY4</h6>
-                    </div>
-                  </div>
-                </td>
-                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <p class="mb-0 pl-5 font-semibold leading-normal text-sm">0/6</p>
-                </td>
-                <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <div class="flex items-center">
-                    <span class="mr-2 font-semibold leading-tight text-xs">60%</span>
-                    <div>
-                      <div class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
-                        <div class="duration-600 ease-soft bg-gradient-to-tl from-blue-600 to-cyan-400 -mt-0.38 -ml-px flex h-1.5 w-3/5 flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all" apartment="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <p class="mb-0 font-semibold leading-normal text-sm">$2,500</p>
-                </td>
-                <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
-                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
-                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Close </a>
-                </td>
-              </tr>
+              <?php }?>
             </tbody>
           </table>
         </div>
