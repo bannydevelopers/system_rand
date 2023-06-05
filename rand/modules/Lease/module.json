@@ -20,12 +20,6 @@
         "can_delete_contracts",
         "can_view_contracts",
 
-<<<<<<< HEAD
-=======
-        "can_add_designation",
-        "can_delete_designation",
-        
->>>>>>> dcfb257ba07d59826d5a8829176533fab6ad2325
         "can_add_apartments",
         "can_edit_apartments",
         "can_view_apartments",
