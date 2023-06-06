@@ -33,7 +33,7 @@
             <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="registerLabel">Register user account</h5>
+                <h5 class="modal-title" id="registerLabel">Create new account</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -43,13 +43,13 @@
                             <div class="col-md-6">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="cust_name" name="cust_name" placeholder="Customer name">
-                                    <label for="cust_name">Your Name</label>
+                                    <label for="cust_name">Full name</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
                                     <input type="email" class="form-control" id="cust_email" name="cust_email" placeholder="Your email">
-                                    <label for="cust_email">Your Email</label>
+                                    <label for="cust_email">Email</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -64,6 +64,18 @@
                                     <?php include('components/countries.html')?>
                                     </select>
                                     <label for="countryReg">Select your country</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Strong password">
+                                    <label for="password">Phone number</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="password" name="password2" placeholder="Repeat password">
+                                    <label for="password2">Confirm password</label>
                                 </div>
                             </div>
                         </div>
@@ -264,7 +276,7 @@
         regUserBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>'
     
         const userData = new FormData(regForm);
-        userData.append('reg_customer', 1);
+        userData.append('ajax', 1);
         for (let obj of userData) {
           console.log(obj);
         }
@@ -280,14 +292,14 @@
         let response = await fetch(url, obj)
         .then(response => {
           if (!response.ok) {
-            throw new Error('The response side is not ok!');
+            throw new Error('The request wasn\'t successful!');
           }
           return response.json();
         })
         .then(data => {
           if(data.status == 'success'){
-            document.getElementById("login").value = `Some output`;
-            //console.log(data);
+            document.getElementById("login").value = data.user_fullname;
+            console.log(data);
           }
           if(data.status == 'fail'){
             regSmg.innerHTML = data.msg;
