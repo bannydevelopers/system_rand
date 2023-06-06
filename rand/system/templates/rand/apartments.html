@@ -119,6 +119,154 @@ Add Category
             </thead>
             <tbody>
               
+              <div class="py-2">
+                <!-- Tabs -->
+                <div class="border-b border-gray-200 dark:border-gray-700 mb-4">
+                  <ul class="flex flex-wrap -mb-px" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+                    <li class="mr-2" role="presentation">
+                      <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200 active" id="activities-tab" data-tabs-target="#activities" type="button" role="tab" aria-controls="activities" aria-selected="true">Jouniur Suite</button>
+                    </li>
+                    <!--<li class="mr-2" role="presentation">
+                      <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="resources-tab" data-tabs-target="#resources" type="button" role="tab" aria-controls="resources" aria-selected="false">Resources</button>
+                    </li>-->
+                    <li class="mr-2" role="presentation">
+                      <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="report-tab" data-tabs-target="#report" type="button" role="tab" aria-controls="report" aria-selected="false">Deluxe Suite</button>
+                    </li>
+                    <li class="mr-2" role="presentation">
+                      <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="report-tab" data-tabs-target="#report" type="button" role="tab" aria-controls="report" aria-selected="false">Super Deluxe</button>
+                    </li>
+                  </ul>
+                </div>
+                <!-- Tabs -->
+                <!-- Details -->
+                <div id="myTabContent">
+                  <div class="px-4 rounded-lg" id="activities" role="tabpanel" aria-labelledby="activities-tab">
+                    <!-- Activities -->
+                    <div class="grid divide-y-4 divide-gray-100 dark:divide-gray-900 ">
+                      <!-- Main activity -->
+                      <div class="rounded-lg bg-white dark:bg-gray-800">
+                        <details class="group text-gray-900 dark:text-gray-200">
+                          <summary class="flex items-center font-medium cursor-pointer list-none p-2" x-data="{ open: false, color: false }" @keydown.escape="open = false" @click.away="open = false">
+                            <span class="transition group-open:-rotate-90">
+                              <svg fill="none" height="16" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="16"><path d="M6 9l6 6 6-6"></path>
+                              </svg>
+                            </span>
+                            <!--  -->
+                            <div class="flex justify-between w-full">
+                              <div id="actContent-01"></div>
+                              <div class="relative">
+                                <div class="flex w-full">
+                                  <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
+                                  
+                                  </span>
+                                  <a href="javascript:void(0);" @click="open = !open">
+                                    <svg fill="currentColor" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0-6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"></path></svg>
+                                  </a>
+                                </div>
+
+                              </div>
+                            </div>
+                            <!--/  -->
+                          </summary>
+                          <div class="text-gray-800 dark:text-gray-200 divide-y-4 divide-white dark:divide-gray-800 mb-3">
+                            <!-- Sub activity -->
+                            <div class="py-1 mx-5 px-5 rounded bg-gray-100 dark:bg-gray-900">
+                              <div  onclick="openViewTask()" class="flex flex-row content-center cursor-pointer justify-between">
+                                <div>
+                                  <a id="" class="underline"></a>
+                                </div>
+                                <div class="shrink-0 flex flex-row">
+                                  <div class="text-center pr-2">
+                                    <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
+                                    </span>
+                                  </div>
+                                  <div class="text-center pr-2">
+                                    <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
+
+                                    </span>
+                                  </div>
+                                  <div class="text-center pr-2">
+                                    <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
+                                    
+                                    </span>
+                                  </div>
+                                 
+                                  <div class="text-center pr-2">
+                                    <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
+                                   
+                                    </span>
+                                  </div>
+                                  <div class="text-center pr-2">
+                                    <span class="bg-purple-200 text-purple-600 px-3 rounded-full text-xs">
+                                     Tanzania
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!--/ Sub activity -->
+                           
+                          </div>
+                        </details>
+                      </div>
+                      <!--/ Main activity -->
+                
+                    </div>
+                    <!--/ Activities -->
+                  </div>
+              
+                  <div class="px-4 rounded-lg hidden text-gray-800 dark:text-gray-200" id="resources" role="tabpanel" aria-labelledby="resources-tab">
+                    <!-- Tool -->
+                    <div class="pb-2">
+                      <div class="py-2">Tools</div>
+                      <ul class="rounded overflow-hidden bg-white dark:bg-gray-800">
+                        <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-slate-700 border-b last:border-none border-gray-200 dark:border-gray-600 transition-all duration-300 ease-in-out">
+                          <div class="flex flex-row justify-between">
+                            <div>Drill kubwa</div>
+                            <div><a href="javascript:void(0);" class="text-red-500">Delete</a></div>
+                          </div>
+                        </li>
+                        <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-slate-700 border-b last:border-none border-gray-200 dark:border-gray-600 transition-all duration-300 ease-in-out">
+                          Drill ndogo
+                        </li>
+                      </ul>
+                    </div>
+                    <!--/ Tool -->
+                    <!-- People -->
+                    <div class="pb-2">
+                      <div class="py-2">People</div>
+                      <ul class="rounded overflow-hidden bg-white dark:bg-gray-800">
+                        <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-slate-700 border-b last:border-none border-gray-200 dark:border-gray-600 transition-all duration-300 ease-in-out">
+                          Jasper Rup
+                        </li>
+                        <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-slate-700 border-b last:border-none border-gray-200 dark:border-gray-600 transition-all duration-300 ease-in-out">
+                          Ezbon Moses
+                        </li>
+                      </ul>
+                    </div>
+                    <!--/ People -->
+                    <!-- People -->
+                    <div class="pb-2">
+                      <div class="py-2">Deliverables</div>
+                      <ul class="rounded overflow-hidden bg-white dark:bg-gray-800">
+                        <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-slate-700 border-b last:border-none border-gray-200 dark:border-gray-600 transition-all duration-300 ease-in-out">
+                          52 Dahua Camera s
+                        </li>
+                        <li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-slate-700 border-b last:border-none border-gray-200 dark:border-gray-600 transition-all duration-300 ease-in-out">
+                          45 Smart TV
+                        </li>
+                      </ul>
+                    </div>
+                    <!--/ People -->
+                  </div>
+                  <div class="p-4 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-white hidden" id="report" role="tabpanel" aria-labelledby="report-tab">
+                    <h1>
+                  
+                    </h1>
+                  </div>
+                </div>
+                <!-- Details -->
+              </div>
             <?php foreach($apartment as $apartment_cat) { ?>
               <?php foreach($apartment_cat['children'] as $apartment_child) { ?>
               <tr class="hover:bg-gray-100">
