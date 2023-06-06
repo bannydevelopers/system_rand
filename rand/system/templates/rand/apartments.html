@@ -107,7 +107,7 @@ Add Category
               <ul class="flex flex-wrap -mb-px" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
                 <?php foreach($apartment as $apartment_cat) { ?>
                   <li class="mr-2" role="presentation">
-                    <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-300 dark:hover:text-gray-200" id="t<?=$apartment_cat['category_id']?>-tab" data-tabs-target="#t<?=$apartment_cat['category_id']?>" type="button" role="tab" aria-controls="t<?=$apartment_cat['category_id']?>"><?=$apartment_cat['category_name']?></button>
+                    <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-md font-bold text-center border-transparent border-b-2" id="t<?=$apartment_cat['category_id']?>-tab" data-tabs-target="#t<?=$apartment_cat['category_id']?>" type="button" role="tab" aria-controls="t<?=$apartment_cat['category_id']?>"><?=$apartment_cat['category_name']?></button>
                   </li>
                 <?php } ?>
               </ul>
@@ -124,7 +124,6 @@ Add Category
                         <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Name</th>
                         <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Block</th>
                         <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Floor</th>
-                        <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Category</th>
                         <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Price</th>
                         <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Kitchen</th>
                         <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">dinning</th>
@@ -139,48 +138,46 @@ Add Category
                     <tbody>
                       <?php foreach($apartment_cat['children'] as $apartment_child) { ?>
                         <?php if($apartment_cat['category_name'] == $apartment_child['category_name']) { ?>
-                      <tr class="hover:bg-gray-100">
-                        <td class="px-4 py-3">
-                          <?=$apartment_child['apartment_name']?>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          <?=$apartment_child['apartment_block']?>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          <?=$apartment_child['apartment_floor']?>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          <?=$apartment_child['category_name']?>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          <?=$apartment_cat['price']?>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          <?=$apartment_cat['kitchen']?>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          <?=$apartment_cat['dinning_room']?>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          <?=$apartment_cat['livingroom']?>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          <?=$apartment_cat['bedroom']?>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          <?=$apartment_cat['bathroom']?>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          <?=$apartment_cat['asserts']['tv']?>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          <?=$apartment_cat['asserts']['phone']?>
-                        </td>
-                        <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
-                          <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Close </a>
-                        </td>
-                      </tr><?php } ?>
+                        <tr class="hover:bg-gray-100">
+                          <td class="px-4 py-3">
+                            <?=$apartment_child['apartment_name']?>
+                          </td>
+                          <td class="px-4 py-3 text-sm">
+                            <?=$apartment_child['apartment_block']?>
+                          </td>
+                          <td class="px-4 py-3 text-sm">
+                            <?=$apartment_child['apartment_floor']?>
+                          </td>
+                          <td class="px-4 py-3 text-sm">
+                            <?=$apartment_cat['price']?>
+                          </td>
+                          <td class="px-4 py-3 text-sm">
+                            <?=$apartment_cat['kitchen']?>
+                          </td>
+                          <td class="px-4 py-3 text-sm">
+                            <?=$apartment_cat['dinning_room']?>
+                          </td>
+                          <td class="px-4 py-3 text-sm">
+                            <?=$apartment_cat['livingroom']?>
+                          </td>
+                          <td class="px-4 py-3 text-sm">
+                            <?=$apartment_cat['bedroom']?>
+                          </td>
+                          <td class="px-4 py-3 text-sm">
+                            <?=$apartment_cat['bathroom']?>
+                          </td>
+                          <td class="px-4 py-3 text-sm">
+                            <?=$apartment_cat['asserts']['tv']?>
+                          </td>
+                          <td class="px-4 py-3 text-sm">
+                            <?=$apartment_cat['asserts']['phone']?>
+                          </td>
+                          <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
+                            <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
+                            <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Close </a>
+                          </td>
+                        </tr>
+                        <?php } ?>
                       <?php } ?>
                     </tbody>
                   </table> 
