@@ -1,10 +1,46 @@
-
+<button id="add-category-modal-id" data-modal-target="add-category-modal" data-modal-toggle="add-category-modal" 
+class="hidden mr-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+Add Category
+</button>
+<!-- Add category modal -->
+<div id="add-category-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full">
+  <div class="relative w-full max-w-lg max-h-full items-center">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-category-modal">
+            <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+            <span class="sr-only">Close modal</span>
+          </button>
+          <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
+            <h3 class="mb-4 text-xl font-medium">Add category </h3>
+            <form class="space-y-6" method="POST">
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-1/2 px-3">
+                  <label>category name <span class="text-red-500">*</span>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="category" name="category_name" required>
+                  </label>
+                </div>
+                <div class="w-1/2 px-3">
+                  <label>category details 
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Details" name="category_details">
+                  </label>
+                </div>
+              </div>
+              <div class="pb-8">
+                <button type="submit" class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
+              </div>
+            </form>
+          </div>
+      </div>
+  </div>
+</div> 
+<!--/ Add category modal -->
 <!-- Main modal -->
 <div id="add-apartment-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
   <div class="relative w-full max-w-lg max-h-full items-center">
       <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
-          <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white" data-modal-hide="add-apartment-modal">
+          <button type="button" id="close-apartment-modal-id" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white" data-modal-hide="add-apartment-modal">
             <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
               <span class="sr-only">Close modal</span>
           </button>
@@ -31,7 +67,7 @@
                 </div>
                 <div class="w-1/2 px-3 my-2">
                   <label>Apartment category
-                    <select class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_category" required>
+                    <select class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_category" onchange="openCatModal(this)" required>
                       <?php foreach($apartment as $cat){?>
                         <option value="<?=$cat['category_id']?>"><?=$cat['category_name']?></option>
                       <?php }?>
@@ -54,7 +90,7 @@
   <div class="flex-none w-full max-w-full pl-3">
     <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
       <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex items-center">
-        <h5>Apartments</h5>
+        <h5>Apartments </h5>
         <!-- Modal toggle -->
         <button data-modal-target="add-apartment-modal" data-modal-toggle="add-apartment-modal" 
         class="text-blue-400 hover:text-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mx-6 px-1.5" type="button">
@@ -66,43 +102,83 @@
           <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
             <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
               <tr>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Apartment name</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Apartment block</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Apartment floor</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Apartment category</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Name</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Block</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Floor</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Category</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Price</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Kitchen</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">dinning</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">livingroom</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">bedroom</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">bathroom</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">tv</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">phone</th>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Action</th>
               </tr>
             </thead>
             <tbody>
-              <?php 
-              if (is_array($apartment) || is_object($apartment))
-              foreach ($apartment as $app)
-           {?>
-              <tr>
-                <td class="px-4 py-3 text-sm">
-                  <?=$app['apartment_name']?>
+              
+            <?php foreach($apartment as $apartment_cat) { ?>
+              <?php foreach($apartment_cat['children'] as $apartment_child) { ?>
+              <tr class="hover:bg-gray-100">
+                <td class="px-4 py-3">
+                  <?=$apartment_child['apartment_name']?>
                 </td>
                 <td class="px-4 py-3 text-sm">
-                  <?=$app['apartment_block']?>
+                  <?=$apartment_child['apartment_block']?>
                 </td>
                 <td class="px-4 py-3 text-sm">
-                  <?=$app['apartment_floor']?>
+                  <?=$apartment_child['apartment_floor']?>
                 </td>
                 <td class="px-4 py-3 text-sm">
-                  <?=$app['apartment_category']?>
+                  <?=$apartment_child['category_name']?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=$apartment_cat['price']?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=$apartment_cat['kitchen']?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=$apartment_cat['dinning_room']?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=$apartment_cat['livingroom']?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=$apartment_cat['bedroom']?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=$apartment_cat['bathroom']?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=$apartment_cat['asserts']['tv']?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=$apartment_cat['asserts']['phone']?>
                 </td>
                 <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
                   <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
                   <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Close </a>
                 </td>
               </tr>
-              <?php }?>
+                <?php } ?>
+            <?php } ?>
             </tbody>
-          </table>
+          </table> 
         </div>
       </div>
     </div>
   </div>
 </div>
-
+<!-- <pre><?=print_r($ap_cat)?></pre> -->
 <script src="js/plugins/flowbite.min.js"></script>
+<script>
+  function openCatModal(selDesVal) {
+    if(selDesVal.value == "") {
+      document.getElementById("close-apartment-modal-id").click();
+      document.getElementById("add-category-modal-id").click();
+    }
+  }
+</script>
