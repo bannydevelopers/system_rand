@@ -5,14 +5,17 @@ $ok = false;
 $msg = '';
 
 $request = $_SERVER['REQUEST_URI'];
-if(isset($_POST['tenants_name'])){
+if(isset($_POST['full_name'])){
     $data = [
-        'tenants_name'=>$_POST['tenants_name'], 
-        'tenants_function'=>$_POST['tenants_function'], 
-        'tenants_status'=>$_POST['tenants_status'],
-        'tenants_datein'=>$_POST['tenants_datein'],
-        'created_time'=>date('Y-m-d H:i:s')
-        
+        'full_name'=>$_POST['full_name'], 
+        'tenants_email'=>$_POST['tenants_email'], 
+        'resident_adress'=>$_POST['residence_address'],
+        'phone_number'=>$_POST['phone_number'], 
+        'adults'=>$_POST['adults'],
+        'children'=>$_POST['children'],
+        'occupied_apartment'=>$_POST['occupied_apartment'], 
+        'date_in'=>$_POST['date_in'],
+        'date_out'=>$_POST['date_out']
     ];
     //var_dump($db->error());
     $k = $db->insert('tenants', $data);
