@@ -56,7 +56,6 @@ if (document.querySelector("[navbar-main]")) {
 if (document.querySelector("canvas")) {
   loadJS(to_build + "js/chart-1.js", true);
   loadJS(to_build + "js/chart-2.js", true);
-  loadJS(to_build + "js/chart-3.js", true);
 }
 
 function loadJS(FILE_URL, async) {

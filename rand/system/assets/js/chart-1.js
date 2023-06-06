@@ -8,13 +8,13 @@ new Chart(ctx, {
     labels: ["Block B", "Block C", "Block D"],
     datasets: [
       {
-        label: "Taken",
+        label: "Occupied",
         tension: 0.4,
         borderWidth: 0,
         borderRadius: 0,
         borderSkipped: false,
-        backgroundColor: "#fff",
-        data: [5, 6, 9],
+        backgroundColor: "#ddd",
+        data: [1, 0, 0],
         maxBarThickness: 36,
       },{
         label: "Remains",
@@ -22,8 +22,8 @@ new Chart(ctx, {
         borderWidth: 0,
         borderRadius: 0,
         borderSkipped: false,
-        backgroundColor: "#ddd",
-        data: [1, 0, 0],
+        backgroundColor: "#fff",
+        data: [5, 6, 9],
         maxBarThickness: 36,
       },
     ],
