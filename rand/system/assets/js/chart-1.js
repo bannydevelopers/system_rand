@@ -5,17 +5,26 @@ var ctx = document.getElementById("chart-bars").getContext("2d");
 new Chart(ctx, {
   type: "bar",
   data: {
-    labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: ["Block B", "Block C", "Block D"],
     datasets: [
       {
-        label: "Sales",
+        label: "Taken",
         tension: 0.4,
         borderWidth: 0,
-        borderRadius: 4,
+        borderRadius: 0,
         borderSkipped: false,
         backgroundColor: "#fff",
-        data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
-        maxBarThickness: 6,
+        data: [5, 6, 9],
+        maxBarThickness: 36,
+      },{
+        label: "Remains",
+        tension: 0.4,
+        borderWidth: 0,
+        borderRadius: 0,
+        borderSkipped: false,
+        backgroundColor: "#ddd",
+        data: [1, 0, 0],
+        maxBarThickness: 36,
       },
     ],
   },
@@ -33,15 +42,16 @@ new Chart(ctx, {
     },
     scales: {
       y: {
+        stacked: true,
         grid: {
           drawBorder: false,
-          display: false,
+          display: true,
           drawOnChartArea: false,
           drawTicks: false,
         },
         ticks: {
           suggestedMin: 0,
-          suggestedMax: 600,
+          stepSize: 1,
           beginAtZero: true,
           padding: 15,
           font: {
@@ -54,6 +64,7 @@ new Chart(ctx, {
         },
       },
       x: {
+        stacked: true,
         grid: {
           drawBorder: false,
           display: false,
@@ -61,7 +72,8 @@ new Chart(ctx, {
           drawTicks: false,
         },
         ticks: {
-          display: false,
+          display: true,
+          color: "#fff",
         },
       },
     },
