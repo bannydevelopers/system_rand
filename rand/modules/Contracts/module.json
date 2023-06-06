@@ -1,5 +1,5 @@
 {
-    "name":"Contract",
+    "name":"Contracts",
     "icon":"store-alt",
     "nav":[
        
@@ -7,10 +7,10 @@
            ],
 
     "permissions":[
-        "can_add_contract",
-        "can_edit_contract",
-        "can_delete_contract",
-        "can_view_contract"
+        "can_add_contracts",
+        "can_edit_contracts",
+        "can_delete_contracts",
+        "can_view_contracts"
  
     ]
  }
