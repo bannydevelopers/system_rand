@@ -21,8 +21,28 @@ function get_apartment_cards($opts = []){
 }
 $storage= storage::init();
 $helper = helper::init();
-$user = $helper->get_session_user();
 $db = db::get_connection($storage->system_config->database);
+if(isset($_POST['cust_namez'])){
+    die(
+         json_encode([
+            'status'=>'success',
+            'data.user_fullname'=>'DOA',
+            'req'=>$_POST
+        ])
+         );
+}
+if(isset($_POST['login']) && isset($_POST['password'])){
+    $helper->login_user($_POST);
+    if(!$helper->check_user_session()) $msg = 'Login creditial mismatch';
+}
+if(isset($_GET['logout'])){
+    // Unset session
+    $helper->end_user_session();
+    // Remove query string
+    $url = strtok($_SERVER["REQUEST_URI"], '?');
+    header("Location: {$url}");
+}
+$user = $helper->get_session_user();
 
 $price = 0;
 if(isset($_GET['book'])){
@@ -98,17 +118,6 @@ if(isset($_REQUEST['pay_order'])){
     $dash = "{$storage->request_dir}/{$storage->system_config->dashboard}";
     header("Location: {$dash}");
     exit;
-}
-if(isset($_POST['login']) && isset($_POST['password'])){
-    $helper->login_user($_POST);
-    if(!$helper->check_user_session()) $msg = 'Login creditial mismatch';
-}
-if(isset($_GET['logout'])){
-    // Unset session
-    $helper->end_user_session();
-    // Remove query string
-    $url = strtok($_SERVER["REQUEST_URI"], '?');
-    header("Location: {$url}");
 }
 
 

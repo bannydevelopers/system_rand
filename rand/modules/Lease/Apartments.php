@@ -41,5 +41,5 @@ foreach($apartment as $app){
     $tree[$app['category_name']]['children'][] = $app;
 }
 //var_dump('<pre>',$tree);die;
-$data = ['apartment'=>$tree,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
+$data = ['apartment'=>$tree,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request, 'conf'=>storage::init()->system_config];
 echo helper::find_template('apartments', $data);
