@@ -16,13 +16,53 @@ Add Category
             <form class="space-y-6" method="POST">
               <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-1/2 px-3">
-                  <label>category name <span class="text-red-500">*</span>
+                  <label>Category name <span class="text-red-500">*</span>
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="category" name="category_name" required>
                   </label>
                 </div>
                 <div class="w-1/2 px-3">
-                  <label>category details 
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Details" name="category_details">
+                  <label>Category description 
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="description" name="category_description">
+                  </label>
+                </div>
+                <div class="w-1/2 px-3">
+                  <label>Bedroom 
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="bedroom">
+                  </label>
+                </div>
+                <div class="w-1/2 px-3">
+                  <label>Bathroom 
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="bathroom">
+                  </label>
+                </div>
+                <div class="w-1/2 px-3">
+                  <label>Kitchen 
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="kitchen">
+                  </label>
+                </div>
+                <div class="w-1/2 px-3">
+                  <label>Livingroom 
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="livingroom">
+                  </label>
+                </div>
+                <div class="w-1/2 px-3">
+                  <label>Dining room 
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="dinning_room">
+                  </label>
+                </div>
+                <div class="w-1/2 px-3">
+                  <label>TV
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="asserts[tv]">
+                  </label>
+                </div>
+                <div class="w-1/2 px-3">
+                  <label>Phone
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="asserts[phone]">
+                  </label>
+                </div>
+                <div class="w-1/2 px-3">
+                  <label>Price
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="price" name="price">
                   </label>
                 </div>
               </div>
@@ -201,7 +241,7 @@ Add Category
                           </td>
                           <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
                             <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
-                            
+                            <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Close </a>
                           </td>
                         </tr>
                         <?php } ?>

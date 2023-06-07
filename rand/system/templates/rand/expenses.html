@@ -33,23 +33,7 @@
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" name="expenses_amount" required>
                   </label>
                 </div>
-                <div class="w-full md:w-1/3 px-3"> 
-                  <label>Purchased by <span class="text-red-500">*</span>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" name="purchased_by" required>
-                  </label>
-                </div>
-                <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
-                  <label>Approval by <span class="text-red-500">*</span>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" name="approved_by" required>
-                  </label>
-                </div>
-                <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
-                  <label>Approval date <span class="text-red-500">*</span>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" min="<?= date('Y-m-d'); ?>" name="approval_date" required>
-                  </label>
-                </div>
-                
-              </div>
+               </div>
             </div>
           </div>
           <div class="pb-8">
@@ -83,9 +67,7 @@
                 <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Number items</th>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Description</th>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Amount</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Purchased by</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Approval by</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Approval date</th>
+               
                 
               </tr>
             </thead>
@@ -104,17 +86,6 @@
                 <td class="px-4 py-3 text-sm">
                   <?=$exp['expenses_amount']?>
                 </td>
-                <td class="px-4 py-3 text-sm">
-                  <?=$exp['purchased_by']?>
-                </td>
-                <td class="px-4 py-3 text-sm">
-                  <?=$exp['approved_by']?>
-                </td>
-                <td class="px-4 py-3 text-sm">
-                  <?=helper::format_time($exp['approval_date'],'d M, Y')?>
-                  
-                </td>
-             
               </tr>
               <?php }?>
             </tbody>
