@@ -813,6 +813,10 @@ h6 {
   margin: 0.5rem;
 }
 
+.m-auto {
+  margin: auto;
+}
+
 .-mx-1 {
   margin-left: -0.25rem;
   margin-right: -0.25rem;
@@ -1421,6 +1425,10 @@ h6 {
 
 .max-w-xl {
   max-width: 36rem;
+}
+
+.max-w-2xl {
+  max-width: 42rem;
 }
 
 .flex-1 {
@@ -4305,6 +4313,11 @@ h6 {
     margin-bottom: 0px;
   }
 
+  .md\:-mx-3 {
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+  }
+
   .md\:-mt-56 {
     margin-top: -14rem;
   }
@@ -4359,6 +4372,10 @@ h6 {
 
   .md\:w-8\/12 {
     width: 66.666667%;
+  }
+
+  .md\:w-full {
+    width: 100%;
   }
 
   .md\:flex-none {
