@@ -29,6 +29,6 @@ if(isset($_POST['full_name'])){
 }
 $tenants = $db->select('tenants')->order_by('tenants_id', 'desc')->fetchAll();
 $data = ['tenants'=>$tenants,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
-echo helper::find_template('Tenants', $data);
+echo helper::find_template('users', $data);
 
 
