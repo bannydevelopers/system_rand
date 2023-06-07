@@ -80,7 +80,7 @@ if(isset($_POST['customer_name'])){//var_dump($_POST);die;
                 $k = $db->insert('orders', $order);
                 if(!$db->error() && $k) {
                     $msg = 'Order added successful';
-                    $ok =true;
+                    $ok = true;
                     $pg = storage::init()->system_config->payment_gateway;
                     $path = realpath(__DIR__.'/../../')."/system/gateways/payment/{$pg}/index.php";
                     if(is_readable($path)) {
@@ -95,7 +95,8 @@ if(isset($_POST['customer_name'])){//var_dump($_POST);die;
                             'email'=>helper::format_email($_POST['customer_email']),
                             'order_amount'=>200,
                             'order_description'=>'blah blah',
-                            'order_reference'=>$k
+                            'order_reference'=>$k,
+                            'country'=>$_POST['country']
                         ];
                         $iframe = send_request($post_data, storage::init()->system_config);
                         //var_dump('<pre>',$iframe);die;
@@ -114,8 +115,18 @@ if(isset($_POST['customer_name'])){//var_dump($_POST);die;
     }
     else $msg = 'Invalid check-in or check-out dates';
 }
-if(isset($_REQUEST['pay_order'])){
+if(isset($_REQUEST['OrderMerchantReference'])){
     $dash = "{$storage->request_dir}/{$storage->system_config->dashboard}";
+    //OrderTrackingId=1ea70d3b-c05c-4da0-aaf8-e0465ac2596e&OrderMerchantReference=12
+    $json = json_encode($_REQUEST);
+    $oid = intval( $_REQUEST['OrderMerchantReference'] );
+    $o = $db->update('orders', ['order_response'=>$json])
+               ->where(['order_id'=>$oid])
+               ->commit();
+    
+    $cs = $db->update('check_scheduling', ['check_status'=>'paid'])
+             ->where("check_id IN (SELECT check_schedule FROM orders WHERE order_id = {$oid})")
+             ->commit();
     header("Location: {$dash}");
     exit;
 }
