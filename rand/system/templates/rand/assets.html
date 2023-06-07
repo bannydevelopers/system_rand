@@ -1,7 +1,13 @@
 
+<style>
+  .drag-image {margin: auto; border: 1px dashed rgb(117, 226, 245); height: 250px; width: 250px; display: flex; align-items: center; justify-content: center; flex-direction: column;}
+  .drag-image.active {border: 2px solid rgb(65, 102, 224);}
+  .outer-drag-image img {height: 100%; width: 100%; object-fit: cover; border-radius: 5px;}
+</style>
+
 <!-- Main modal -->
 <div id="add-asset-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
-  <div class="relative w-full max-w-sm max-h-full items-center">
+  <div class="relative w-full max-w-2xl max-h-full items-center">
       <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
           <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white" data-modal-hide="add-asset-modal">
@@ -11,33 +17,39 @@
           <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
             <h3 class="mb-4 text-xl font-medium text-center uppercase">Add new asset </h3>
             <form class="space-y-6" action="" method="POST">
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3 my-2">
-                  <label>Asset name
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="assets_name" type="text" placeholder="asset name" required>
-                  </label>
+              <div class="flex flex-wrap w-full ">
+                <div class="w-full md:w-1/2 -mx-3 mb-6">
+                  <div class="text-center pt-4">
+                    <div class="outer-drag-image">
+                        <div class="drag-image">
+                            <div class="icon"><i class="fa fa-cloud fa-2xl"></i></div>
+                            <br>
+                            <h6> Drag & Drop File Here </h6> 
+                            <span> OR </span> 
+                            <label id="load-image" class="text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center"> Browse File </label> 
+                        </div>
+                        <input type="file" name="avata" id="input-file-image" hidden required>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3 my-2">
-                  <label>Description
-                    <textarea class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="assets_description" placeholder="Asset description" required></textarea>
-                  </label>
-                </div>
-              </div>
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3 my-2">
-                  <label>Quantity
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="assets_quantity" type="number" required>
-                  </label>
-                </div>
-              </div>
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3 my-2">
-                  <label>Assets Image
-                    <input type="file" accept="image/*" onchange="loadFile(event)">
-                    <p><img id="output" width="200"/></p>
-                  </label>
+                <div class="w-full md:w-1/2 m-auto">
+                  <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full px-3 my-2">
+                      <label>Asset name
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="assets_name" type="text" placeholder="asset name" required>
+                      </label>
+                    </div>
+                    <div class="w-full px-3 my-2">
+                      <label>Description
+                        <textarea class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="assets_description" placeholder="Asset description" required></textarea>
+                      </label>
+                    </div>
+                    <div class="w-full px-3 my-2">
+                      <label>Quantity
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="assets_quantity" type="number" min="0" required>
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="pb-8 text-right gap-x-4 pr-32">
@@ -64,20 +76,20 @@
       <div class="px-1 pt-0 pb-2">
         <div class="p-0 overflow-x-auto">
           <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
-            <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
-              <tr>
+            <thead class="border-b border-gray-200 align-bottom uppercase text-slate-800 text-sm text-left">
+              <tr class="border-b border-gray-200">
                 <th>&nbsp;</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Asset name</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Desc</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">How many</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Action</th>
+                <th class="px-3 py-3 font-bold bg-transparent shadow-none tracking-none whitespace-nowrap opacity-70">Asset name</th>
+                <th class="px-3 py-3 font-bold bg-transparent shadow-none tracking-none whitespace-nowrap opacity-70">Desc</th>
+                <th class="px-3 py-3 font-bold bg-transparent shadow-none tracking-none whitespace-nowrap opacity-70">How many</th>
+                <th class="px-3 py-3 font-bold bg-transparent shadow-none tracking-none whitespace-nowrap opacity-70">Action</th>
               </tr>
             </thead>
             <tbody>
               <?php foreach($assets as $as){?>
-              <tr>
+              <tr class="border-b border-gray-200 border-b-solid hover:bg-gray-200">
                 <td class="px-4 py-3">
-                  <img src="../assets/img/home-decor-2.jpg" class="h-16 w-16 object-cover" width="40"/>
+                  <img src="img/home-decor-2.jpg" class="h-16 w-16 object-cover" width="40"/>
                 </td>
                 <td class="px-4 py-3 text-sm">
                   <?=$as['assets_name']?>
@@ -88,13 +100,13 @@
                 <td class="px-4 py-3 text-sm">
                   <?=$as['assets_quantity']?>
                 </td>
-                <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
+                <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
                   <a href="javascript:;" data-modal-target="edit-asset-modal-<?=$as['assets_name']?>" data-modal-toggle="edit-asset-modal-<?=$as['assets_name']?>" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
                  </td>
               </tr>
 <!-- Main modal -->
 <div id="edit-asset-modal-<?=$as['assets_name']?>" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
-  <div class="relative w-full max-w-sm max-h-full items-center">
+  <div class="relative w-full max-w-2xl max-h-full items-center">
       <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
           <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white" data-modal-hide="edit-asset-modal-<?=$as['assets_name']?>">
@@ -103,38 +115,40 @@
           </button>
           <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
             <h3 class="mb-4 text-xl font-medium text-center uppercase">Edit asset </h3>
-            <form class="space-y-6" action="" method="POST">
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3 my-2">
-                  <label>Asset name
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="assets_name" type="text" placeholder="asset name" value="<?=$as['assets_name']?>" required>
-                  </label>
+            <form class="space-y-6" action="" method="POST" enctype="multipart/form-data">
+              <div class="flex flex-wrap w-full ">
+                <div class="w-full md:w-1/2 -mx-3 mb-6">
+                  <div class="text-center pt-4">
+                    <div class="outer-drag-image">
+                        <div class="drag-image" style="background-image: url(img/home-decor-2.jpg); background-size: cover; background-position: center;">
+                            
+                        </div>
+                        <input type="file" name="avata" id="input-file-image-edit" hidden required>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3 my-2">
-                  <label>Description
-                    <textarea class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="assets_description" placeholder="Asset description" required><?=$as['descriptions']?></textarea>
-                  </label>
-                </div>
-              </div>
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3 my-2">
-                  <label>Quantity
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="assets_quantity" value="<?=$as['assets_quantity']?>" type="number" min="0" required>
-                  </label>
-                </div>
-              </div>
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3 my-2">
-                  <label>Assets Image
-                    <input type="file" accept="image/*" onchange="loadFile(event)">
-                    <p><img id="output" width="200"/></p>
-                  </label>
+                <div class="w-full md:w-1/2 m-auto">
+                  <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full px-3 my-2">
+                      <label>Asset name
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="assets_name" type="text" placeholder="asset name" value="<?=$as['assets_name']?>" required>
+                      </label>
+                    </div>
+                    <div class="w-full px-3 my-2">
+                      <label>Description
+                        <textarea class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="assets_description" placeholder="Asset description" required><?=$as['descriptions']?></textarea>
+                      </label>
+                    </div>
+                    <div class="w-full px-3 my-2">
+                      <label>Quantity
+                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="assets_quantity" value="<?=$as['assets_quantity']?>" type="number" min="0" required>
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="pb-8 text-right gap-x-4 pr-32">
-                <button  class="mx-2 text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save</button>
+                <button  class="mx-2 text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Save asset</button>
               </div>
             </form>
           </div>
@@ -152,3 +166,102 @@
 </div>
 
 <script src="js/plugins/flowbite.min.js"></script>
+<script>
+  const dropArea = document.querySelector(".outer-drag-image"),
+  dragText = dropArea.querySelector("h6"),
+  button = dropArea.querySelector("#load-image"),
+  input = dropArea.querySelector("#input-file-image");
+  let file;
+  //link button with input file 
+  button.onclick = ()=>{
+      input.click();
+  }
+  input.addEventListener("change", function(){
+      file = this.files[0];
+      dropArea.classList.add("active");
+      viewfile();
+  });
+  dropArea.addEventListener("dragover", (event)=>{
+      event.preventDefault();
+      dropArea.classList.add("active");
+      dragText.textContent = "Release to Upload File";
+  });
+  dropArea.addEventListener("dragleave", ()=>{
+      dropArea.classList.remove("active");
+      dragText.textContent = "Drag & Drop to Upload File";
+  });
+  dropArea.addEventListener("drop", (event)=>{
+      event.preventDefault();
+      file = event.dataTransfer.files[0];
+      viewfile();
+  });
+  function viewfile(){
+      let fileType = file.type;
+      let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
+      if(validExtensions.includes(fileType)){
+          let fileReader = new FileReader();
+          fileReader.onload = ()=>{
+              let fileURL = fileReader.result;
+              let imgTag = `<img src="${fileURL}" alt="image">`;
+              document.querySelector(".drag-image").innerHTML = imgTag;
+          }
+      fileReader.readAsDataURL(file);
+      }
+      else{
+          alert("This is not an Image File!");
+          dropArea.classList.remove("active");
+          dragText.textContent = "Drag & Drop to Upload File";
+      }
+  }
+  indexNav = document.getElementById("index-nav");
+  indexNav.remove();
+  toggleUserEdit = document.getElementById("toggle-user-edit");
+  userInfo = document.getElementById("user-info");
+  var prevUserInfo = userInfo.innerHTML;
+  const userBio = document.getElementById("user-bio");
+  const userName = document.getElementById("user-name");
+  const userPhone = document.getElementById("user-phone");
+  const userEmail = document.getElementById("user-email");
+  const userAddress = document.getElementById("user-address");
+
+
+  function editUserInfo() {
+    userInfo.innerHTML = `<div class="flex-auto">
+      <form role="form" method="POST">
+        <div class="mb-4">
+          <textarea name="bio" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" rows="5" placeholder="Bio">`+userBio.innerHTML+`</textarea>
+        </div>
+        <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Full name</label>
+        <div class="mb-4">
+          <input type="text" name="name" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Full name" value="`+userName.innerHTML+`"/>
+        </div>
+        <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Phone</label>
+        <div class="mb-4">
+          <input type="text" name="phone" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Phone number" value="`+userPhone.innerHTML+`"/>
+        </div>
+        <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Email</label>
+        <div class="mb-4">
+          <input type="text" name="email" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Email address" value="`+userEmail.innerHTML+`"/>
+        </div>
+        <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Location address</label>
+        <div class="mb-4">
+          <textarea type="text" name="address" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Residence address">`+userAddress.innerHTML+`</textarea>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="inline-block w-32 px-3 py-2 mt-6 mb-0 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-blue-600 to-cyan-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85">Save</button>
+        </div>
+      </form>
+    </div>`;
+    toggleUserEdit.innerHTML = `<button type="button" onclick="cancelEditUserInfo()">
+      <i class="leading-normal fas fa-user-edit text-sm text-slate-400"></i>
+      <span class="pl-1">Cancel</span>
+    </button>`;
+  }
+  function cancelEditUserInfo() {
+    userInfo.innerHTML = prevUserInfo;
+    toggleUserEdit.innerHTML = `<button type="button" onclick="editUserInfo()">
+      <i class="leading-normal fas fa-user-edit text-sm text-slate-400"></i>
+      <span class="pl-1">Edit</span>
+    </button>`;
+  }
+</script>

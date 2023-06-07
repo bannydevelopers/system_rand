@@ -122,7 +122,7 @@
           <div class="flex flex-wrap -mx-3">
             <div class="flex-none w-auto max-w-full px-3">
               <div class="text-base ease-soft-in-out h-18.5 w-18.5 relative inline-flex items-center justify-center rounded-xl text-white transition-all duration-200">
-                <img src="img/jr1.jpg" alt="profile_image" class="w-full shadow-soft-sm rounded-xl" />
+                <img src="<?=helper::get_user_avatar($user['user_id'])?>" alt="profile_image" class="w-full shadow-soft-sm rounded-xl" />
                 <span data-modal-target="upload-dp-modal" data-modal-toggle="upload-dp-modal" class="absolute w-6 h-6 text-center rounded-1 cursor-pointer bottom-0 right-0 bg-gray-400"><i class="leading-normal fas fa-pen text-sm text-black"></i></span>
               </div>
             </div>
