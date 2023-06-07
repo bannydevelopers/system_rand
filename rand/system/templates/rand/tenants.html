@@ -119,11 +119,10 @@
           <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
             <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
               <tr>
-                <th>&nbsp;</th>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Name</th>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Address</th>
-                <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date in</th>
-                <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date out</th>
+                <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date in</th>
+                <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date out</th>
                 <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">apartment</th>
                 <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Adults</th>
                 <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Children</th>
@@ -132,50 +131,48 @@
             </thead>
             <tbody>
               <?php 
-              if (is_array($tenants) || is_object($tenants))
-              foreach ($tenants as $tena)
-           {?>
-              <tr>
-                <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
+                if (is_array($tenants) || is_object($tenants))
+                foreach ($tenants as $tena)
+              {?>
+              <tr class="border-b border-gray-200 border-b-solid">
+                <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
                   <div class="flex px-2 py-1">
-                    <div>
                       <div class="relative h-10 w-10 mr-4">
                         <img class="rounded-full border border-gray-100 shadow-sm h-10 w-10" src="../assets/img/no-profile.jpg" alt="user image" /> 
                         <div class="absolute top-0 right-0 h-3 w-3 my-1 border-2 border-white rounded-full bg-green-400 z-2"></div>
                       </div>
-                    </div>
-                  </td>
-                  <td class="px-4 py-3 text-sm">
-                    <span style="white-space: nowrap;"><?=$tena['full_name']?></span><br>
-                    <?=$tena['tenants_email']?><br>
-                    <?=$tena['phone_number']?>
-                  </td>
-                  <td class="px-4 py-3 text-sm">
-                    <?=$tena['resident_adress']?>
-                  </td>
-                  <td class="px-4 py-3 text-sm">
-                    <?=helper::format_time($tena['date_in'],'d M, Y')?>
-                  </td>
-                  <td class="px-4 py-3 text-sm">
-                    <?=helper::format_time($tena['date_out'],'d M, Y')?>
-                  </td>
-                  <td class="px-4 py-3 text-sm">
-                    <?=$tena['occupied_apartment']?>
-                  </td>
-                  <td class="px-4 py-3 text-sm">
-                    <?=$tena['adults']?>
-                  </td>
-                  <td class="px-4 py-3 text-sm">
-                    <?=$tena['children']?>
-                  </td>
-                  <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
-                    <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
-                    <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Deactivate </a>
-                  </td>
-              
-                    </tr>
-                      <?php }?>
-             </tbody>
+                      <div class="text-sm">
+                        <span style="white-space: nowrap;"><?=$tena['full_name']?></span><br>
+                        <?=$tena['tenants_email']?><br>
+                        <?=$tena['phone_number']?>
+                      </div>
+                  </div>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=$tena['resident_adress']?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=helper::format_time($tena['date_in'],'d M, Y')?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=helper::format_time($tena['date_out'],'d M, Y')?>
+                </td>
+                <td class="px-4 py-3 text-sm text-center">
+                  <?=$tena['occupied_apartment']?>
+                </td>
+                <td class="px-4 py-3 text-sm text-center">
+                  <?=$tena['adults']?>
+                </td>
+                <td class="px-4 py-3 text-sm text-center">
+                  <?=$tena['children']?>
+                </td>
+                <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
+                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
+                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Deactivate </a>
+                </td>
+              </tr>
+              <?php }?>
+            </tbody>
           </table>
         </div>
       </div>
@@ -184,3 +181,4 @@
 </div>
   
 <script src="js/plugins/flowbite.min.js"></script>
+<script src="js/plugins/alpine.min.js"></script>
