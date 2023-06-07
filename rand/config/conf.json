@@ -17,9 +17,9 @@
         "Expenses",
         "Assets",
         "Users",
-        "Settings",
         "Contract",
-        "Requests"
+        "Requests",
+        "Settings"
     
     ],
     "phpmailer": {

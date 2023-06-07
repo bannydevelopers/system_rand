@@ -8,9 +8,8 @@ $request = $_SERVER['REQUEST_URI'];
 if(isset($_POST['house_details'])){
     $data = [
         'house_details'=>$_POST['house_details'], 
-        'descriptions'=>$_POST['requests_description'], 
+        'description'=>$_POST['descriptions'], 
         'submitted_date'=>$_POST['submitted_date'],
-        'remark'=>$_POST['remark'], 
         'status'=>$_POST['status']
           
       

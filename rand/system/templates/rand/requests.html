@@ -20,7 +20,7 @@
                   </div>
                   <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
                     <label>Description <span class="text-red-500">*</span>
-                      <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="Description" name="description" required>
+                      <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="Descriptions" name="descriptions" required>
                     </label>
                   </div>
                   <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
@@ -30,11 +30,6 @@
                   </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-6">
-                  <div class="w-full md:w-1/3 px-3"> 
-                    <label>Remark <span class="text-red-500">*</span>
-                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" name="remark" required>
-                    </label>
-                  </div>
                   <div class="w-full md:w-1/3 px-3"> 
                     <label>Status <span class="text-red-500">*</span>
                       <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" name="status" required>
@@ -70,11 +65,9 @@
             <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
               <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
                 <tr>
-                  <th>&nbsp;</th>
                   <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">House details</th>
                   <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Description</th>
                   <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Submitted date</th>
-                  <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Remark</th>
                   <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Status</th>
                   <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Action</th>
                 </tr>
@@ -85,26 +78,14 @@
                 foreach ($requests as $req)
              {?>
                 <tr>
-                  <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
-                    <div class="flex px-2 py-1">
-                      <div>
-                        <div class="relative h-10 w-10 mr-4">
-                          <img class="rounded-full border border-gray-100 shadow-sm h-10 w-10" src="../assets/img/no-profile.jpg" alt="user image" /> 
-                          <div class="absolute top-0 right-0 h-3 w-3 my-1 border-2 border-white rounded-full bg-green-400 z-2"></div>
-                        </div>
-                      </div>
-                    </td>
                     <td class="px-4 py-3 text-sm">
-                      <span style="white-space: nowrap;"><?=$req['house_details']?></span>
+                        <?=$req['house_details']?>
                       </td>
                     <td class="px-4 py-3 text-sm">
-                      <?=$req['description']?>
+                      <?=$req['descriptions']?>
                     </td>
                     <td class="px-4 py-3 text-sm">
                       <?=helper::format_time($req['submitted_date'],'d M, Y')?>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      <?=$req['remark']?>
                     </td>
                     <td class="px-4 py-3 text-sm">
                       <?=$req['status']?>
