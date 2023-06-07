@@ -60,7 +60,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <select class="form-select" id="countryReg" name="cust_country">
+                                    <select class="form-select" id="countryReg" name="country">
                                     <?php include('components/countries.html')?>
                                     </select>
                                     <label for="countryReg">Select your country</label>
@@ -152,14 +152,18 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <select class="form-select" name="apartment_category" id="apartment_category" disabled>
+                                            <select class="form-select" name="apartment_categoryx" id="apartment_category" disabled>
                                               <option value="">Choose...</option>
-                                              <?php $selected = isset($_GET['book']) ? $_GET['book'] : '';?>
-                                              <?php foreach(get_apartment_cards() as $category=>$val){?>
+                                              <?php 
+                                                $selected = isset($_GET['book']) ? $_GET['book'] : '';
+                                                $cats = get_apartment_cards();
+                                                ?>
+                                              <?php foreach($cats as $category=>$val){?>
                                               <option value="<?=$val[0]['apartment_category']?>" <?=$selected == $category ? ' selected':''?>><?=$category?></option>
                                               <?php }?>
                                             </select>
-                                            <input type="hidden" value="<?=$val[0]['apartment_category']?>" name="apartment_category">
+                                            
+                                            <input type="hidden" value="<?=$cats[$selected][0]['apartment_category']?>" name="apartment_category">
                                             <label for="apartment_category">Selected apartment</label>
                                         </div>
                                     </div>
