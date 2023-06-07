@@ -13,7 +13,7 @@ if(isset($_POST['apartment_category'])){
         'apartment_category'=>$_POST['apartment_category']        
     ];
     $k = $db->insert('apartments', $data);
-    var_dump($db->error());
+    //var_dump($db->error());
    
     if(!$db->error() && $k) {
         $msg = 'apartment added successful';
@@ -22,6 +22,31 @@ if(isset($_POST['apartment_category'])){
     else $msg = 'Error adding apartment';
     //var_dump($db->error());
 }
+
+if(isset($_POST['category_name'])){
+    $data = [
+        'category_name'=>$_POST['category_name'],
+        'category_description'=>$_POST['category_description'], 
+        'bedroom'=>$_POST['bedroom'], 
+        'bathroom'=>$_POST['bathroom'],
+        'kitchen'=>$_POST['kitchen'], 
+        'livingroom'=>$_POST['livingroom'],
+        'price'=>$_POST['price'], 
+        'dinning_room'=>$_POST['dinning_room'],
+        'asserts'=>json_encode($_POST['asserts'])
+                
+       ];
+    $k = $db->insert('apartment_category', $data);
+    //var_dump($db->error());
+   
+    if(!$db->error() && $k) {
+        $msg = 'category added successful';
+        $ok =true;
+    }
+    else $msg = 'Error adding category';
+    //var_dump($db->error());
+}
+
 $apartment_category = $db->select('apartment_category')
                          ->fetchALL();
 $tree = [];
