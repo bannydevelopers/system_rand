@@ -75,7 +75,34 @@
   </div>
 </div> 
 <!--/ Modal toggle -->
-
+<?php if($msg){ 
+  if($status == 'success') {?>
+  <div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+    <span>
+      <i class="fa-solid fa-circle-info fa-lg"></i>
+    </span>
+    <div class="ml-3 text-sm font-medium">
+      <?=$msg?>
+    </div> 
+    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg foinv:ring-2 foinv:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+      <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+    </button>
+  </div>
+<?php } 
+  else if($status == 'fail') {?>
+<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+  <span>
+    <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+  </span>
+  <div class="ml-3 text-sm font-medium">
+    <?=$msg?>
+  </div> 
+  <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
+    <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+  </button>
+</div>
+<?php }
+}?>
 <div class="flex flex-wrap -mx-3">
   <div class="flex-none w-full max-w-full pl-3">
     <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
@@ -92,11 +119,10 @@
           <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
             <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
               <tr>
-                <th>&nbsp;</th>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Name</th>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Address</th>
-                <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date in</th>
-                <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date out</th>
+                <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date in</th>
+                <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date out</th>
                 <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">apartment</th>
                 <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Adults</th>
                 <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Children</th>
@@ -105,50 +131,48 @@
             </thead>
             <tbody>
               <?php 
-              if (is_array($tenants) || is_object($tenants))
-              foreach ($tenants as $tena)
-           {?>
-              <tr>
-                <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
+                if (is_array($tenants) || is_object($tenants))
+                foreach ($tenants as $tena)
+              {?>
+              <tr class="border-b border-gray-200 border-b-solid">
+                <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
                   <div class="flex px-2 py-1">
-                    <div>
                       <div class="relative h-10 w-10 mr-4">
                         <img class="rounded-full border border-gray-100 shadow-sm h-10 w-10" src="../assets/img/no-profile.jpg" alt="user image" /> 
                         <div class="absolute top-0 right-0 h-3 w-3 my-1 border-2 border-white rounded-full bg-green-400 z-2"></div>
                       </div>
-                    </div>
-                  </td>
-                  <td class="px-4 py-3 text-sm">
-                    <span style="white-space: nowrap;"><?=$tena['full_name']?></span><br>
-                    <?=$tena['tenants_email']?><br>
-                    <?=$tena['phone_number']?>
-                  </td>
-                  <td class="px-4 py-3 text-sm">
-                    <?=$tena['resident_adress']?>
-                  </td>
-                  <td class="px-4 py-3 text-sm">
-                    <?=helper::format_time($tena['date_in'],'d M, Y')?>
-                  </td>
-                  <td class="px-4 py-3 text-sm">
-                    <?=helper::format_time($tena['date_out'],'d M, Y')?>
-                  </td>
-                  <td class="px-4 py-3 text-sm">
-                    <?=$tena['occupied_apartment']?>
-                  </td>
-                  <td class="px-4 py-3 text-sm">
-                    <?=$tena['adults']?>
-                  </td>
-                  <td class="px-4 py-3 text-sm">
-                    <?=$tena['children']?>
-                  </td>
-                  <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
-                    <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
-                    <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Deactivate </a>
-                  </td>
-              
-                    </tr>
-                      <?php }?>
-             </tbody>
+                      <div class="text-sm">
+                        <span style="white-space: nowrap;"><?=$tena['full_name']?></span><br>
+                        <?=$tena['tenants_email']?><br>
+                        <?=$tena['phone_number']?>
+                      </div>
+                  </div>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=$tena['resident_adress']?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=helper::format_time($tena['date_in'],'d M, Y')?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=helper::format_time($tena['date_out'],'d M, Y')?>
+                </td>
+                <td class="px-4 py-3 text-sm text-center">
+                  <?=$tena['occupied_apartment']?>
+                </td>
+                <td class="px-4 py-3 text-sm text-center">
+                  <?=$tena['adults']?>
+                </td>
+                <td class="px-4 py-3 text-sm text-center">
+                  <?=$tena['children']?>
+                </td>
+                <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
+                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
+                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Deactivate </a>
+                </td>
+              </tr>
+              <?php }?>
+            </tbody>
           </table>
         </div>
       </div>
@@ -157,3 +181,4 @@
 </div>
   
 <script src="js/plugins/flowbite.min.js"></script>
+<script src="js/plugins/alpine.min.js"></script>
