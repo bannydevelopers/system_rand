@@ -112,7 +112,7 @@
             <ul class="flex flex-row justify-end list-none md-max:w-full">
               <li class="flex items-center px-2">
                 <a href="<?=$home?>/Profile" class="block font-semibold transition-all ease-nav-brand text-sm text-slate-500">
-                  <img class="w-9 h-9 rounded-full" src="img/jr1.jpg" alt="">
+                  <img class="w-9 h-9 rounded-full" src="<?=helper::get_user_avatar($user['user_id'])?>" alt="">
                 </a>
               </li>
               <li class="flex items-center px-2 xl:hidden">
