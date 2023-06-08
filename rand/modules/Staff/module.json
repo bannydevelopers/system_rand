@@ -1,0 +1,15 @@
+{
+    "name": "Staff",
+    "icon": "user-shield",
+    "nav": [
+        
+    ],
+    "permissions":[
+        "can_add_staff",
+        "can_edit_staff",
+        "can_delete_staff",
+        "can_view_staff"
+ 
+       
+  ]
+ }
