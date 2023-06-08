@@ -59,10 +59,13 @@
         <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex">
           <h5>Requests list</h5>
           <!-- Modal toggle -->
+          
+        <?php if(helper::init()->user_can('can_add_requests')){?>
           <button data-modal-target="add-user-modal" data-modal-toggle="add-user-modal" 
           class="text-blue-400 hover:text-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mx-6 px-2" type="button">
             <i class="fa-solid fa-plus text-xl"></i>
           </button>
+          <?php } ?>
         </div>
         <div class="px-1 pt-0 pb-2">
           <div class="p-0 overflow-x-auto">
