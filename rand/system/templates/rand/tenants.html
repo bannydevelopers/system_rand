@@ -56,7 +56,7 @@
                 </div>
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
                   <label>Adults <span class="text-red-500">*</span>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="adults"name="adults" required>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="adults" name="adults" required>
                   </label>
                 </div>
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
@@ -169,10 +169,86 @@
                   <?=$tena['children']?>
                 </td>
                 <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
-                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
-                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Deactivate </a>
+                  <a href="javascript:;" data-modal-target="edit-tenants-modal-<?=$tena['full_name']?>" data-modal-toggle="edit-tenants-modal-<?=$tena['full_name']?>" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
                 </td>
               </tr>
+              <div id="edit-tenants-modal-<?=$tena['full_name']?>" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
+                <div class="relative w-full max-w-4xl max-h-full items-center">
+                  <!-- Modal content -->
+                  <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="edit-tenants-modal-<?=$tena['full_name']?>" id="close-user-modal-id">
+                      <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+                      <span class="sr-only">Close modal</span>
+                    </button>
+                    <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
+                      <h3 class="mb-4 text-xl font-medium">Add tenants </h3>
+                      <form class="space-y-6" method="POST" enctype="multipart/form-data">
+                        <div class="divide-y">
+                          <div>
+                            <div class="flex flex-wrap -mx-3 mb-6">
+                              <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
+                                <label>Full name <span class="text-red-500">*</span>
+                                  <input  class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="User's full name" name="full_name"  pattern="([a-zA-Z]+\s){1,2}([a-zA-Z]+)" value="<?=$tena['full_name']?>" required>
+                                </label>
+                              </div>
+                              <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
+                                <label>Email address <span class="text-red-500">*</span>
+                                  <input type="email" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="Email address" value="<?=$tena['tenants_email']?>" name="tenants_email" required>
+                                </label>
+                              </div>
+                              <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
+                                <label class="flex flex-col"><div>Phone number <span class="text-red-500">*</span></div>
+                                  <input id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" type="tel" value="<?=$tena['phone_number']?>" name="phone_number" required>
+                                </label>
+                              </div>
+                            </div>
+                            <div class="flex flex-wrap -mx-3 mb-6">
+                              <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                                <label>Residence address <span class="text-red-500">*</span>
+                                  <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="Residence address" value="<?=$tena['resident_adress']?>" name="residence_address" required>
+                                </label>
+                              </div>
+                              <div class="w-full md:w-1/3 px-3"> 
+                                <label>Date in <span class="text-red-500">*</span>
+                                  <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date"  min="<?= date('Y-m-d'); ?>" value="<?=$tena['date_in']?>" name="date_in" required>
+                                </label>
+                              </div>
+                              <div class="w-full md:w-1/3 px-3"> 
+                                <label>Date out <span class="text-red-500">*</span>
+                                  <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" min="<?= date('Y-m-d'); ?>" value="<?=$tena['date_out']?>" name="date_out" required>
+                                </label>
+                              </div>
+                            </div>
+                            <div class="flex flex-wrap -mx-3 mb-6">
+                              <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                                <label>Apartment <span class="text-red-500">*</span>
+                                  <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="occupied_apartment"  required><?=$tena['occupied_apartment']?>
+                                    <option selected="true" disabled="disabled">Choose...</option>                        
+                                  </select>
+                                </label>
+                              </div>
+                              <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                                <label>Adults <span class="text-red-500">*</span>
+                                  <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="adults" value="<?=$tena['adults']?>" name="adults" required>
+                                </label>
+                              </div>
+                              <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                                <label>Children <span class="text-red-500">*</span>
+                                  <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="children" value="<?=$tena['children']?>" name="children" required>
+                                </label>
+                              </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="pb-8">
+                          <button type="submit" class="float-right text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Save</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <!--/ Modal content -->
+                </div>
+              </div> 
               <?php }?>
             </tbody>
           </table>
