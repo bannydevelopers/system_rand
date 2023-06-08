@@ -2,12 +2,12 @@
 <div id="add-user-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
   <div class="relative w-full max-w-4xl max-h-full items-center">
     <!-- Modal content -->
-    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-      <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-user-modal" id="close-user-modal-id">
+    <div class="relative bg-white rounded-lg shadow">
+      <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-hide="add-user-modal" id="close-user-modal-id">
         <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
         <span class="sr-only">Close modal</span>
       </button>
-      <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
+      <div class="px-6 py-6 lg:px-8 text-gray-900">
         <h3 class="mb-4 text-xl font-medium">Add staff </h3>
         <form class="space-y-6" method="POST" enctype="multipart/form-data">
           <div class="divide-y">
@@ -78,33 +78,57 @@
         <div class="flex flex-wrap">
           <?php foreach($staff as $x) { ?>
           <!-- Card -->
-          <div class="w-full lg:w-1/2">
-            <div class="flex flex-col sm:flex-row m-2 bg-gray-100 rounded-2">
+          <div id="tr-<?=$x['staff_id']?>" class="w-full lg:w-1/2">
+            <div class="flex flex-col sm:flex-row m-2 py-2 bg-gray-100 rounded-2">
               <div class="sm:w-1/3 text-center sm:pr-2 sm:py-2">
-                <div class="w-20 h-20 rounded-full inline-flex items-center justify-center bg-gray-300 text-gray-500">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10" viewBox="0 0 24 24">
-                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
+                <div class="text-lg sm:hidden relative">
+                  <div class="absolute top-4 right-4 z-10 flex flex-row">
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input id="checkbox-<?=$x['user_id']?>" type="checkbox" onclick="activateStaff(this)" class="sr-only peer" <?php if($x['status']=='active') {echo "checked";} ?> >
+                      <div class="w-9 h-5 bg-gray-300 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-2 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                    <button data-modal-target="edit-staff-modal-<?=$x['staff_id']?>" data-modal-toggle="edit-staff-modal-<?=$x['staff_id']?>" 
+                      class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
+                      aria-label="Edit">
+                      <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                    </button>
+                  </div> 
+                </div>
+                <div class="w-20 h-20 mt-2 rounded-full inline-flex items-center justify-center bg-gray-300 text-gray-500">
+                  <img class="object-cover w-full h-full rounded-full"
+                  src="<?=helper::get_user_avatar($x['user_id'])?>" alt="" loading="lazy" />
                 </div>
                 <div class="flex flex-col items-center text-center justify-center">
-                  <h2 class="font-medium title-font mt-4 text-gray-900 text-lg">Name name</h2>
+                  <h2 class="font-medium title-font mt-4 text-gray-900 text-lg"><?=$x['first_name'] . " " . $x['middle_name'] . " " . $x['last_name']?></h2>
                   <div class="w-12 h-1 bg-indigo-500 rounded mb-2"></div>
-                  <p class="text-base">Designation.</p>
+                  <p class="text-base"><?php foreach($designation as $y) {  
+                      if($y['designation_id'] == $x['designation']) { 
+                        print($y['designation_name']); 
+                        $designationValue = $y['designation_name'];
+                      }
+                    } ?>
+                  </p>
                 </div>
               </div>
-              <div class="sm:w-2/3 sm:pl-2 sm:py-2 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-2 sm:mt-0 text-center sm:text-left">
-                <p class="leading-relaxed text-lg mb-1">
-                  <label class="relative inline-flex items-center cursor-pointer">
-                    <input id="checkbox-<?=$x['user_id']?>" type="checkbox" onclick="activateStaff(this)" class="sr-only peer" <?php if($x['status']=='active') {echo "checked";} ?> >
-                    <div class="w-9 h-5 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-purple-600"></div>
-                  </label> 
-                </p>
-                <p class="leading-relaxed text-lg mb-1">Role: XXX</p>
-                <p class="leading-relaxed text-lg mb-1">Email : XXX</p>
-                <p class="leading-relaxed text-lg mb-1">Phone: XXX</p>
-                <p class="leading-relaxed text-lg mb-1">Address: XXX</p>
-                <p class="leading-relaxed text-lg mb-1">Date Reg: XXX</p>
+              <div class="sm:w-2/3 sm:pl-2 sm:py-2 sm:border-l border-gray-200 sm:border-t-0 border-t mt-2 pt-2 sm:mt-0 text-center sm:text-left">
+                <div class="text-lg hidden sm:block">
+                  <div class="text-right justify-center items-center pr-4">
+                    <label class="relative top-1.5 inline-flex items-center cursor-pointer">
+                      <input id="checkbox-<?=$x['user_id']?>" type="checkbox" onclick="activateStaff(this)" class="sr-only peer" <?php if($x['status']=='active') {echo "checked";} ?> >
+                      <div class="w-9 h-5 bg-gray-300 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                    <button data-modal-target="edit-staff-modal-<?=$x['staff_id']?>" data-modal-toggle="edit-staff-modal-<?=$x['staff_id']?>" 
+                      class="items-center justify-between px-2 text-sm font-medium text-blue-600 rounded-lg focus:outline-none focus:outline-gray-300"
+                      aria-label="Edit">
+                      <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                    </button>
+                  </div> 
+                </div>
+                <!-- <p class="leading-relaxed text-lg mb-1"><span class="font-semibold">Role</span>: <?=$x['system_role']?></p> -->
+                <p class="leading-relaxed text-lg mb-1"><span class="font-semibold">Email</span>: <?=$x['email']?></p>
+                <p class="leading-relaxed text-lg mb-1"><span class="font-semibold">Phone</span>: <?=$x['phone_number']?></p>
+                <p class="leading-relaxed text-lg mb-1"><span class="font-semibold">Address</span>: <?=$x['staff_residence_address']?></p>
+                <p class="leading-relaxed text-lg mb-1"><span class="font-semibold">Date Reg</span>: <?=$x['created_time']?></p>
               </div>
             </div>
           </div>
@@ -124,14 +148,14 @@
 <script src="js/plugins/flowbite.min.js"></script>
 
 <script>
-  problem = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-red-700 dark:bg-opacity-20 dark:text-red-400" role="alert">
+  problem = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-red-800 rounded-lg bg-red-50 role="alert">
     <span>
       <i class="fa-solid fa-circle-exclamation fa-lg"></i>
     </span>
     <div class="ml-3 text-sm font-medium">
       An error occured! Please refresh the page or try again later.
     </div> 
-    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 hover:bg-red-200 inline-flex  dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700">
+    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 hover:bg-red-200 inline-flex">
       <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
     </button>
   </div>`
@@ -169,7 +193,7 @@
     })
     .then(data => {
       if(data.status == 'success'){
-        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100" role="alert">
           <span>
             <i class="fa-solid fa-circle-info fa-lg"></i>
           </span>
@@ -177,14 +201,14 @@
             `+data.msg+` for staff `+data.staff.first_name+` `+data.staff.middle_name+` `+data.staff.last_name
             +`.
           </div> 
-          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex">
             <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
           </button>
         </div>`;console.log(data);
         document.getElementById('tr-'+staffId[1]).remove();
       }
       if(data.status == 'fail'){
-        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50" role="alert">
           <span>
             <i class="fa-solid fa-circle-exclamation fa-lg"></i>
           </span>
@@ -192,7 +216,7 @@
             `+data.msg+` for staff `+data.staff.first_name+` `+data.staff.middle_name+` `+data.staff.last_name
             +`.
           </div> 
-          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex">
             <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
           </button>
         </div>`;
@@ -200,14 +224,14 @@
         delStaffBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
       }
       if(data.status == 'not-exist' || data.status == 'denied'){
-        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50" role="alert">
           <span>
             <i class="fa-solid fa-circle-exclamation fa-lg"></i>
           </span>
           <div class="ml-3 text-sm font-medium">
             `+data.msg+`.
           </div> 
-          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex">
             <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
           </button>
         </div>`;
@@ -235,7 +259,7 @@
     userData.append('ajax_activate_user', userId[1]);
     userData.append('status', status);
     
-    let url = '';
+    let url = '<?=$request_uri?>';
     let obj = {
       method: "POST", 
       body: userData,
@@ -251,14 +275,27 @@
     .then(data => {
       console.log(data);
       if(data.status == 'success'){
-        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100" role="alert">
           <span>
             <i class="fa-solid fa-circle-info fa-lg"></i>
           </span>
           <div class="ml-3 text-sm font-medium">
             `+data.msg+`.
           </div> 
-          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex">
+            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+          </button>
+        </div>`;
+      }
+      if(data.status == 'fail') {
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-100" role="alert">
+          <span>
+            <i class="fa-solid fa-circle-info fa-lg"></i>
+          </span>
+          <div class="ml-3 text-sm font-medium">
+            `+data.msg+`.
+          </div> 
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-100 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex">
             <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
           </button>
         </div>`;
