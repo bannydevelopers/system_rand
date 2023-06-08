@@ -34,32 +34,49 @@ foreach($expenses as $expense) {
 }
 
 
-$orders = $db->select('apartment_category','category_name, COUNT(apartment_id) as apartCount, COUNT(payment_amount) as ordersCount, SUM(payment_amount) as ordersSum')
+// $orders = $db->select('apartment_category','category_name, COUNT(apartment_id) as apartCount, COUNT(payment_amount) as ordersCount, SUM(payment_amount) as ordersSum')
+//              ->join('apartments','apartments.apartment_category=apartment_category.category_id')
+//              ->join('orders','orders.apartment_category=apartment_category.category_id', 'left')
+//              ->group_by('category_id')
+//             //  ->order_by('category_id','desc')
+//              ->fetchAll();
+$apartments = $db->select('apartment_category','category_name, COUNT(apartment_id) as apartCount')
              ->join('apartments','apartments.apartment_category=apartment_category.category_id')
+             ->group_by('category_id')
+             ->order_by('category_id','asc')
+             ->fetchAll();
+$orders = $db->select('apartment_category','category_name, COUNT(payment_amount) as ordersCount, SUM(payment_amount) as ordersSum')
              ->join('orders','orders.apartment_category=apartment_category.category_id', 'left')
              ->group_by('category_id')
-            //  ->order_by('category_id','desc')
+             ->order_by('category_id','asc')
              ->fetchAll();
-             print_r($db->error());
-var_dump('<pre>',$orders);die();
-// $expensesSum = 0;
-$aparCategory = [];
-foreach($apartmentCategories as $apartmentCategory) {
-    // $expensesSum += $expense['expenses_amount'];
-    array_push($aparCategory, $apartmentCategory['category_name']);
+$revenueSum = 0;
+$aparCategories = [];
+$occupiedApartments = [];
+$freeApartments = [];
+foreach($orders as $key => $order) {
+    $revenueSum += $order['ordersSum'];
+    array_push($aparCategories, $order['category_name']);
+    if($apartments[$key]['apartCount'] < $order['ordersCount']) {
+        array_push($freeApartments, 0);
+    }else {
+        array_push($freeApartments, $apartments[$key]['apartCount'] - $order['ordersCount']);
+    }
+    array_push($occupiedApartments, $order['ordersCount']);
 }
-// print(json_encode($aparCategory));die();
 
 
 $data = [
     'apartmentCount' => $apartmentCount, 
-    'aparCategory' => json_encode($aparCategory), 
     'staffCount' => $staffCount, 
-    'bookedCount' => $bookedCount, 
+    'bookedCount' => $bookedCount,
     'expensesSum' => $expensesSum,
-    'ordersSum' => 20000,
+    'revenueSum' => $revenueSum,
     'expensesAmount' => json_encode($expensesAmount),
-    'expensesDate' => json_encode($expensesDate)
+    'expensesDate' => json_encode($expensesDate),
+    'aparCategories' => json_encode($aparCategories), 
+    'occupiedApartments' => json_encode($occupiedApartments),
+    'freeApartments' => json_encode($freeApartments)
 ];
 
 echo helper::find_template('home', $data);
