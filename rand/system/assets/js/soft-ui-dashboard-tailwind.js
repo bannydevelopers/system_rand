@@ -58,6 +58,10 @@ if (document.querySelector("canvas")) {
   // loadJS(to_build + "js/chart-2.js", true);
 }
 
+if (document.querySelector("#message")) {
+  loadJS(to_build + "js/plugins/alpine.min.js", true);
+}
+
 function loadJS(FILE_URL, async) {
   let dynamicScript = document.createElement("script");
 
