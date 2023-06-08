@@ -12,13 +12,13 @@
                     <div>
                       <p class="mb-0 font-sans font-semibold leading-normal text-sm">Staffs </p>
                       <h5 class="mb-0 font-bold">
-                        <?=$staffC?>
+                        <?=$staffCount?>
                       </h5>
                     </div>
                   </div>
                   <div class="px-3 text-right basis-1/3">
                     <div class="inline-block w-12 h-12 text-center rounded-lg bg-gradient-to-tl from-blue-800 to-blue-400">
-                      <i class="ni leading-none ni-world text-lg relative top-3.5 text-white"></i>
+                      <i class="fa-solid fa-clipboard-user text-2xl relative top-2 text-white"></i>
                     </div>
                   </div>
                 </div>
@@ -37,7 +37,7 @@
                     <div>
                       <p class="mb-0 font-sans font-semibold leading-normal text-sm">New booking </p>
                       <h5 class="mb-0 font-bold">
-                        +<?=$bookedC?>
+                        +<?=$bookedCount?>
                       </h5>
                     </div>
                   </div>
@@ -62,14 +62,14 @@
                     <div>
                       <p class="mb-0 font-sans font-semibold leading-normal text-sm">Expenses</p>
                       <h5 class="mb-0 font-bold">
-                        <span class="uppercase text-sm">TZS</span> <?=$expenseSum?>
+                        <span class="uppercase text-sm">TZS</span> <?=$expensesSum?>
                         <!-- <span class="leading-normal text-sm font-weight-bolder text-lime-500">+55%</span> -->
                       </h5>
                     </div>
                   </div>
                   <div class="px-3 text-right basis-1/3">
                     <div class="inline-block w-12 h-12 text-center rounded-lg bg-gradient-to-tl from-blue-800 to-blue-400">
-                      <i class="ni leading-none ni-cart text-lg relative top-3.5 text-white"></i>
+                      <i class="fa-solid fa-e text-xl relative top-2 text-white"></i>
                     </div>
                   </div>
                 </div>
@@ -88,14 +88,14 @@
                     <div>
                       <p class="mb-0 font-sans font-semibold leading-normal text-sm">Today's revenue</p>
                       <h5 class="mb-0 font-bold">
-                        <span class="uppercase text-sm">TZS</span> 403,430
-                        <span class="leading-normal text-sm font-weight-bolder text-lime-500">+4%</span>
+                        <span class="uppercase text-sm">TZS</span> <?=$ordersSum?>
+                        <!-- <span class="leading-normal text-sm font-weight-bolder text-lime-500">+4%</span> -->
                       </h5>
                     </div>
                   </div>
                   <div class="px-3 text-right basis-1/3">
                     <div class="inline-block w-12 h-12 text-center rounded-lg bg-gradient-to-tl from-blue-800 to-blue-400">
-                      <i class="ni leading-none ni-money-coins text-lg relative top-3.5 text-white"></i>
+                      <i class="ni leading-none ni-money-coins text-xl relative top-3.5 text-white"></i>
                     </div>
                   </div>
                 </div>
@@ -124,7 +124,7 @@
                     <div class="flex-none w-1/2 max-w-full py-4 pl-0 pr-3 mt-0">
                       <div class="flex mb-2">
                         <div class="flex items-center justify-center w-8 h-8 mr-2 text-center bg-center rounded fill-current shadow-soft-2xl bg-gradient-to-tl from-red-600 to-rose-400 text-neutral-100">
-                          <h4 class="font-bold text-neutral-100">1</h4>
+                          <h4 class="font-bold text-neutral-100"><?=$bookedCount?></h4>
                         </div>
                         <p class="mt-1 mb-0 font-semibold leading-tight text-xs">Tenants</p>
                       </div>
@@ -132,7 +132,7 @@
                     <div class="flex-none w-1/2 max-w-full py-4 pl-0 pr-3 mt-0">
                       <div class="flex mb-2">
                         <div class="flex items-center justify-center w-8 h-8 mr-2 text-center bg-center rounded fill-current shadow-soft-2xl bg-gradient-to-tl from-blue-800 to-blue-400 text-neutral-100">
-                          <h4 class="font-bold text-neutral-100">21</h4>
+                          <h4 class="font-bold text-neutral-100"><?=$apartmentCount?></h4>
                         </div>
                         <p class="mt-1 mb-0 font-semibold leading-tight text-xs">Total partments</p>
                       </div>
@@ -149,7 +149,7 @@
           <div class="w-full max-w-full px-3 mt-0 lg:w-7/12 lg:flex-none">
             <div class="border-black/12.5 shadow-soft-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
               <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-white p-6 pb-0">
-                <h6>Sales overview</h6>
+                <h6>Running cost overview</h6>
                 <p class="leading-normal text-sm">
                   <i class="fa fa-arrow-up text-lime-500"></i>
                   <span class="font-semibold">4% more</span> in 2023
@@ -168,6 +168,110 @@
         <!--/ Row -->
 
   <!-- plugin for charts  -->
-  <script src="js/plugins/chartjs.min.js" async></script>
-    
+  <script src="js/plugins/chartjs.min.js"></script>
+  <script>
+    // chart 2
+    var ctx2 = document.getElementById("sales-line").getContext("2d");
+
+    var gradientStrokeCost = ctx2.createLinearGradient(0, 230, 0, 50);
+
+    gradientStrokeCost.addColorStop(1, "rgba(255,0,0,0.2)");
+    gradientStrokeCost.addColorStop(0.2, "rgba(255,0,0,0.0)");
+    gradientStrokeCost.addColorStop(0, "rgba(255,0,0,0)"); //purple colors
+
+    var gradientStrokeSales = ctx2.createLinearGradient(0, 230, 0, 50);
+
+    gradientStrokeSales.addColorStop(1, "rgba(20,23,39,0.2)");
+    gradientStrokeSales.addColorStop(0.2, "rgba(72,72,176,0.0)");
+    gradientStrokeSales.addColorStop(0, "rgba(20,23,39,0)"); //purple colors
+
+    new Chart(ctx2, {
+      type: "line",
+      data: {
+        labels: <?=$expensesDate?>,
+        datasets: [
+          {
+            label: "Sales",
+            tension: 0.4,
+            borderWidth: 0,
+            pointRadius: 0,
+            borderColor: "#344e86",
+            borderWidth: 3,
+            backgroundColor: gradientStrokeSales,
+            fill: true,
+            data: <?=$expensesAmount?>,
+            maxBarThickness: 6,
+          },
+          {
+            label: "Cost",
+            tension: 0.4,
+            borderWidth: 0,
+            pointRadius: 0,
+            borderColor: "#ea060680",
+            borderWidth: 3,
+            backgroundColor: gradientStrokeCost,
+            fill: true,
+            data: <?=$expensesAmount?>,
+            maxBarThickness: 6,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        interaction: {
+          intersect: false,
+          mode: "index",
+        },
+        scales: {
+          y: {
+            grid: {
+              drawBorder: false,
+              display: true,
+              drawOnChartArea: true,
+              drawTicks: false,
+              borderDash: [5, 5],
+            },
+            ticks: {
+              display: true,
+              padding: 10,
+              color: "#b2b9bf",
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: "normal",
+                lineHeight: 2,
+              },
+            },
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false,
+              borderDash: [5, 5],
+            },
+            ticks: {
+              display: true,
+              color: "#b2b9bf",
+              padding: 20,
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: "normal",
+                lineHeight: 2,
+              },
+            },
+          },
+        },
+      },
+    });
+    // end chart 2
+  </script>
   

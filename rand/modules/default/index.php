@@ -2,24 +2,44 @@
 
 $db = db::get_connection(storage::init()->system_config->database);
 
+
 $apartment = "SELECT COUNT(apartment_id) FROM apartments";
 $apartment = $db->query($apartment);
-$apartmentC = $apartment->fetchColumn();
+$apartmentCount = $apartment->fetchColumn();
+
 
 $staff = "SELECT COUNT(staff_id) FROM staff";
 $staff = $db->query($staff);
-$staffC = $staff->fetchColumn();
+$staffCount = $staff->fetchColumn();
 
-$booked = "SELECT COUNT(check_id) FROM check_scheduling";
+
+$booked = "SELECT COUNT(payment_amount) FROM orders WHERE orders.payment_amount";
 $booked = $db->query($booked);
-$bookedC = $booked->fetchColumn();
+$bookedCount = $booked->fetchColumn();
+
 
 $expenses = $db->select('expenses','expenses.expenses_amount,expenses.expenses_date')
-                ->order_by('expenses_date', 'desc')->fetchAll();
-$expenseSum = 0;
+                ->order_by('expenses_date', 'desc')
+                ->fetchAll();
+$expensesSum = 0;
+$expensesAmount = [];
+$expensesDate = [];
 foreach($expenses as $expense) {
-    $expenseSum += $expense['expenses_amount'];
+    $expensesSum += $expense['expenses_amount'];
+    array_push($expensesAmount, $expense['expenses_amount']);
+    $bad_date = DateTime::createFromFormat('Y-m-d H:i:s e', $expense['expenses_date'].' EDT');
+    $nice_date = $bad_date->format('Y M j');
+    array_push($expensesDate, $nice_date);
 }
+
+
+$orders = $db->select('orders','orders.payment_amount')
+                ->fetchAll();
+$ordersSum = 0;
+foreach($orders as $order) {
+    $ordersSum += $order['payment_amount'];
+}
+
 
 $apartmentG = $db->select('apartments','apartments.apartment_block')
                 ->group_by('apartment_block')->fetchAll();
@@ -30,6 +50,16 @@ $apartmentG = $db->select('apartments','apartments.apartment_block')
 // print_r($apartmentArray);
 // die();
 
-$data = ['apartmentC'=>$apartmentC, 'apartmentG'=>$apartmentG, 'staffC'=>$staffC, 'bookedC'=>$bookedC, 'expenseSum'=>$expenseSum];
+
+$data = [
+    'apartmentCount' => $apartmentCount, 
+    'apartmentG' => $apartmentG, 
+    'staffCount' => $staffCount, 
+    'bookedCount' => $bookedCount, 
+    'expensesSum' => $expensesSum,
+    'ordersSum' => $ordersSum,
+    'expensesAmount' => json_encode($expensesAmount),
+    'expensesDate' => json_encode($expensesDate)
+];
 
 echo helper::find_template('home', $data);
