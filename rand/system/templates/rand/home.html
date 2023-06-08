@@ -170,17 +170,95 @@
   <!-- plugin for charts  -->
   <script src="js/plugins/chartjs.min.js"></script>
   <script>
+    // chart 1
+    var ctx = document.getElementById("chart-bars").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: <?=$aparCategory?>,
+        datasets: [
+          {
+            label: "Occupied",
+            tension: 0.4,
+            borderWidth: 0,
+            borderRadius: 0,
+            borderSkipped: false,
+            backgroundColor: "#ccc",
+            data: [1, 0, 0, 7],
+            maxBarThickness: 36,
+          },{
+            label: "Remains",
+            tension: 0.4,
+            borderWidth: 0,
+            borderRadius: 0,
+            borderSkipped: false,
+            backgroundColor: "#fff",
+            data: [5, 6, 9, 9],
+            maxBarThickness: 36,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        interaction: {
+          intersect: false,
+          mode: "index",
+        },
+        scales: {
+          y: {
+            stacked: true,
+            grid: {
+              drawBorder: false,
+              display: true,
+              drawOnChartArea: false,
+              drawTicks: false,
+            },
+            ticks: {
+              suggestedMin: 0,
+              stepSize: 1,
+              beginAtZero: true,
+              padding: 15,
+              font: {
+                size: 14,
+                family: "Open Sans",
+                style: "normal",
+                lineHeight: 2,
+              },
+              color: "#fff",
+            },
+          },
+          x: {
+            stacked: true,
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false,
+            },
+            ticks: {
+              display: true,
+              color: "#fff",
+            },
+          },
+        },
+      },
+    });
+    // end chart 1
+
     // chart 2
     var ctx2 = document.getElementById("sales-line").getContext("2d");
-
     var gradientStrokeCost = ctx2.createLinearGradient(0, 230, 0, 50);
-
     gradientStrokeCost.addColorStop(1, "rgba(255,0,0,0.2)");
     gradientStrokeCost.addColorStop(0.2, "rgba(255,0,0,0.0)");
     gradientStrokeCost.addColorStop(0, "rgba(255,0,0,0)"); //purple colors
 
     var gradientStrokeSales = ctx2.createLinearGradient(0, 230, 0, 50);
-
     gradientStrokeSales.addColorStop(1, "rgba(20,23,39,0.2)");
     gradientStrokeSales.addColorStop(0.2, "rgba(72,72,176,0.0)");
     gradientStrokeSales.addColorStop(0, "rgba(20,23,39,0)"); //purple colors
