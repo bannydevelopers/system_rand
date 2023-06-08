@@ -18,7 +18,8 @@ $booked = $db->query($booked);
 $bookedCount = $booked->fetchColumn();
 
 
-$expenses = $db->select('expenses','expenses.expenses_amount,expenses.expenses_date')
+$expenses = $db->select('expenses','SUM(expenses_amount) AS expenses_amount, expenses_date')
+                ->group_by('expenses_date')
                 ->order_by('expenses_date', 'desc')
                 ->fetchAll();
 $expensesSum = 0;
@@ -33,31 +34,28 @@ foreach($expenses as $expense) {
 }
 
 
-$orders = $db->select('orders','orders.payment_amount')
-                ->fetchAll();
-$ordersSum = 0;
-foreach($orders as $order) {
-    $ordersSum += $order['payment_amount'];
+$apartmentCategories;
+$orders = $db->select('orders','SUM(payment_amount) AS payment_amount, orders.apartment_category')
+                    ->group_by('apartment_category')
+                    ->join('apartment_category', 'apartment_category.category_name, apartment_category.category_id')
+                    ->where('orders.apartment_category=apartment_category.category_id')
+                    ->fetchAll();print(json_encode($orders));die();
+// $expensesSum = 0;
+$aparCategory = [];
+foreach($apartmentCategories as $apartmentCategory) {
+    // $expensesSum += $expense['expenses_amount'];
+    array_push($aparCategory, $apartmentCategory['category_name']);
 }
-
-
-$apartmentG = $db->select('apartments','apartments.apartment_block')
-                ->group_by('apartment_block')->fetchAll();
-// $apartmentArray = [];
-// foreach($apartmentG as $apartmentBlock) {
-//     $apartmentArray = array_merge($apartmentArray, $apartmentBlock);
-// }
-// print_r($apartmentArray);
-// die();
+// print(json_encode($aparCategory));die();
 
 
 $data = [
     'apartmentCount' => $apartmentCount, 
-    'apartmentG' => $apartmentG, 
+    'aparCategory' => json_encode($aparCategory), 
     'staffCount' => $staffCount, 
     'bookedCount' => $bookedCount, 
     'expensesSum' => $expensesSum,
-    'ordersSum' => $ordersSum,
+    // 'ordersSum' => $ordersSum,
     'expensesAmount' => json_encode($expensesAmount),
     'expensesDate' => json_encode($expensesDate)
 ];
