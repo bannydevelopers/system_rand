@@ -27,7 +27,15 @@ if(isset($_POST['full_name'])){
     else $msg = 'Error adding tenants';
     //var_dump($db->error());
 }
+
+$apartment = $db->select('tenants','tenants.occupied_apartment,apartments.apartment_name')
+                ->join('tenants','apartments.apartment_name=occupied_apartment.tenants_id')
+                ->order_by('apartment_id', 'desc')->fetchAll();
+
+
+
+
 $tenants = $db->select('tenants')->order_by('tenants_id', 'desc')->fetchAll();
-$data = ['tenants'=>$tenants,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
+$data = ['tenants'=>$tenants,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request, 'apartment'=>$apartment];
 echo helper::find_template('Tenants', $data);
 
