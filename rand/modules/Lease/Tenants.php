@@ -33,8 +33,6 @@ $apartment = $db->select('tenants','tenants.occupied_apartment,apartments.apartm
                 ->order_by('apartment_id', 'desc')->fetchAll();
 
 
-
-
 $tenants = $db->select('tenants')->order_by('tenants_id', 'desc')->fetchAll();
 $data = ['tenants'=>$tenants,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request, 'apartment'=>$apartment];
 echo helper::find_template('Tenants', $data);
