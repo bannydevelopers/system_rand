@@ -34,12 +34,14 @@ foreach($expenses as $expense) {
 }
 
 
-$apartmentCategories;
-$orders = $db->select('orders','SUM(payment_amount) AS payment_amount, orders.apartment_category')
-                    ->group_by('apartment_category')
-                    ->join('apartment_category', 'apartment_category.category_name, apartment_category.category_id')
-                    ->where('orders.apartment_category=apartment_category.category_id')
-                    ->fetchAll();print(json_encode($orders));die();
+$orders = $db->select('apartment_category','category_name, COUNT(apartment_id) as apartCount, COUNT(payment_amount) as ordersCount, SUM(payment_amount) as ordersSum')
+             ->join('apartments','apartments.apartment_category=apartment_category.category_id')
+             ->join('orders','orders.apartment_category=apartment_category.category_id', 'left')
+             ->group_by('category_id')
+            //  ->order_by('category_id','desc')
+             ->fetchAll();
+             print_r($db->error());
+var_dump('<pre>',$orders);die();
 // $expensesSum = 0;
 $aparCategory = [];
 foreach($apartmentCategories as $apartmentCategory) {
@@ -55,7 +57,7 @@ $data = [
     'staffCount' => $staffCount, 
     'bookedCount' => $bookedCount, 
     'expensesSum' => $expensesSum,
-    // 'ordersSum' => $ordersSum,
+    'ordersSum' => 20000,
     'expensesAmount' => json_encode($expensesAmount),
     'expensesDate' => json_encode($expensesDate)
 ];
