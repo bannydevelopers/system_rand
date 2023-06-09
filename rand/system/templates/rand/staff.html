@@ -81,6 +81,35 @@
 </div> 
 <!--/ Modal -->
 
+<?php if($msg){ 
+  if($status == 'success') {?>
+  <div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+    <span>
+      <i class="fa-solid fa-circle-info fa-lg"></i>
+    </span>
+    <div class="ml-3 text-sm font-medium">
+      <?=$msg?>
+    </div> 
+    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg foinv:ring-2 foinv:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+      <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+    </button>
+  </div>
+<?php } 
+  else if($status == 'fail') {?>
+<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+  <span>
+    <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+  </span>
+  <div class="ml-3 text-sm font-medium">
+    <?=$msg?>
+  </div> 
+  <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
+    <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+  </button>
+</div>
+<?php }
+}?>
+
 <div id="message"></div>
 
 <div class="flex flex-wrap -mx-3">

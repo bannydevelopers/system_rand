@@ -1,113 +1,114 @@
-<!-- Modal toggle -->
-<div id="add-user-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
-    <div class="relative w-full max-w-4xl max-h-full items-center">
-      <!-- Modal content -->
-      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-        <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-user-modal" id="close-user-modal-id">
-          <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
-          <span class="sr-only">Close modal</span>
-        </button>
-        <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
-          <h3 class="mb-4 text-xl font-medium">New requests </h3>
-          <form class="space-y-6" method="POST" enctype="multipart/form-data">
-            <div class="divide-y">
-              <div>
-                <div class="flex flex-wrap -mx-3 mb-6">
-                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
-                    <label>House details <span class="text-red-500">*</span>
-                      <input  class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="House details" name="house_details" required>
-                    </label>
-                  </div>
-                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
-                    <label>Descriptions <span class="text-red-500">*</span>
-                      <input type="text" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="Descriptions" name="descriptions" required>
-                    </label>
-                  </div>
-                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
-                    <label>Submitted date <span class="text-red-500">*</span>
-                      <input type="date" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" min="<?= date('Y-m-d'); ?>" name="submitted_date" required>
-                    </label>
-                  </div>
-                </div>
-                <div class="flex flex-wrap -mx-3 mb-6">
-                    <div class="w-full md:w-1/3 px-3">
-                      <label for="status">Status <span class="text-red-500">*</span></label>
-                      <select id="status" name="status" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" required>
-                        <option value="new">New</option>
-                        <option value="pending">Pending</option>
-                        <option value="on progress">On Progress</option>
-                        <option value="done">Done</option>
-                      </select>
+<?php if($msg){ 
+  if($status == 'success') {?>
+  <div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+    <span>
+      <i class="fa-solid fa-circle-info fa-lg"></i>
+    </span>
+    <div class="ml-3 text-sm font-medium">
+      <?=$msg?>
+    </div> 
+    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg foinv:ring-2 foinv:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+      <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+    </button>
+  </div>
+<?php } 
+  else if($status == 'fail') {?>
+<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+  <span>
+    <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+  </span>
+  <div class="ml-3 text-sm font-medium">
+    <?=$msg?>
+  </div> 
+  <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
+    <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+  </button>
+</div>
+<?php }
+}?>
+
+  <div class="flex flex-wrap">
+    <div class="flex-none w-full max-w-full pl-3">
+      <div class="relative flex flex-col min-w-0 mb-6 break-words border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
+        <div class="flex flex-wrap-reverse mt-6 -mx-3">
+          <!-- table -->
+          <div class="w-full bg-white max-w-full px-3 mt-0 mb-6 lg:mb-0 lg:w-7/12 lg:flex-none rounded-2xl">
+            <div class="border-black/12.5 relative z-20 flex min-w-0 flex-col break-words border-0 border-solid bg-blue bg-clip-border">
+              <div class="flex-auto p-4">
+                <div class="py-4 pr-1 mb-4">
+                  <h6>My Requests</h6>
+                  <div class="px-1 pt-0 pb-2">
+                    <div class="p-0 overflow-x-auto">
+                      <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
+                        <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
+                          <tr>
+                            <!-- <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">House details</th> -->
+                            <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Description</th>
+                            <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Submitted date</th>
+                            <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Status</th>
+                            <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php 
+                            if (is_array($requests) || is_object($requests))
+                            foreach ($requests as $req)
+                          {?>
+                          <tr>
+                              <!-- <td class="px-4 py-3 text-sm">
+                                  <?=$req['house_details']?>
+                              </td> -->
+                              <td class="px-4 py-3 text-sm">
+                                <?=$req['descriptions']?>
+                              </td>
+                              <td class="px-4 py-3 text-sm">
+                                <?=helper::format_time($req['submitted_date'],'d M, Y')?>
+                              </td>
+                              <td class="px-4 py-3 text-sm">
+                                <?=$req['status']?>
+                              </td>
+                              <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
+                                <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Delete </a>
+                              </td>
+                            </tr>
+                            <?php }?>
+                         </tbody>
+                      </table>
                     </div>
                   </div>
+                  <div>
+                  </div>
                 </div>
+              </div>
             </div>
-            <div class="pb-8">
-              <button type="submit" class="float-right text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Save</button>
+          </div>
+          <!--/ table -->
+          <?php if(helper::init()->user_can('can_add_requests')){?>
+          <!-- new request -->
+          <div class="w-full max-w-full px-3 mt-0 mb-4 lg:w-5/12 lg:flex-none">
+            <div class="border-black/12.5 shadow-soft-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
+              <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-blue p-6 pb-0">
+
+                <p class="leading-normal text-sm"> </p>
+              </div>
+              <div class="flex-auto p-4">
+                <div>
+                  <h6>My New Request</h6>
+                  <form action="">
+                    <textarea class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-blue-300 focus:outline-none focus:transition-shadow" rows="5" name="descriptions" placeholder="Type your Message"></textarea>
+                    <div class="py-4 text-center">
+                      <button type="submit" class="float-centre text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-1.5 text-center">Send</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
-          </form>
-        </div>
-      </div>
-      <!--/ Modal content -->
-    </div>
-</div>
-  <!--/ Modal toggle -->
-  
-  <div class="flex flex-wrap -mx-3">
-    <div class="flex-none w-full max-w-full pl-3">
-      <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-        <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex">
-          <h5>Requests list</h5>
-          <!-- Modal toggle -->
-          
-        <?php if(helper::init()->user_can('can_add_requests')){?>
-          <button data-modal-target="add-user-modal" data-modal-toggle="add-user-modal" 
-          class="text-blue-400 hover:text-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mx-6 px-2" type="button">
-            <i class="fa-solid fa-plus text-xl"></i>
-          </button>
+          </div>
+          <!--/ new request -->
           <?php } ?>
         </div>
-        <div class="px-1 pt-0 pb-2">
-          <div class="p-0 overflow-x-auto">
-            <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
-              <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
-                <tr>
-                  <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">House details</th>
-                  <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Description</th>
-                  <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Submitted date</th>
-                  <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Status</th>
-                  <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php 
-                if (is_array($requests) || is_object($requests))
-                foreach ($requests as $req)
-             {?>
-                <tr>
-                    <td class="px-4 py-3 text-sm">
-                        <?=$req['house_details']?>
-                      </td>
-                    <td class="px-4 py-3 text-sm">
-                      <?=$req['descriptions']?>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      <?=helper::format_time($req['submitted_date'],'d M, Y')?>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      <?=$req['status']?>
-                    </td>
-                    <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
-                      <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
-                      <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Close </a>
-                    </td>
-                
-                      </tr>
-                        <?php }?>
-               </tbody>
-            </table>
-          </div>
-        </div>
+       
       </div>
     </div>
   </div>

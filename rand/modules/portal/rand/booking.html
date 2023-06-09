@@ -67,13 +67,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Strong password">
+                                    <input type="password" class="form-control" id="password-model1" name="password" placeholder="Strong password">
                                     <label for="password">Password</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="password" class="form-control" id="password" name="password2" placeholder="Repeat password">
+                                    <input type="password" class="form-control" id="password-model2" name="password2" placeholder="Repeat password">
                                     <label for="password2">Confirm password</label>
                                 </div>
                             </div>
@@ -280,9 +280,9 @@
     
         const userData = new FormData(regForm);
         userData.append('ajax', 1);
-        for (let obj of userData) {
-          console.log(obj);
-        }
+        //for (let obj of userData) {
+          //console.log(obj);
+        //}
         //var name = userData.get('reg_customer');
         //console.log(name);
     
@@ -315,21 +315,23 @@
         })
         .catch(error => {
           regSmg.innerHTML = problem;
-          //console.error('Problem:', error);
+          console.error('Problem:', error);
           regUserBtn.disabled = false;
           regUserBtn.innerHTML = 'Register';
         });
     }
     
-    function setMinimumDate() {
-        const today = new Date();
-        const todayString = today.toISOString().slice(0, 10);
-        document.getElementById("checkin").min = todayString;
-        const tomorrow = new Date(today.getTime() + 86400000);
-        const tomorrowString = tomorrow.toISOString().slice(0, 10);
-        document.getElementById("checkout").min = tomorrowString;
+    if(document.getElementById("checkin")) {
+        function setMinimumDate() {
+            const today = new Date();
+            const todayString = today.toISOString().slice(0, 10);
+            document.getElementById("checkin").min = todayString;
+            const tomorrow = new Date(today.getTime() + 86400000);
+            const tomorrowString = tomorrow.toISOString().slice(0, 10);
+            document.getElementById("checkout").min = tomorrowString;
+        }
+        setMinimumDate();
     }
-    setMinimumDate();
 
     function changeCheckoutDate(checkin) {
         var checkout = document.getElementById("checkout") 

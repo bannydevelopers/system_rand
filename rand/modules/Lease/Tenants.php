@@ -3,55 +3,11 @@ $db = db::get_connection(storage::init()->system_config->database);
 $msg = '';
 $status = 'fail';
 $request = $_SERVER['REQUEST_URI'];
-if(isset($_POST['ajax_del_tenants'])){
-    if($helper->user_can('can_delete_tenants')){
-        $tenants_id = intval($_POST['ajax_del_tenants']);
-        $tenants = $db->select('tenants', 'user.user_id,user.first_name,user.middle_name,user.last_name')
-                    ->join('user', 'user_id=user_reference')
-                    ->where(['tenants_id'=>$tenants_id])
-                    ->fetch();
-        if($tenants){
-            $k = $db->delete('tenants')->where(['tenants_id'=>$tenants_id])->commit();
-            if(!$db->error() && $k) {
-                $k = $db->delete('user')->where(['user_id'=>$tenants['user_id']])->commit();
-                $msg = 'Deletion succesfully';
-                $status = 'success';
-            }
-            else {
-                $msg = 'Deletion failed';
-                $status = 'fail';
-            }
-        }
-        else {
-            $msg = 'tenants does not exist';
-            $status = 'not-exist';
-        }
-    }
-    else {
-        $msg = 'Permission denied';
-        $status = 'denied';
-    }
-    die(json_encode(['status'=>$status,'msg'=>$msg,'tenants'=>$tenants]));
-}
-if(isset($_POST['ajax_activate_user'])){
-        $status = 'fail';
-    if($helper->user_can('can_edit_tenants')){
-        $msg = 'Status update failed';
-        $k = $db->update('user', ['status'=>$_POST['status']])
-                ->where(['user_id'=>intval($_POST['ajax_activate_user'])])
-                ->commit();
-        if(!$db->error() && $k){
-            $msg = 'Status updated';
-            $status = 'success';
-        }
-    }
-}
-    else $msg = 'Permission denied';
-    die(json_encode(['status'=>$status,'msg'=>$msg]));
 
-if(isset($_POST['full_name'])){
-    
 $role = $db->select('role','role_id')
+               ->fetch();
+
+$apartment = $db->select('apartments','apartment_id')
                ->fetch();
 
 if(isset($_POST['tenants_id']) && intval($_POST['tenants_id'])){
@@ -100,8 +56,12 @@ if(isset($_POST['tenants_id']) && intval($_POST['tenants_id'])){
         if($helper->user_can('can_add_tenants')){
             $token = helper::create_hash(time());
             
-            
-            $names = explode(' ', addslashes($_POST['full_name']));
+
+            $password = isset($_POST['password']) ? $_POST['password'] : '';
+            $email = isset($_POST['email']) ? $_POST['email'] : '';
+            $phone_number = isset($_POST['phone_number']) ? $_POST['phone_number'] : '';
+            $full_name = isset($_POST['full_name']) ? $_POST['full_name'] : '';
+            $names = explode(' ', addslashes($full_name));
             $fn = $names[0];
             $ln = end($names);
             array_shift($names);
@@ -113,9 +73,12 @@ if(isset($_POST['tenants_id']) && intval($_POST['tenants_id'])){
                 'last_name'=>$ln, 
                 'system_role'=>$role['role_id'], 
                 'status'=>'active', 
-                'phone_number'=>helper::format_phone_number($_POST['phone_number']), 
-                'email'=>helper::format_email($_POST['email']), 
-                'password' =>helper::create_hash($_POST['tenants123']), 
+                'phone_number'=> isset($_POST['phone_number'])
+                ? helper::format_phone_number($_POST['phone_number']) : '',
+                'email' => isset($_POST['email']) 
+                ? helper::format_email($_POST['email']) : '',
+                'password' => isset($_POST['password'])
+                 ? helper::create_hash($_POST['password']) : '', 
                 'activation_token'=>$token, 
             
             ];
@@ -145,14 +108,17 @@ if(isset($_POST['tenants_id']) && intval($_POST['tenants_id'])){
         }
         else $msg = 'Not enough privilege, sorry';
     }
-}
+
 
 $roles = $db->select('role','role_id,role_name')
             ->order_by('role_name', 'asc')
             ->fetchAll();
                   
+$apartment = $db->select('apartments','apartment_id,apartment_name')
+            ->order_by('apartment_name', 'asc')
+            ->fetchAll();
 
-                  
+
 $tenants = $db->select('tenants')
             ->join('user','user.user_id=tenants.user_reference')
             ->where("user.status != 'deleted'")
@@ -161,7 +127,8 @@ $tenants = $db->select('tenants')
             
 if($helper->user_can('can_view_tenants')){
     $data = [
-        'roles'=>$roles, 
+        'roles'=>$roles,
+        'apartment'=>$apartment,
         'tenants'=>$tenants,
         'msg'=>$msg, 
         'status'=>$status,

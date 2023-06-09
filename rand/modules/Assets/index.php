@@ -14,7 +14,7 @@ if(isset($_POST['assets_name'])){
         
     ];
     $k = $db->insert('assets', $data);
-    var_dump($db->error());
+    // var_dump($db->error());
    
     if(!$db->error() && $k) {
         $msg = 'assets added successful';

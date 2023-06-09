@@ -8,9 +8,6 @@
         "can_add_staff",
         "can_edit_staff",
         "can_delete_staff",
-        "can_view_staff",
-        "can_activate_staff",
-        "can_deactivate_staff"
-       
+        "can_view_staff"
   ]
  }

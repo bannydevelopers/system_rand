@@ -123,9 +123,13 @@ class helper{
         $timestamp = strtotime($time);
         return date($format, $timestamp);
     }
-    public static function format_phone_number($number){
-        $number = preg_replace('~\D~', '', $number);
-        if($number[0] == 0 or strlen($number) < 10) $number = '255'.intval($number);
+    public static function format_phone_number($number) {
+        if (!empty($number)) {
+            $number = preg_replace('/\D/', '', $number);
+            if ($number && ($number[0] == '0' || strlen($number) < 10)) {
+                $number = '255' . intval($number);
+            }
+        }
         return $number;
     }
     public static function format_phone($number){
