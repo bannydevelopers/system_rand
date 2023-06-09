@@ -1,7 +1,7 @@
 <?php 
 $db = db::get_connection(storage::init()->system_config->database);
-$msg = '';
-$status = 'fail';
+$msg = 'fail';
+$status = '';
 $request = $_SERVER['REQUEST_URI'];
 
 $role = $db->select('role','role_id')
@@ -19,15 +19,15 @@ if(isset($_POST['tenants_id']) && intval($_POST['tenants_id'])){
             array_pop($names);
             $mn = implode(' ', $names);
             $user = [
-                'first_name'=>$fn,
-                'middle_name'=>$mn,
-                'last_name'=>$ln,
-                'system_role'=>$role['role_id'],
+                'first_name' => $fn,
+                'middle_name' => $mn,
+                'last_name' => $ln,
+                'system_role' => $role['role_id'],
                 'phone_number'=>helper::format_phone_number($_POST['phone_number']), //
                 'email'=>helper::format_email($_POST['email']), //
                 
             ];
-            $whr ="(email='{$user['email']}' OR phone_number = '{$user['phone_number']}' OR tenants_registration_number = '{$reg_no}')";
+            $whr ="(email='{$user['email']}' OR phone_number = '{$user['phone_number']}')";
             $test = $db->select('tenants')
                     ->join('user','user_reference=user_id')
                     ->where($whr)
@@ -39,12 +39,13 @@ if(isset($_POST['tenants_id']) && intval($_POST['tenants_id'])){
 
                 $tenants = [
                     'passport_number'=>addslashes($_POST['passport_number']), 
-                   
+                    'resident_adress'=>addcslashes($_POST['resident_adress'])
                 ];
 
                 $db->update('tenants', $tenants)->where(['tenants_id'=>intval($_POST['tenants_id'])])->commit();
                 if(!$db->error()) {
                     $msg = 'Updated successful!';
+                    $status = 'success';
                 }
                 else $msg = 'Something went wrong!';
             }
@@ -68,39 +69,35 @@ if(isset($_POST['tenants_id']) && intval($_POST['tenants_id'])){
             array_pop($names);
             $mn = implode(' ', $names);
             $user = [
-                'first_name'=>$fn, 
-                'middle_name'=>$mn, 
-                'last_name'=>$ln, 
-                'system_role'=>$role['role_id'], 
+                'first_name' => $fn, 
+                'middle_name' => $mn, 
+                'last_name' => $ln, 
+                'system_role' => $role['role_id'], 
                 'status'=>'active', 
                 'phone_number'=> isset($_POST['phone_number'])
                 ? helper::format_phone_number($_POST['phone_number']) : '',
-                'email' => isset($_POST['email']) 
-                ? helper::format_email($_POST['email']) : '',
-                'password' => isset($_POST['password'])
-                 ? helper::create_hash($_POST['password']) : '', 
-                'activation_token'=>$token, 
-            
+                'email' => isset($_POST['tenants_email']) 
+                ? helper::format_email($_POST['tenants_email']) : '',
+                'password' => helper::create_hash('tenant123'), 
+                'activation_token' => $token, 
             ];
-            $test = $db->select('tenants')
+            $test = $db->select('tenants', 'user_reference')
                     ->join('user','user_reference=user_id')
-                    ->where(['email'=>$user['email']])
-                    ->or(['phone_number'=>$user['phone_number']])
+                    // ->where(['email' => $user['email']])
+                    // ->or(['phone_number' => $user['phone_number']])
                     ->fetch();
             if($test) $msg = 'tenants information exists, try to edit existing one if necessary';
             else {
                 $user_id = $db->insert('user',$user);
-                //var_dump('<pre>',$db->error());
                 if(intval($user_id)){
                     $tenants = [
-                        'passport_number'=>addslashes($_POST['passport_number']), 
-                        
+                        'user_reference' => $user_id, 
                     ];
                     $k = $db->insert('tenants',$tenants);
-                    // var_dump('<pre>',$db->error());
                     if($db->error() or !$k) $db->delete('user')->where(['user_id',$user_id])->commit(); // revert changes, tenants issues
                     else {
                         $msg = 'tenants created'; 
+                        $status = 'success';
                     }
                 }
                 else $msg = 'Fatal error occured';
@@ -121,18 +118,18 @@ $apartment = $db->select('apartments','apartment_id,apartment_name')
 
 $tenants = $db->select('tenants')
             ->join('user','user.user_id=tenants.user_reference')
-            ->where("user.status != 'deleted'")
+            // ->where("user.status != 'deleted'")
             ->order_by('user_id', 'desc')
             ->fetchAll();
             
 if($helper->user_can('can_view_tenants')){
     $data = [
-        'roles'=>$roles,
-        'apartment'=>$apartment,
-        'tenants'=>$tenants,
-        'msg'=>$msg, 
-        'status'=>$status,
-        'request_uri'=>$request
+        'roles' => $roles,
+        'apartment' => $apartment,
+        'tenants' => $tenants,
+        'msg' => $msg, 
+        'status' => $status,
+        'request_uri' => $request
     ];
 
     echo helper::find_template('tenants', $data);

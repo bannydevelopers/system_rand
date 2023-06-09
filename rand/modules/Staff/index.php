@@ -232,7 +232,7 @@ $staff = $db->select('staff')
             //->join('user as creator', 'creator.user_id=user.created_by')
             ->join('designation', 'designation_id=designation','LEFT')
             ->join('bank', 'bank.bank_id=staff.bank_id','LEFT')
-            ->where("user.status != 'deleted'")
+            // ->where("user.status != 'deleted'")
             ->order_by('user_id', 'desc')
             ->fetchAll();
             
