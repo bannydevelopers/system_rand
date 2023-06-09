@@ -10,10 +10,8 @@ if(isset($_POST['expenses_description'])){
         'expenses_date'=>$_POST['expenses_date'], 
         'expenses_number_item'=>$_POST['expenses_number_item'], 
         'expenses_description'=>$_POST['expenses_description'], 
-        'expenses_amount'=>$_POST['expenses_amount'],
-        'purchased_by'=>$_POST['purchased_by'], 
-        'approved_by'=>$_POST['approved_by'],
-        'approval_date'=>date('Y-m-d H:i:s')  
+        'expenses_amount'=>$_POST['expenses_amount']
+       
        ];
     $k = $db->insert('expenses', $data);
     //var_dump($db->error());

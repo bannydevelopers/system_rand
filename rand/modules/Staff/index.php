@@ -35,7 +35,7 @@ if(isset($_POST['ajax_del_staff'])){
 }
 if(isset($_POST['ajax_activate_user'])){
         $status = 'fail';
-    if($helper->user_can('can_edit_user')){
+    if($helper->user_can('can_edit_staff')){
         $msg = 'Status update failed';
         $k = $db->update('user', ['status'=>$_POST['status']])
                 ->where(['user_id'=>intval($_POST['ajax_activate_user'])])
@@ -93,8 +93,7 @@ if(isset($_POST['branch_name'])){
 }
 if(isset($_POST['full_name'])){
     
-    $role = $db->select('designation_role','role_id')
-               ->where(['designation_id'=>intval($_POST['designation'])])
+    $role = $db->select('role','role_id')
                ->fetch();
 
     if(isset($_POST['staff_id']) && intval($_POST['staff_id'])){
@@ -153,9 +152,7 @@ if(isset($_POST['full_name'])){
     else{
         if($helper->user_can('can_add_staff')){
             $token = helper::create_hash(time());
-            $role = $db->select('designation_role','role_id')
-                    ->where(['designation_id'=>intval($_POST['designation'])])
-                    ->fetch();
+            
             
             $names = explode(' ', addslashes($_POST['full_name']));
             $fn = $names[0];
@@ -171,7 +168,7 @@ if(isset($_POST['full_name'])){
                 'status'=>'active', 
                 'phone_number'=>helper::format_phone_number($_POST['phone_number']), 
                 'email'=>helper::format_email($_POST['email']), 
-                'password'=>md5($token), 
+                'password' =>helper::create_hash($_POST['staff123']), 
                 'activation_token'=>$token, 
                 'created_by'=>helper::init()->get_session_user('user_id'), 
                 'created_time'=>date('Y-m-d H:i:s')
@@ -180,7 +177,7 @@ if(isset($_POST['full_name'])){
                     ->join('user','user_reference=user_id')
                     ->where(['email'=>$user['email']])
                     ->or(['phone_number'=>$user['phone_number']])
-                    ->or(['staff_registration_number'=>addslashes($_POST['registration_number'])])
+                    ->or(['staff_registration_number'=>addslashes($_POST['staff_registration_number'])])
                     ->fetch();
             if($test) $msg = 'Staff information exists, try to edit existing one if necessary';
             else {
@@ -188,7 +185,7 @@ if(isset($_POST['full_name'])){
                 //var_dump('<pre>',$db->error());
                 if(intval($user_id)){
                     $staff = [
-                        'staff_registration_number'=>addslashes($_POST['registration_number']), 
+                        'staff_registration_number'=>addslashes($_POST['staff_registration_number']), 
                         'staff_residence_address'=>addslashes($_POST['residence_address']), 
                         'work_location'=>addslashes($_POST['work_location']), 
                         'designation'=>addslashes($_POST['designation']), 

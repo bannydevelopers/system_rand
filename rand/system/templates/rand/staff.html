@@ -42,6 +42,17 @@
                   </label>
                 </div>
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                  <label>Role <span class="text-red-500">*</span>
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="role" onchange="openDesModal(this)" required>
+                      <option selected="true" disabled="disabled">Choose...</option>   
+                      <?php foreach($roles as $r) { ?>
+                        <option value="<?=$r['role_id']?>"><?=$r['role_name']?></option>
+                      <?php } ?>
+                      <option value="">Add role</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
                   <label>Residence address 
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="Residence address" name="residence_address">
                   </label>
@@ -51,7 +62,12 @@
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" max="<?= date('Y-m-d'); ?>" name="date_employed" required>
                   </label>
                 </div>
-              </div>
+                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                  <label>Registration number 
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="regist number" name="staff_registration_number">
+                  </label>
+                </div>
+                </div>
             </div>
           </div>
           <div class="pb-8">
@@ -64,6 +80,35 @@
   </div>
 </div> 
 <!--/ Modal -->
+
+<?php if($msg){ 
+  if($status == 'success') {?>
+  <div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+    <span>
+      <i class="fa-solid fa-circle-info fa-lg"></i>
+    </span>
+    <div class="ml-3 text-sm font-medium">
+      <?=$msg?>
+    </div> 
+    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg foinv:ring-2 foinv:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+      <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+    </button>
+  </div>
+<?php } 
+  else if($status == 'fail') {?>
+<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+  <span>
+    <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+  </span>
+  <div class="ml-3 text-sm font-medium">
+    <?=$msg?>
+  </div> 
+  <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
+    <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+  </button>
+</div>
+<?php }
+}?>
 
 <div id="message"></div>
 
@@ -130,7 +175,7 @@
                 </div>
                 <!-- <p class="leading-relaxed text-lg mb-1"><span class="font-semibold">Role</span>: <?=$x['system_role']?></p> -->
                 <p class="leading-relaxed text-lg mb-1"><span class="font-semibold">Email</span>: <?=$x['email']?></p>
-                <p class="leading-relaxed text-lg mb-1"><span class="font-semibold">Phone</span>: <?=$x['phone_number']?></p>
+               <p class="leading-relaxed text-lg mb-1"><span class="font-semibold">Phone</span>: <?=$x['phone_number']?></p>
                 <p class="leading-relaxed text-lg mb-1"><span class="font-semibold">Address</span>: <?=$x['staff_residence_address']?></p>
                 <p class="leading-relaxed text-lg mb-1"><span class="font-semibold">Date Reg</span>: <?=$x['created_time']?></p>
               </div>
@@ -176,6 +221,11 @@
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
                   <label>Residence address 
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="Residence address" name="residence_address">
+                  </label>
+                </div>
+                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                  <label>User password 
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="password" placeholder="user's password" name="password" required>
                   </label>
                 </div>
                 <div class="w-full md:w-1/3 px-3"> 
