@@ -76,7 +76,7 @@
             </div>
           </div>
           <div class="pb-8">
-            <button type="submit" class="float-right text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Save</button>
+            <button type="submit" name="add-tenant" class="float-right text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Save</button>
           </div>
         </form>
       </div>
@@ -130,7 +130,9 @@
             <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
               <tr>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Name</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Residence address</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Email</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Phone number</th>
+                <!-- <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Residence address</th> -->
                 <!-- <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date in</th>
                 <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date out</th>
                 <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">apartment</th>
@@ -162,9 +164,9 @@
                 <td class="px-4 py-3 text-sm">
                   <?=$tena['phone_number']?>
                 </td>
-                <td class="px-4 py-3 text-sm">
+                <!-- <td class="px-4 py-3 text-sm">
                   <?=$tena['resident_adress']?>
-                </td>
+                </td> -->
                 <!-- <td class="px-4 py-3 text-sm">
                   <?=helper::format_time($tena['date_in'],'d M, Y')?>
                 </td>
