@@ -67,47 +67,85 @@
           </button>
           <?php } ?>
         </div>
-        <div class="px-1 pt-0 pb-2">
-          <div class="p-0 overflow-x-auto">
-            <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
-              <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
-                <tr>
-                  <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">House details</th>
-                  <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Description</th>
-                  <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Submitted date</th>
-                  <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Status</th>
-                  <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php 
-                if (is_array($requests) || is_object($requests))
-                foreach ($requests as $req)
-             {?>
-                <tr>
-                    <td class="px-4 py-3 text-sm">
-                        <?=$req['house_details']?>
-                      </td>
-                    <td class="px-4 py-3 text-sm">
-                      <?=$req['descriptions']?>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      <?=helper::format_time($req['submitted_date'],'d M, Y')?>
-                    </td>
-                    <td class="px-4 py-3 text-sm">
-                      <?=$req['status']?>
-                    </td>
-                    <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
-                      <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
-                      <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Close </a>
-                    </td>
-                
-                      </tr>
-                        <?php }?>
-               </tbody>
-            </table>
+
+        <div class="flex flex-wrap mt-6 -mx-3">
+ 
+          <!-- table -->
+          <div class="w-full max-w-full px-3 mt-0 mb-6 lg:mb-0 lg:w-7/12 lg:flex-none">
+            <div class="border-black/12.5 shadow-soft-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-blue bg-clip-border">
+              <div class="flex-auto p-4">
+                <div class="py-4 pr-1 mb-4">
+                  <h6>My Requests</h6>
+                  <div class="px-1 pt-0 pb-2">
+                    <div class="p-0 overflow-x-auto">
+                      <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
+                        <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
+                          <tr>
+                            <!-- <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">House details</th> -->
+                            <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Description</th>
+                            <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Submitted date</th>
+                            <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Status</th>
+                            <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php 
+                            if (is_array($requests) || is_object($requests))
+                            foreach ($requests as $req)
+                          {?>
+                          <tr>
+                              <!-- <td class="px-4 py-3 text-sm">
+                                  <?=$req['house_details']?>
+                              </td> -->
+                              <td class="px-4 py-3 text-sm">
+                                <?=$req['descriptions']?>
+                              </td>
+                              <td class="px-4 py-3 text-sm">
+                                <?=helper::format_time($req['submitted_date'],'d M, Y')?>
+                              </td>
+                              <td class="px-4 py-3 text-sm">
+                                <?=$req['status']?>
+                              </td>
+                              <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
+                                <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Close </a>
+                              </td>
+                            </tr>
+                            <?php }?>
+                         </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div>
+                  </div>
+                </div>
+           
+              </div>
+            </div>
           </div>
+          <!--/ table -->
+      
+          <!-- new request -->
+          <div class="w-full max-w-full px-3 mt-0 lg:w-5/12 lg:flex-none">
+            <div class="border-black/12.5 shadow-soft-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
+              <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid bg-blue p-6 pb-0">
+
+                <p class="leading-normal text-sm"> </p>
+              </div>
+              <div class="flex-auto p-4">
+                <div>
+                  <h6>My New Request</h6>
+                  <textarea class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-blue-300 focus:outline-none focus:transition-shadow" rows="5" placeholder="Type your Message"></textarea>
+                  <div class="py-4 text-center">
+                    <button type="submit" class="float-centre text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-1.5 text-center">Send</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--/ new request -->
         </div>
+       
       </div>
     </div>
   </div>
