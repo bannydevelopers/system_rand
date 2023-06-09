@@ -103,8 +103,8 @@
         </button>
       </div>
       <div class="px-1 pt-0 pb-2">
-        <div class="p-0 overflow-x-auto">
-          <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
+        <div class="py-0 px-6 overflow-x-scroll">
+          <table id="dTable" class="py-4 items-center w-full mb-0 align-top border-gray-200 text-slate-500">
             <thead class="border-b border-gray-200 align-bottom uppercase text-slate-800 text-sm text-left">
               <tr class="border-b border-gray-200">
                 <th>&nbsp;</th>
@@ -194,7 +194,14 @@
     </div>
   </div>
 </div>
-
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>  
+<script>
+  $(document).ready( function () {
+    $('#dTable').DataTable();
+  } );
+</script>
 <script src="js/plugins/flowbite.min.js"></script>
 <script>
   const dropArea = document.querySelector(".outer-drag-image"),

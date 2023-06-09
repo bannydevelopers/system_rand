@@ -56,7 +56,15 @@ if (document.querySelector("[navbar-main]")) {
 if (document.querySelector("canvas")) {
   // loadJS(to_build + "js/chart-1.js", true);
   // loadJS(to_build + "js/chart-2.js", true);
+
 }
+// if (document.querySelector("#dTable")) {
+//   loadJS("https://code.jquery.com/jquery-3.5.1.js", false);
+//   loadJS("https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js", false);
+//   $(document).ready( function () {
+//     $('#dTable').DataTable();
+//   } );
+// }
 
 if (document.querySelector("#message")) {
   loadJS(to_build + "js/plugins/alpine.min.js", true);
