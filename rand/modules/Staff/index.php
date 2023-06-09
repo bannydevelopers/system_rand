@@ -1,7 +1,7 @@
 <?php 
 $db = db::get_connection(storage::init()->system_config->database);
 $msg = '';
-$status = 'fail';
+$status = '';
 $request = $_SERVER['REQUEST_URI'];
 if(isset($_POST['ajax_del_staff'])){
     if($helper->user_can('can_delete_staff')){
@@ -168,7 +168,7 @@ if(isset($_POST['full_name'])){
                 'status'=>'active', 
                 'phone_number'=>helper::format_phone_number($_POST['phone_number']), 
                 'email'=>helper::format_email($_POST['email']), 
-                'password' =>helper::create_hash($_POST['staff123']), 
+                'password' =>helper::create_hash('staff123'), 
                 'activation_token'=>$token, 
                 'created_by'=>helper::init()->get_session_user('user_id'), 
                 'created_time'=>date('Y-m-d H:i:s')
@@ -187,7 +187,7 @@ if(isset($_POST['full_name'])){
                     $staff = [
                         'staff_registration_number'=>addslashes($_POST['staff_registration_number']), 
                         'staff_residence_address'=>addslashes($_POST['residence_address']), 
-                        'work_location'=>addslashes($_POST['work_location']), 
+                        //'work_location'=>addslashes($_POST['work_location']), 
                         'designation'=>addslashes($_POST['designation']), 
                         'user_reference'=>$user_id, 
                         'staff_date_employed'=>helper::format_time($_POST['date_employed'], 'Y-m-d H:i:s'), 

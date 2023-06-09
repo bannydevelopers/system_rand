@@ -5,4 +5,8 @@ $user = $db->select('staff')
            ->join('user','user_id=user_reference')
            ->where(['user_id'=>helper::init()->get_session_user('user_id')])
            ->fetch();
+// $user = $db->select('tenants')
+//            ->join('user','user_id=user_reference')
+//            ->where(['user_id'=>helper::init()->get_session_user('user_id')])
+//            ->fetch();
 echo helper::find_template('profile', ['user'=>$user]);
