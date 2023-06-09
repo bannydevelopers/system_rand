@@ -1,29 +1,70 @@
 
 
+        <?php if(helper::init()->user_can('can_add_requests')){?>
         <!-- row -->
-        <div class="flex flex-wrap -mx-3 gap-4">
-          <?php if(helper::init()->user_can('can_add_requests')){?>
-            <!-- card -->
-            <div class="w-full max-w-sm px-4 py-3 bg-white rounded-md shadow-md dark:bg-gray-800">
-              <div class="flex items-center justify-between">
-                  <span class="text-lg font-semibold text-gray-900"> Executive Apartment</span>
-                  <span class="px-3 py-1 text-xs text-blue-800 uppercase bg-blue-200 rounded-full dark:bg-blue-300 dark:text-blue-900">Pending</span>
-              </div>
-              <div>
-                  <h1 class="mt-2 text-sm font-light text-gray-900 dark:text-white">you have not complited boking this apartment</h1>
-                  <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Apartment details - Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit molestiae iusto illo?</p>
-              </div>
-              <div>
-                  <div class="flex items-center mt-2 text-gray-700 dark:text-gray-200">
-                      <span>Continue:</span>
-                      <a class="mx-2 text-blue-600 cursor-pointer dark:text-blue-400 hover:underline" tabindex="0" role="link">Here</a>
-                  </div>
-              </div>
+        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full">
+          <!-- card -->
+          <div class="w-full px-4 py-3 bg-white rounded-md shadow-md dark:bg-gray-800">
+            <div class="flex items-center justify-between">
+                <span class="text-lg font-semibold text-gray-900"> Requests </span>
+                <span class="px-3 py-1 text-xs text-blue-800 uppercase bg-blue-200 rounded-full dark:bg-blue-300 dark:text-blue-900">0</span>
             </div>
-            <!--/ card -->
-          <?php }?>
+            <div class="mt-2 pl-6">
+                <div class="text-sm text-gray-700 font-semibold">Pending: <span class="pl-8">0</span></div>
+                <div class="text-sm text-gray-700 font-semibold">Done: <span class="pl-12">0</span></div>
+                <div class="text-sm text-gray-700 font-semibold">Inprogress: <span class="pl-4">0</span></div>
+                <div class="text-sm text-gray-700 font-semibold">Declined: <span class="pl-6">0</span></div>
+            </div>
+            <div>
+                <div class="flex items-center mt-2 pl-4 text-gray-700 dark:text-gray-200">
+                    <a class="mx-2 text-blue-600 cursor-pointer dark:text-blue-400 hover:underline" tabindex="0" role="link">View all</a>
+                </div>
+            </div>
+          </div>
+          <!--/ card -->
+          <!-- card -->
+          <div class="w-full px-4 py-3 bg-white rounded-md shadow-md dark:bg-gray-800">
+            <div class="flex items-center justify-between">
+                <span class="text-lg font-semibold text-gray-900"> Junior suite Apartment</span>
+                <span class="px-3 py-1 text-xs text-blue-800 uppercase bg-blue-200 rounded-full dark:bg-blue-300 dark:text-blue-900">Paid</span>
+            </div>
+            <div>
+                <h1 class="mt-2 text-sm font-light text-gray-900 dark:text-white">You own this apartment</h1>
+                <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Apartment details - Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit molestiae iusto illo?</p>
+            </div>
+            <!-- <div>
+                <div class="flex items-center mt-2 text-gray-700 dark:text-gray-200">
+                    <span>Continue:</span>
+                    <a class="mx-2 text-blue-600 cursor-pointer dark:text-blue-400 hover:underline" tabindex="0" role="link">Here</a>
+                </div>
+            </div> -->
+          </div>
+          <!--/ card -->
+          <!-- card -->
+          <div class="w-full px-4 py-3 bg-white rounded-md shadow-md dark:bg-gray-800">
+            <div class="flex items-center justify-between">
+                <span class="text-lg font-semibold text-gray-900"> Executive suite Apartment</span>
+                <span class="px-3 py-1 text-xs text-blue-800 uppercase bg-blue-200 rounded-full dark:bg-blue-300 dark:text-blue-900">Pending</span>
+            </div>
+            <div>
+                <h1 class="mt-2 text-sm font-light text-gray-900 dark:text-white">you have not complited boking this apartment</h1>
+                <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Apartment details - Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit molestiae iusto illo?</p>
+            </div>
+            <div class="flex flex-row mt-2">
+                <div class="flex items-center text-gray-700 dark:text-gray-200">
+                    <span>Continue:</span>
+                    <a class="mx-2 text-blue-600 cursor-pointer dark:text-blue-400 hover:underline" tabindex="0" role="link">Here</a>
+                </div>
+                <span class="px-2">|</span>
+                <div class="flex items-center text-gray-700 dark:text-gray-200">
+                    <a class="mx-2 text-blue-600 cursor-pointer dark:text-blue-400 hover:underline" tabindex="0" role="link">Cancel</a>
+                </div>
+            </div>
+          </div>
+          <!--/ card -->
         </div>
         <!--/ row -->
+        <?php }?>
         <!-- row -->
         <div class="flex flex-wrap -mx-3">
           <?php if(helper::init()->user_can('can_view_staff')){?>
