@@ -88,21 +88,19 @@
         </button>
       </div>
       <div class="px-1 pt-0 pb-2">
-        <div class="p-0 overflow-x-auto">
-          <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
+        <div class="py-0 px-3 overflow-x-scroll">
+          <table id="dTable" class="items-center py-4 w-full mb-0 align-top border-gray-200 text-slate-500">
             <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
               <tr>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Expense date</th>
                 <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Number items</th>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Description</th>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Amount</th>
-               
-                
               </tr>
             </thead>
             <tbody>
               <?php foreach($expenses as $exp){?>
-              <tr>
+              <tr class="border-b hover:bg-gray-200">
                 <td class="px-4 py-3 text-sm">
                 <?=helper::format_time($exp['expenses_date'],'d M, Y')?>
                 </td>
@@ -124,5 +122,12 @@
     </div>
   </div>
 </div>
-  
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>  
+<script>
+  $(document).ready( function () {
+    $('#dTable').DataTable();
+  } );
+</script>
 <script src="js/plugins/flowbite.min.js"></script>

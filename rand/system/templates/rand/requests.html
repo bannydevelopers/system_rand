@@ -36,10 +36,10 @@
             <div class="border-black/12.5 relative z-20 flex min-w-0 flex-col break-words border-0 border-solid bg-blue bg-clip-border">
               <div class="flex-auto p-4">
                 <div class="py-4 pr-1 mb-4">
-                  <h6>My Requests</h6>
+                  <h6><?php if(helper::init()->user_can('can_add_requests')){ ?>My<?php } ?> Requests</h6>
                   <div class="px-1 pt-0 pb-2">
-                    <div class="p-0 overflow-x-auto">
-                      <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
+                    <div class="py-0 px-3 overflow-x-scroll">
+                      <table id="dTable" class="py-4 items-center w-full mb-0 align-top border-gray-200 text-slate-500">
                         <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
                           <tr>
                             <?php if(!helper::init()->user_can('can_add_requests')){ ?>
@@ -56,7 +56,7 @@
                             if (is_array($requests) || is_object($requests))
                             foreach ($requests as $req)
                           { ?>
-                          <tr class="border-b hover:bg-gray-200">
+                          <tr class="border-b py-4 hover:bg-gray-200">
                               <?php if(!helper::init()->user_can('can_add_requests')){?>
                               <td class="px-4 py-3 text-sm">
                                 <?=$req['house_details']?>
@@ -123,5 +123,12 @@
       </div>
     </div>
   </div>
-    
-  <script src="js/plugins/flowbite.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>  
+<script>
+  $(document).ready( function () {
+    $('#dTable').DataTable();
+  } );
+</script>
+<script src="js/plugins/flowbite.min.js"></script>

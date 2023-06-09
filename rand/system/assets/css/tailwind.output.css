@@ -1756,6 +1756,10 @@ h6 {
   overflow-y: hidden;
 }
 
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
+
 .text-ellipsis {
   text-overflow: ellipsis;
 }
