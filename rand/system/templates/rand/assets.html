@@ -53,7 +53,7 @@
                 </div>
               </div>
               <div class="pb-8 text-right gap-x-4 pr-32">
-                <button  class="mx-2 text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save</button>
+                <button type="submit" class="mx-2 text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save</button>
               </div>
             </form>
           </div>
@@ -101,21 +101,22 @@
                   <?=$as['assets_quantity']?>
                 </td>
                 <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
-                  <a href="javascript:;" data-modal-target="edit-asset-modal-<?=$as['assets_name']?>" data-modal-toggle="edit-asset-modal-<?=$as['assets_name']?>" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
+                  <a href="javascript:;" data-modal-target="edit-asset-modal-<?=$as['assets_id']?>" data-modal-toggle="edit-asset-modal-<?=$as['assets_id']?>" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
                  </td>
               </tr>
 <!-- Main modal -->
-<div id="edit-asset-modal-<?=$as['assets_name']?>" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
+<div id="edit-asset-modal-<?=$as['assets_id']?>" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 f-full max-h-full">
   <div class="relative w-full max-w-2xl max-h-full items-center">
       <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
-          <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white" data-modal-hide="edit-asset-modal-<?=$as['assets_name']?>">
+          <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white" data-modal-hide="edit-asset-modal-<?=$as['assets_id']?>">
             <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
               <span class="sr-only">Close modal</span>
           </button>
           <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
             <h3 class="mb-4 text-xl font-medium text-center uppercase">Edit asset </h3>
             <form class="space-y-6" action="" method="POST" enctype="multipart/form-data">
+              <input type="hidden" name="asset_id" value="<?=$as['assets_id']?>">
               <div class="flex flex-wrap w-full ">
                 <div class="w-full md:w-1/2 -mx-3 mb-6">
                   <div class="text-center pt-4">
@@ -123,7 +124,7 @@
                         <div class="drag-image" style="background-image: url(img/home-decor-2.jpg); background-size: cover; background-position: center;">
                             
                         </div>
-                        <input type="file" name="avata" id="input-file-image-edit" hidden required>
+                        <!-- <input type="file" name="avata" id="input-file-image-edit" hidden required> -->
                     </div>
                   </div>
                 </div>
@@ -148,7 +149,7 @@
                 </div>
               </div>
               <div class="pb-8 text-right gap-x-4 pr-32">
-                <button  class="mx-2 text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Save asset</button>
+                <button type="submit" class="mx-2 text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Update asset</button>
               </div>
             </form>
           </div>
@@ -213,55 +214,5 @@
           dragText.textContent = "Drag & Drop to Upload File";
       }
   }
-  indexNav = document.getElementById("index-nav");
-  indexNav.remove();
-  toggleUserEdit = document.getElementById("toggle-user-edit");
-  userInfo = document.getElementById("user-info");
-  var prevUserInfo = userInfo.innerHTML;
-  const userBio = document.getElementById("user-bio");
-  const userName = document.getElementById("user-name");
-  const userPhone = document.getElementById("user-phone");
-  const userEmail = document.getElementById("user-email");
-  const userAddress = document.getElementById("user-address");
 
-
-  function editUserInfo() {
-    userInfo.innerHTML = `<div class="flex-auto">
-      <form role="form" method="POST">
-        <div class="mb-4">
-          <textarea name="bio" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" rows="5" placeholder="Bio">`+userBio.innerHTML+`</textarea>
-        </div>
-        <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Full name</label>
-        <div class="mb-4">
-          <input type="text" name="name" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Full name" value="`+userName.innerHTML+`"/>
-        </div>
-        <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Phone</label>
-        <div class="mb-4">
-          <input type="text" name="phone" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Phone number" value="`+userPhone.innerHTML+`"/>
-        </div>
-        <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Email</label>
-        <div class="mb-4">
-          <input type="text" name="email" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Email address" value="`+userEmail.innerHTML+`"/>
-        </div>
-        <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Location address</label>
-        <div class="mb-4">
-          <textarea type="text" name="address" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Residence address">`+userAddress.innerHTML+`</textarea>
-        </div>
-        <div class="text-center">
-          <button type="submit" class="inline-block w-32 px-3 py-2 mt-6 mb-0 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-blue-600 to-cyan-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85">Save</button>
-        </div>
-      </form>
-    </div>`;
-    toggleUserEdit.innerHTML = `<button type="button" onclick="cancelEditUserInfo()">
-      <i class="leading-normal fas fa-user-edit text-sm text-slate-400"></i>
-      <span class="pl-1">Cancel</span>
-    </button>`;
-  }
-  function cancelEditUserInfo() {
-    userInfo.innerHTML = prevUserInfo;
-    toggleUserEdit.innerHTML = `<button type="button" onclick="editUserInfo()">
-      <i class="leading-normal fas fa-user-edit text-sm text-slate-400"></i>
-      <span class="pl-1">Edit</span>
-    </button>`;
-  }
 </script>
