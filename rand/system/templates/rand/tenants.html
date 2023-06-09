@@ -30,11 +30,6 @@
                 </div>
               </div>
               <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
-                  <label>Residence address <span class="text-red-500">*</span>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="Residence address" name="residence_address" required>
-                  </label>
-                </div>
                 <div class="w-full md:w-1/3 px-3"> 
                   <label>Date in <span class="text-red-500">*</span>
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date"  min="<?= date('Y-m-d'); ?>" name="date_in" required>
@@ -103,20 +98,20 @@
       <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
     </button>
   </div>
-<?php } 
-  else if($status == 'fail') {?>
-<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
-  <span>
-    <i class="fa-solid fa-circle-exclamation fa-lg"></i>
-  </span>
-  <div class="ml-3 text-sm font-medium">
-    <?=$msg?>
-  </div> 
-  <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
-    <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
-  </button>
-</div>
-<?php }
+  <?php } 
+    else if($status == 'fail') {?>
+  <div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+    <span>
+      <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+    </span>
+    <div class="ml-3 text-sm font-medium">
+      <?=$msg?>
+    </div> 
+    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
+      <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+    </button>
+  </div>
+  <?php }
 }?>
 <div class="flex flex-wrap -mx-3">
   <div class="flex-none w-full max-w-full pl-3">
@@ -135,13 +130,15 @@
             <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
               <tr>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Name</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Address</th>
-                <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date in</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Email</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Phone</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Residence address</th>
+                <!-- <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date in</th>
                 <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date out</th>
                 <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">apartment</th>
                 <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Adults</th>
                 <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Children</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Action</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Action</th> -->
               </tr>
             </thead>
             <tbody>
@@ -157,16 +154,20 @@
                         <div class="absolute top-0 right-0 h-3 w-3 my-1 border-2 border-white rounded-full bg-green-400 z-2"></div>
                       </div>
                       <div class="text-sm">
-                        <span style="white-space: nowrap;"><?=$tena['full_name']?></span><br>
-                        <?=$tena['tenants_email']?><br>
-                        <?=$tena['phone_number']?>
+                        <span style="white-space: nowrap;"><?=$tena['first_name']?> <?=$tena['middle_name']?> <?=$tena['last_name']?></span><br>
                       </div>
                   </div>
                 </td>
                 <td class="px-4 py-3 text-sm">
-                  <?=$tena['resident_adress']?>
+                  <?=$tena['email']?>
                 </td>
                 <td class="px-4 py-3 text-sm">
+                  <?=$tena['phone_number']?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=$tena['resident_adress']?>
+                </td>
+                <!-- <td class="px-4 py-3 text-sm">
                   <?=helper::format_time($tena['date_in'],'d M, Y')?>
                 </td>
                 <td class="px-4 py-3 text-sm">
@@ -180,7 +181,7 @@
                 </td>
                 <td class="px-4 py-3 text-sm text-center">
                   <?=$tena['children']?>
-                </td>
+                </td> -->
                 <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
                   <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
                   <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Deactivate </a>
