@@ -29,10 +29,10 @@
 
   <div class="flex flex-wrap">
     <div class="flex-none w-full max-w-full pl-3">
-      <div class="relative flex flex-col min-w-0 mb-6 break-words border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
+      <div class="relative flex flex-col min-w-0 mb-6 break-words border-0 border-transparent border-solid rounded-2xl bg-clip-border">
         <div class="flex flex-wrap-reverse mt-6 -mx-3">
           <!-- table -->
-          <div class="w-full bg-white max-w-full px-3 mt-0 mb-6 lg:mb-0 lg:w-7/12 lg:flex-none rounded-2xl">
+          <div class="w-full bg-white max-w-full shadow-soft-xl px-3 mt-0 mb-6 lg:mb-0 <?php if(helper::init()->user_can('can_add_requests')){ ?>lg:w-7/12<?php } ?> lg:flex-none rounded-2xl">
             <div class="border-black/12.5 relative z-20 flex min-w-0 flex-col break-words border-0 border-solid bg-blue bg-clip-border">
               <div class="flex-auto p-4">
                 <div class="py-4 pr-1 mb-4">
@@ -42,7 +42,9 @@
                       <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
                         <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
                           <tr>
-                            <!-- <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">House details</th> -->
+                            <?php if(!helper::init()->user_can('can_add_requests')){ ?>
+                              <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">House details</th>
+                            <?php } ?>
                             <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Description</th>
                             <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Submitted date</th>
                             <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Status</th>
@@ -53,11 +55,13 @@
                           <?php 
                             if (is_array($requests) || is_object($requests))
                             foreach ($requests as $req)
-                          {?>
-                          <tr>
-                              <!-- <td class="px-4 py-3 text-sm">
-                                  <?=$req['house_details']?>
-                              </td> -->
+                          { ?>
+                          <tr class="border-b hover:bg-gray-200">
+                              <?php if(!helper::init()->user_can('can_add_requests')){?>
+                              <td class="px-4 py-3 text-sm">
+                                <?=$req['house_details']?>
+                              </td>
+                              <?php } ?>
                               <td class="px-4 py-3 text-sm">
                                 <?=$req['descriptions']?>
                               </td>
@@ -67,10 +71,17 @@
                               <td class="px-4 py-3 text-sm">
                                 <?=$req['status']?>
                               </td>
-                              <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
+                              <?php if(helper::init()->user_can('can_add_requests')){?>
+                              <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
                                 <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
                                 <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Delete </a>
                               </td>
+                              <?php } else { ?>
+                                <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
+                                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Done </a>
+                                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Decline </a>
+                                </td>
+                              <?php } ?>
                             </tr>
                             <?php }?>
                          </tbody>
