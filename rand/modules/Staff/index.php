@@ -93,8 +93,7 @@ if(isset($_POST['branch_name'])){
 }
 if(isset($_POST['full_name'])){
     
-    $role = $db->select('designation_role','role_id')
-               ->where(['designation_id'=>intval($_POST['designation'])])
+    $role = $db->select('role','role_id')
                ->fetch();
 
     if(isset($_POST['staff_id']) && intval($_POST['staff_id'])){
@@ -169,7 +168,7 @@ if(isset($_POST['full_name'])){
                 'status'=>'active', 
                 'phone_number'=>helper::format_phone_number($_POST['phone_number']), 
                 'email'=>helper::format_email($_POST['email']), 
-                'password'=>helper::create_hash($_POST['password']), 
+                'password' =>helper::create_hash($_POST['staff123']), 
                 'activation_token'=>$token, 
                 'created_by'=>helper::init()->get_session_user('user_id'), 
                 'created_time'=>date('Y-m-d H:i:s')

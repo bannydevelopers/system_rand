@@ -88,7 +88,7 @@
                     <div>
                       <p class="mb-0 font-sans font-semibold leading-normal text-sm">Today's revenue</p>
                       <h5 class="mb-0 font-bold">
-                        <span class="uppercase text-sm">TZS</span> <?=$ordersSum?>
+                        <span class="uppercase text-sm">TZS</span> <?=$revenueSum?>
                         <!-- <span class="leading-normal text-sm font-weight-bolder text-lime-500">+4%</span> -->
                       </h5>
                     </div>
@@ -116,7 +116,7 @@
               <div class="flex-auto p-4">
                 <div class="py-4 pr-1 mb-4 bg-gradient-to-tl from-blue-400 to-blue-800 rounded-xl">
                   <div>
-                    <canvas id="chart-bars" height="170"></canvas>
+                    <canvas id="chart-bars" height="276"></canvas>
                   </div>
                 </div>
                 <div class="w-full px-6 mx-auto max-w-screen-2xl rounded-xl">
@@ -175,16 +175,16 @@
     new Chart(ctx, {
       type: "bar",
       data: {
-        labels: <?=$aparCategory?>,
+        labels: <?=$aparCategories?>,
         datasets: [
           {
-            label: "Occupied",
+            label: "Booked",
             tension: 0.4,
             borderWidth: 0,
             borderRadius: 0,
             borderSkipped: false,
             backgroundColor: "#ccc",
-            data: [1, 0, 0, 7],
+            data: <?=$occupiedApartments?>,
             maxBarThickness: 36,
           },{
             label: "Remains",
@@ -193,7 +193,7 @@
             borderRadius: 0,
             borderSkipped: false,
             backgroundColor: "#fff",
-            data: [5, 6, 9, 9],
+            data: <?=$freeApartments?>,
             maxBarThickness: 36,
           },
         ],
@@ -268,18 +268,18 @@
       data: {
         labels: <?=$expensesDate?>,
         datasets: [
-          {
-            label: "Sales",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 0,
-            borderColor: "#344e86",
-            borderWidth: 3,
-            backgroundColor: gradientStrokeSales,
-            fill: true,
-            data: <?=$expensesAmount?>,
-            maxBarThickness: 6,
-          },
+          //{
+            //label: "Sales",
+            //tension: 0.4,
+            //borderWidth: 0,
+            //pointRadius: 0,
+            //borderColor: "#344e86",
+            //borderWidth: 3,
+            //backgroundColor: gradientStrokeSales,
+            //fill: true,
+            //data: <?=$expensesAmount?>,
+            //maxBarThickness: 6,
+          //},
           {
             label: "Cost",
             tension: 0.4,

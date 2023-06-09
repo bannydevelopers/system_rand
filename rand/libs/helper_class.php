@@ -112,12 +112,14 @@ class helper{
         if($user == null) return false;
         else return true;
     }
+    
     public static function create_hash($plain_text){
-        $plain_txt = md5(str_rot13($plain_text));
-        $ret = hash('sha512', md5($plain_txt));
-        return md5(str_rot13($ret));
-    }
-    public static function format_time($time, $format = 'Y-m-d H:i:s'){
+            $plain_txt = md5(str_rot13($plain_text ?? ''));
+            $ret = hash('sha512', md5($plain_txt));
+            return md5(str_rot13($ret ?? ''));
+        }
+        
+   public static function format_time($time, $format = 'Y-m-d H:i:s'){
         $timestamp = strtotime($time);
         return date($format, $timestamp);
     }
