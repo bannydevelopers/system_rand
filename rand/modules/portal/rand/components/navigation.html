@@ -11,22 +11,18 @@
         <div class="col-lg-9">
             <div class="row gx-0 bg-white d-none d-lg-flex">
                 <div class="col-lg-7 px-5 text-start">
-                    <a href="mailto:info@rand.com" class="h-100 d-inline-flex align-items-center py-2 me-4">
+                    <a href="mailto:info@randapartments.com" class="h-100 d-inline-flex align-items-center py-2 me-4">
                         <i class="fa fa-envelope text-primary me-2"></i>
-                        <p class="mb-0">info@rand.com</p>
+                        <p class="mb-0">info@randapartments.com</p>
                     </a>
-                    <a href="tel:+2553456789" class="h-100 d-inline-flex align-items-center py-2">
+                    <a href="tel:+255769509929" class="h-100 d-inline-flex align-items-center py-2">
                         <i class="fa fa-phone-alt text-primary me-2"></i>
-                        <p class="mb-0">+255 345 6789</p>
+                        <p class="mb-0">+255 769 509 929</p>
                     </a>
                 </div>
                 <div class="col-lg-5 px-5 text-end">
                     <div class="d-inline-flex align-items-center py-2">
-                        <a class="me-3" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="me-3" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="me-3" href=""><i class="fab fa-linkedin-in"></i></a>
-                        <a class="me-3" href=""><i class="fab fa-instagram"></i></a>
-                        <a class="" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="me-3" href="https://www.instagram.com/rand.apartments/?igshid=ZDc4ODBmNjlmNQ%3D%3D" target="_blank"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
@@ -39,7 +35,7 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div id="links" class="navbar-nav mr-auto py-0">
-                        <a href="../" class="nav-item nav-link">Home</a>
+                        <a href="/" class="nav-item nav-link">Home</a>
                         <a href="about" class="nav-item nav-link">About</a>
                         <a href="service" class="nav-item nav-link">Services</a>
                         <a href="apartment" class="nav-item nav-link">Apartments</a>
@@ -64,8 +60,9 @@
 <script>
     const links = document.querySelectorAll('#links>a');
     for (const link of links) {
-        if (window.location.href === link.href) {
+        serviceId = link.href + "?#service";
+        if (window.location.href === link.href || window.location.href === link.href + 'index' || window.location.href.startsWith(serviceId)) {
           link.classList.add("active");
-        }
+        }    
     }
 </script>
