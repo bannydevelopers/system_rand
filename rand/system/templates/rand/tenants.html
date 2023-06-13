@@ -54,7 +54,7 @@
                 </div>
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
                   <label>Adults <span class="text-red-500">*</span>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="adults"name="adults" required>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="Number of adults" name="adults" required>
                   </label>
                 </div>
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
@@ -115,6 +115,7 @@
   </div>
   <?php }
 }?>
+
 <div class="flex flex-wrap -mx-3">
   <div class="flex-none w-full max-w-full pl-3">
     <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
@@ -186,7 +187,7 @@
                 </td> -->
                 <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
                   <a href="javascript:;" data-modal-target="edit-asset-modal-<?=$tena['tenants_id']?>" data-modal-toggle="edit-asset-modal-<?=$tena['tenants_id']?>" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
-                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Deactivate </a>
+                  <a href="/?del_val=<>" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Deactivate </a>
                 </td>
               </tr>
               <!-- Modal toggle -->
