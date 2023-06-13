@@ -162,7 +162,7 @@ Add Category
         <h5>Apartments </h5>
         <!-- Modal toggle -->
         <button data-modal-target="add-apartment-modal" data-modal-toggle="add-apartment-modal" 
-        class="text-blue-400 hover:text-blue-500 focus:ring-4 focus:outline-none bg-red-900 focus:ring-blue-300 font-medium rounded-lg text-center mx-6 px-1.5" type="button">
+        class="text-blue-400 hover:text-blue-500 focus:ring-4 focus:outline-none bg-white focus:ring-blue-300 font-medium rounded-lg text-center mx-6 px-1.5" type="button">
           <i class="fa-solid fa-plus text-xl"></i>
         </button>
       </div>
@@ -176,9 +176,12 @@ Add Category
               <ul class="flex flex-wrap -mb-px" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
                 <?php foreach($apartment as $apartment_cat) { ?>
                   <li class="mr-2" role="presentation">
-                    <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-md font-bold text-center border-transparent border-b-2" id="t<?=$apartment_cat['category_id']?>-tab" data-tabs-target="#t<?=$apartment_cat['category_id']?>" type="button" role="tab" aria-controls="t<?=$apartment_cat['category_id']?>"><?=$apartment_cat['category_name']?></button>
+                    <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg p-4 text-md font-bold text-center border-transparent border-b-2" id="t<?=$apartment_cat['category_id']?>-tab" data-tabs-target="#t<?=$apartment_cat['category_id']?>" type="button" role="tab" aria-controls="t<?=$apartment_cat['category_id']?>"><?=$apartment_cat['category_name']?></button>
                   </li>
                 <?php } ?>
+                <li class="mr-2 text-right">
+                  <button class="inline-block text-blue-500 hover:text-blue-600 hover:border-blue-300 rounded-t-lg my-3 py-1 px-4 text-md font-bold text-center border border-blue-400" type="button">Edit</button>
+                </li>
               </ul>
             </div>
             <!-- Tabs -->

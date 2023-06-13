@@ -1,6 +1,6 @@
 <?php 
 $db = db::get_connection(storage::init()->system_config->database);
-$ok = false;
+$status = false;
 $msg = '';
 if(isset($_POST['role_name'])){
     $role_id = $db->insert('role',['role_name'=>$_POST['role_name']]);
@@ -88,6 +88,7 @@ echo helper::find_template(
     [
         'roles' => $role_tree,
         'designations'=>$designations,
-        'permissions'=>$perm_tree
+        'permissions'=>$perm_tree,
+        'msg' => $msg
     ]
 );
