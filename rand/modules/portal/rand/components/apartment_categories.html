@@ -1,0 +1,45 @@
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">Our apartments</h6>
+            <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">apartments</span></h1>
+        </div>
+        <?php $cards = get_apartment_real_cards()?>
+        <div class="row g-4">
+            <!-- <?=var_dump('<pre>', $cards);?> -->
+            <?php foreach($cards as $card){?>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="Apartment-item shadow rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="rand/modules/portal/rand/img/opt/3.jpg" alt="">
+                            <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4"><?=$card['price']?>/Night</small>
+                        </div>
+                        <div class="p-4 mt-2">
+                            <div class="d-flex justify-content-between mb-3">
+                                <h5 class="mb-0"><?=$card['category_name']?></h5>
+                                <div class="ps-2">
+                                    <small class="fa fa-star text-primary"></small>
+                                    <small class="fa fa-star text-primary"></small>
+                                </div>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>
+                                    <?=$card['bedroom']?> Bedrooms
+                                </small>
+                                <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2"></i>
+                                    <?=$card['bathroom']?> Bathroom
+                                </small>
+                                <small><i class="fas fa-utensils text-primary me-2"></i><?=$card['dinning_room']?> Dining</small>
+                            </div>
+                            <p class="text-body mb-3"><?=$card['category_description']?></p>
+                            <div class="d-flex justify-content-between">
+                                <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">View Detail</a>
+                                <a class="btn btn-sm btn-dark rounded py-2 px-4" href="booking?book=<?=$card['category_name']?>">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php }?>
+        </div>
+    </div>
+</div>

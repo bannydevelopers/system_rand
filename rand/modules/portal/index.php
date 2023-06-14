@@ -19,6 +19,16 @@ function get_apartment_cards($opts = []){
 
     return $tree;
 }
+function get_apartment_real_cards(){
+    $db = db::get_connection(storage::init()->system_config->database);
+    $cards = $db->select('apartment_category','*')
+                     ->fetchAll();
+    $tree = [];
+    if(!$db->error()){
+        return $cards;
+    }
+    else print_r($db->error()['message']);
+}
 $storage= storage::init();
 $helper = helper::init();
 $db = db::get_connection($storage->system_config->database);
