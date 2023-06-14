@@ -61,10 +61,15 @@ $apartment = $db->select('apartments','apartments.*,apartment_category.category_
                 ->join('apartment_category','apartments.apartment_category=apartment_category.category_id')
                 ->order_by('apartment_id', 'desc')->fetchAll();
 
+$apart = $db->select('apartments', 'apartment_id, apartment_block, apartment_floor')
+                ->order_by('apartment_block', 'asc')
+                ->order_by('apartment_floor', 'asc')
+                ->fetchAll();             
+
 //var_dump($apartment);die;
 foreach($apartment as $app){
     $tree[$app['category_name']]['children'][] = $app;
 }
 //var_dump('<pre>',$tree);die;
-$data = ['apartment'=>$tree,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request, 'conf'=>storage::init()->system_config];
+$data = ['apartment'=>$tree,'apart'=>$apart ,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request, 'conf'=>storage::init()->system_config];
 echo helper::find_template('apartments', $data);

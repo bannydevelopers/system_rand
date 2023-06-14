@@ -4,19 +4,12 @@
     "nav":[
         {"name":"System config","href":"System_config/","permission":"can_view_system_configuration"},
         {"name":"User permission","href":"User_permission/","permission":"can_view_user_permission"},
-        {"name":"System backup","href":"System_backup/","permission":"can_view_system_backup"},
         {"name":"Payment gateway","href":"Payment_gateway/","permission":"can_view_payment_gateway"}
        
-      
     ],
 
     "permissions":[
         
-        "can_add_system_backup",
-         "can_delete_system_backup",
-         "can_view_system_backup",
-         "can_edit_system_backup",
-
          "can_add_payment_gateway",
          "can_edit_payment_gateway",
          "can_delete_payment_gateway",

@@ -1,17 +1,12 @@
 {
     "name":"Requests",
     "icon":"comment",
-    "nav":[
-       
-           
-           ],
+    "nav":[],
 
     "permissions":[
         "can_add_requests",
         "can_edit_requests",
         "can_delete_requests",
         "can_view_requests"
- 
-       
   ]
  }

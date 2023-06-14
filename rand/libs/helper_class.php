@@ -119,10 +119,14 @@ class helper{
             return md5(str_rot13($ret ?? ''));
         }
         
-   public static function format_time($time, $format = 'Y-m-d H:i:s'){
-        $timestamp = strtotime($time);
-        return date($format, $timestamp);
-    }
+        public static function format_time($time, $format = 'Y-m-d H:i:s') {
+            if ($time !== null) {
+                $timestamp = strtotime($time);
+                return date($format, $timestamp);
+            } else {
+                return ''; // or any default value or error handling logic you want
+            }
+        }
     public static function format_phone_number($number) {
         if (!empty($number)) {
             $number = preg_replace('/\D/', '', $number);
