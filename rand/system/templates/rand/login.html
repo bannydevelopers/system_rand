@@ -66,6 +66,19 @@
                     <h3 class="relative z-10 font-bold text-transparent bg-gradient-to-tl from-blue-600 to-cyan-400 bg-clip-text">Welcome</h3>
                     <p class="mb-0">Enter your email and password to sign in</p>
                   </div>
+                  <?php if($error){ ?>
+                  <div x-data="{ open: true }" x-show="open" class="msg flex items-center p-3 mt-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+                    <span>
+                      <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+                    </span>
+                    <div class="ml-3 text-sm font-medium">
+                      <?=$error?>
+                    </div> 
+                    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
+                      <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i>cancel</span>
+                    </button>
+                  </div>
+                  <?php } ?>
                   <div class="flex-auto p-6">
                     <form role="form" method="POST">
                       <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Email</label>
@@ -108,5 +121,5 @@
   <!-- plugin for scrollbar  -->
   <script src="/<?=$base?>/js/plugins/perfect-scrollbar.min.js" async></script>
   <!-- main script file  -->
-  <script src="/<?=$base?>/js/soft-ui-dashboard-tailwind1.js?v=1.0.4" async></script>
+  <script src="/<?=$base?>/js/soft-ui-dashboard-tailwind.js?v=1.0.4" async></script>
 </html>

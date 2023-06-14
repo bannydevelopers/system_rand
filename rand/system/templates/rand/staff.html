@@ -83,7 +83,7 @@
 
 <?php if($msg){ 
   if($status == 'success') {?>
-  <div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+  <div x-data="{ open: true }" x-show="open" class="msg flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
     <span>
       <i class="fa-solid fa-circle-info fa-lg"></i>
     </span>
@@ -96,7 +96,7 @@
   </div>
 <?php } 
   else if($status == 'fail') {?>
-<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+<div x-data="{ open: true }" x-show="open" class="msg flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
   <span>
     <i class="fa-solid fa-circle-exclamation fa-lg"></i>
   </span>
@@ -258,8 +258,7 @@
     </div>
   </div>
 </div>
-  
-<script src="js/plugins/flowbite.min.js"></script>
+
 
 <script>
   problem = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-red-800 rounded-lg bg-red-50 role="alert">
@@ -273,91 +272,6 @@
       <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
     </button>
   </div>`
-
-  async function delStaff(values) {
-    if (!confirm("Sure you want to delete staff?")) {
-      return;
-    }
-    
-    delStaffBtn = document.getElementById(values.id);
-    delStaffBtn.disabled = true;
-    delStaffBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin fa-lg"></i>'
-
-    var staffId = values.id.split('-');
-    const staffData = new FormData();
-    staffData.append('ajax_del_staff', staffId[1]);
-    //for (let obj of staffData) {
-      //console.log(obj);
-    //}
-    //var name = staffData.get('ajax_del_staff');
-    //console.log(name);
-
-    let url = '';
-    let obj = {
-      method: "POST", 
-      body: staffData,
-    }
-
-    let response = await fetch(url, obj)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('The response side is not ok!');
-      }
-      return response.json();
-    })
-    .then(data => {
-      if(data.status == 'success'){
-        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100" role="alert">
-          <span>
-            <i class="fa-solid fa-circle-info fa-lg"></i>
-          </span>
-          <div class="ml-3 text-sm font-medium">
-            `+data.msg+` for staff `+data.staff.first_name+` `+data.staff.middle_name+` `+data.staff.last_name
-            +`.
-          </div> 
-          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex">
-            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
-          </button>
-        </div>`;console.log(data);
-        document.getElementById('tr-'+staffId[1]).remove();
-      }
-      if(data.status == 'fail'){
-        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50" role="alert">
-          <span>
-            <i class="fa-solid fa-circle-exclamation fa-lg"></i>
-          </span>
-          <div class="ml-3 text-sm font-medium">
-            `+data.msg+` for staff `+data.staff.first_name+` `+data.staff.middle_name+` `+data.staff.last_name
-            +`.
-          </div> 
-          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex">
-            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
-          </button>
-        </div>`;
-        delStaffBtn.disabled = false;
-        delStaffBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
-      }
-      if(data.status == 'not-exist' || data.status == 'denied'){
-        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50" role="alert">
-          <span>
-            <i class="fa-solid fa-circle-exclamation fa-lg"></i>
-          </span>
-          <div class="ml-3 text-sm font-medium">
-            `+data.msg+`.
-          </div> 
-          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex">
-            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
-          </button>
-        </div>`;
-      }
-    })
-    .catch(error => {
-      document.getElementById("message").innerHTML = problem;
-      //console.error('Problem:', error);
-      delStaffBtn.disabled = false;
-      delStaffBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
-    });
-  }
 
 
   async function activateStaff(values) {
