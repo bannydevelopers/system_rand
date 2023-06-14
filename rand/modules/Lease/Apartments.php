@@ -33,8 +33,7 @@ if(isset($_POST['category_name'])){
         'livingroom'=>$_POST['livingroom'],
         'price'=>$_POST['price'], 
         'dinning_room'=>$_POST['dinning_room'],
-        'asserts'=>json_encode($_POST['asserts'])
-                
+        'asserts'=>json_encode($_POST['asserts'])    
        ];
     $k = $db->insert('apartment_category', $data);
     //var_dump($db->error());
