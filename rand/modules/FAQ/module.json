@@ -1,0 +1,14 @@
+{
+    "name":"FAQ",
+    "icon":"shopping-cart",
+    "nav":[
+       
+    ],
+
+   "permissions":[
+        "can_add_faq",
+        "can_edit_faq",
+        "can_delete_faq",
+        "can_view_faq"
+    ]
+}

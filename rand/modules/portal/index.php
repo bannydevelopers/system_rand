@@ -43,6 +43,32 @@ if(isset($_GET['logout'])){
     $url = strtok($_SERVER["REQUEST_URI"], '?');
     header("Location: {$url}");
 }
+
+if(isset($_POST['ajax_newsletter'])){
+    $newsletterData = [
+        'newsletter_email'=>$_POST['email'], 
+    ];
+    $test = $db->select('newsletter')
+            ->where(['newsletter_email'=>$newsletterData['newsletter_email']])
+            ->fetch();
+    if($test) {
+        die(json_encode([
+            'message'=>'Email already exist!'
+         ]));
+    }
+    else {
+        $newsletter = $db->insert('newsletter', $newsletterData);
+        if(!$db->error() && $newsletter){
+            die(json_encode([
+                'message'=>'Successful subscribed to newsletters.'
+            ]));
+        } else {
+            die(json_encode([
+                'message'=>'Failed to subscribe! Try again.'
+            ]));
+        }
+    }
+}
 $user = $helper->get_session_user();
 if(isset($_POST['cust_name'])){
     if($_POST['password'] != $_POST['password2']){

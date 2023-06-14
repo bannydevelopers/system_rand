@@ -26,6 +26,8 @@ if (!aux.includes("pages")) {
 loadStylesheet(to_build + "css/perfect-scrollbar.css");
 loadJS(to_build + "js/perfect-scrollbar.js", true);
 
+loadJS(to_build + "js/plugins/flowbite.min.js", true);
+
 if (document.querySelector("nav [navbar-trigger]")) {
   loadJS(to_build + "js/navbar-collapse.js", true);
 }
