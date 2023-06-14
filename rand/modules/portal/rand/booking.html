@@ -163,18 +163,17 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <select class="form-select" name="apartment_categoryx" id="apartment_category" disabled>
+                                            <select class="form-select" name="apartment_category" onchange="update_price()" id="apartment_category" required>
                                               <option value="">Choose...</option>
                                               <?php 
                                                 $selected = isset($_GET['book']) ? $_GET['book'] : '';
                                                 $cats = get_apartment_cards();
                                                 ?>
                                               <?php foreach($cats as $category=>$val){?>
-                                              <option value="<?=$val[0]['apartment_category']?>" <?=$selected == $category ? ' selected':''?>><?=$category?></option>
+                                              <option value="<?=$val[0]['apartment_category']?>" data-price="<?=$val[0]['price']?>" <?=$selected == $category ? ' selected':''?>><?=$category?></option>
                                               <?php }?>
                                             </select>
                                             
-                                            <input type="hidden" value="<?=$cats[$selected][0]['apartment_category']?>" name="apartment_category">
                                             <label for="apartment_category">Selected apartment</label>
                                         </div>
                                     </div>
@@ -186,13 +185,13 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating date" id="date4" data-target-input="nearest">
-                                            <input type="date" name="checkout" class="form-control" id="checkout" placeholder="Check Out" required/>
+                                            <input type="date" name="checkout" class="form-control" onchange="update_price()" id="checkout" placeholder="Check Out" required/>
                                             <label for="checkout">Check Out</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-floating" data-price="<?=$price?>">
-                                            <input type="text" value="<?=$price?>" class="form-control" id="order_amount" name="order_amount" readonly>
+                                        <div class="form-floating">
+                                            <input type="text" value="0" class="form-control" id="order_amount" name="order_amount" readonly>
                                             <label for="order_amount">Order amount</label>
                                         </div>
                                     </div>
@@ -344,6 +343,17 @@
         setMinimumDate();
     }
 
+    function update_price(){
+        let cats = document.getElementById('apartment_category'),
+            amount = 0,
+            price_panel = document.getElementById('order_amount');
+            cat_price = cats.options[cats.selectedIndex].getAttribute("data-price"),
+            checkin = document.getElementById("checkin").value,
+            checkout = document.getElementById("checkout").value;
+            if(checkin == '' || checkout == '') return;
+            let days = (new Date(checkout).getTime() - new Date(checkin).getTime()) / 86400000;
+            price_panel.value = days * cat_price;
+    }
     function changeCheckoutDate(checkin) {
         var checkout = document.getElementById("checkout") 
         var checkinDateObj = new Date(checkin.value);
@@ -356,6 +366,7 @@
         }else {
             checkout.min = nextDayString;
         }
+        update_price();
     }
 </script>
 </html>
