@@ -41,6 +41,31 @@ if(isset($_POST['cust_namez'])){
         ])
          );
 }
+if(isset($_POST['ajax_newsletter'])){
+    $newsletterData = [
+        'newsletter_email'=>$_POST['email'], 
+    ];
+    $test = $db->select('newsletter')
+            ->where(['newsletter_email'=>$newsletterData['newsletter_email']])
+            ->fetch();
+    if($test) {
+        die(json_encode([
+            'message'=>'Email already exist!'
+         ]));
+    }
+    else {
+        $newsletter = $db->insert('newsletter', $newsletterData);
+        if(!$db->error() && $newsletter){
+            die(json_encode([
+                'message'=>'Successful subscribed to newsletters.'
+            ]));
+        } else {
+            die(json_encode([
+                'message'=>'Failed to subscribe! Try again.'
+            ]));
+        }
+    }
+}
 if(isset($_POST['login']) && isset($_POST['password'])){
     $helper->login_user($_POST);
     if(!$helper->check_user_session()) $msg = 'Login creditial mismatch';
