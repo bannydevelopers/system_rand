@@ -22,15 +22,6 @@ function get_apartment_cards($opts = []){
 $storage= storage::init();
 $helper = helper::init();
 $db = db::get_connection($storage->system_config->database);
-if(isset($_POST['cust_namez'])){
-    die(
-         json_encode([
-            'status'=>'success',
-            'data.user_fullname'=>'DOA',
-            'req'=>$_POST
-        ])
-         );
-}
 if(isset($_POST['login']) && isset($_POST['password'])){
     $helper->login_user($_POST);
     if(!$helper->check_user_session()) $msg = 'Login creditial mismatch';
@@ -43,6 +34,101 @@ if(isset($_GET['logout'])){
     header("Location: {$url}");
 }
 $user = $helper->get_session_user();
+if(isset($_POST['cust_name'])){
+    if($_POST['password'] != $_POST['password2']){
+        die(
+            json_encode([
+                'status'=>'fail',
+                'message'=>'Passwords mismatch'
+            ])
+        );
+    }
+    $check = $db->select('user')
+                ->where(['phone_number'=>helper::format_phone_number($_POST['mob_number'])])
+                ->or(['email'=>helper::format_email($_POST['cust_email'])])
+                ->fetch();
+    if($check){
+        die(
+            json_encode([
+                'status'=>'fail',
+                'message'=>'Account exists'
+            ])
+        );
+    }
+    $name = explode(' ', $_POST['cust_name']);
+    $fn = $name[0];
+    $mn = isset($name[1]) ? $name[1] : '';
+    $ln = end($name);
+    $token = helper::create_hash(time());
+    $config = json_decode(file_get_contents(__DIR__.'/config.json'));
+    $status = $config->customer_auto_activate ? 'inactive' : 'active';
+    $data = [
+        'first_name'=>$fn,
+        'middle_name'=>$mn,
+        'last_name'=>$ln,
+        'system_role'=>$config->customer_role,
+        'status'=>$status,
+        'phone_number'=>helper::format_phone_number($_POST['mob_number']),
+        'email'=>helper::format_email($_POST['cust_email']),
+        'password'=>helper::create_hash($_POST['password']),
+        'activation_token'=>$token,
+        'created_by'=>0,
+        'created_time'=>date('Y-m-d H:i:s')
+        
+    ];
+    $uid = $db->insert('user', $data);
+    if(!$db->error() && intval($uid)){
+        $data = [
+            'passport_number'=>$_POST['passport_number'], 
+            'country'=>$_POST['country'],
+            'resident_adress'=>$_POST['resident_adress'],
+            'user_reference'=>$uid
+        ];
+        $tenant = $db->insert('tenants', $data);
+        if(!$db->error() && intval($tenant)) {
+            $req_url = $_SERVER['REQUEST_URI'];
+            
+            if(!intval($config->customer_auto_activate)){
+                $link = "https://{$req_url}/?activate_user={$token}";
+                $site_name = $storage->system_config->system_name;
+                $opts = [];
+                $opts['recipient'] = helper::format_email($_POST['cust_email']);
+                $opts['recipient_name'] = $name;
+                $opts['subject'] = 'Activate your account';
+                ob_start();
+                include(realpath(__DIR__.'/../../config/mails/emails').'activate_account.html');
+                $opts['body'] = ob_get_clean();
+                $msg = helper::send_email($opts); //To Do: make it useful (overwitten thereafter)
+            }
+            $msg = 'Saved successful';
+            $status = 'success';
+        }
+        else{
+            $db->delete('user')->where(['user_id'=>$uid])->commit(); // roll back, tenant adding failed
+            $error = $db->error();
+            $error = end($error);
+            $msg = isset($error['message']) ? $error['message']: 'Unexpected error occured';
+            $status = 'error';
+        }
+        if(isset($_POST['ajax'])){
+            die(
+                json_encode([
+                    'status'=>$status,
+                    'message'=>$msg
+                ])
+            );
+        }
+    }
+    else{
+        $msg = $db->error() ? $db->error()['message'] : 'Unexpected error occured';
+        die(
+            json_encode([
+                'status'=>'fail',
+                'message'=>$msg
+            ])
+        );
+    }
+}
 
 $price = 0;
 if(isset($_GET['book'])){

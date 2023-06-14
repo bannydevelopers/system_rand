@@ -47,6 +47,12 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
+                                    <input type="text" class="form-control" id="resident_adress" name="resident_adress" placeholder="Residence address">
+                                    <label for="resident_adress">Residence address</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
                                     <input type="email" class="form-control" id="cust_email" name="cust_email" placeholder="Your email">
                                     <label for="cust_email">Email</label>
                                 </div>
@@ -63,6 +69,12 @@
                                     <?php include('components/countries.html')?>
                                     </select>
                                     <label for="countryReg">Select your country</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="passport_number" name="passport_number" placeholder="Passport number">
+                                    <label for="passport_number">Passport number</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -268,7 +280,7 @@
     <script src="rand/modules/portal/rand/js/main.js"></script>
 </body>
 <script>
-    problem = `An error occured! Please refresh the page or try again later.`;
+    var problem = `An error occured! Please refresh the page or try again later.`;
 
     async function regUser() {
 
@@ -291,7 +303,6 @@
           method: "POST", 
           body: userData,
         }
-    
         let response = await fetch(url, obj)
         .then(response => {
           if (!response.ok) {
@@ -301,7 +312,7 @@
         })
         .then(data => {
           if(data.status == 'success'){
-            document.getElementById("login").value = data.user_fullname;
+            //document.getElementById("login").value = data.fullname;
             console.log(data);
           }
           if(data.status == 'fail'){
@@ -309,9 +320,9 @@
             regUserBtn.disabled = false;
             regUserBtn.innerHTML = 'Register';
           }
-          if(data.status == 'not-exist' || data.status == 'denied'){
-            regSmg.innerHTML = data.msg;
-          }
+          //if(data.status == 'not-exist' || data.status == 'denied'){
+            regSmg.innerHTML = data.message;
+          //}
         })
         .catch(error => {
           regSmg.innerHTML = problem;
