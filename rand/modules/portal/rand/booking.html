@@ -170,7 +170,7 @@
                                                 $cats = get_apartment_cards();
                                                 ?>
                                               <?php foreach($cats as $category=>$val){?>
-                                              <option value="<?=$val[0]['apartment_category']?>" data-price="<?=$val[0]['price']?>" <?=$selected == $category ? ' selected':''?>><?=$category?></option>
+                                              <option value="<?=$val[0]['apartment_category']?>" data-price-daily="<?=$val[0]['price_per_day']?>" data-price="<?=$val[0]['price']?>" <?=$selected == $category ? ' selected':''?>><?=$category?></option>
                                               <?php }?>
                                             </select>
                                             
@@ -347,12 +347,34 @@
         let cats = document.getElementById('apartment_category'),
             amount = 0,
             price_panel = document.getElementById('order_amount');
-            cat_price = cats.options[cats.selectedIndex].getAttribute("data-price"),
+            cat_price = parseInt(cats.options[cats.selectedIndex].getAttribute("data-price")),
+            price_per_day = parseInt(cats.options[cats.selectedIndex].getAttribute("data-price-daily")),
             checkin = document.getElementById("checkin").value,
-            checkout = document.getElementById("checkout").value;
-            if(checkin == '' || checkout == '') return;
-            let days = (new Date(checkout).getTime() - new Date(checkin).getTime()) / 86400000;
-            price_panel.value = days * cat_price;
+            checkout = document.getElementById("checkout").value,
+            discount_rate = 0,
+            discount = 0;
+        if(checkin == '' || checkout == '') return;
+        let days = (new Date(checkout).getTime() - new Date(checkin).getTime()) / 86400000;
+        let min_price = cat_price / 30;
+        discount_rate = (price_per_day - min_price) / 16;
+        
+        if(days > 14){
+            let discountable = days - 14;
+            if(days > 30){
+                discount = min_price;
+                console.log('days > 30:',discount);
+            }
+            else{//discount_rate * discountable
+                discount = (min_price + (discountable * discount_rate));
+                console.log('days < 30:',discount);
+            }
+            amount = discount * days;
+        }
+        else{
+            console.log('days < 15:',discount);
+            amount = price_per_day * days;
+        }
+        price_panel.value = amount;
     }
     function changeCheckoutDate(checkin) {
         var checkout = document.getElementById("checkout") 
