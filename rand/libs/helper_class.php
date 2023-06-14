@@ -119,14 +119,14 @@ class helper{
             return md5(str_rot13($ret ?? ''));
         }
         
-        public static function format_time($time, $format = 'Y-m-d H:i:s') {
-            if ($time !== null) {
-                $timestamp = strtotime($time);
-                return date($format, $timestamp);
-            } else {
-                return ''; // or any default value or error handling logic you want
-            }
+    public static function format_time($time, $format = 'Y-m-d H:i:s') {
+        if ($time !== null) {
+            $timestamp = strtotime($time);
+            return date($format, $timestamp);
+        } else {
+            return ''; // or any default value or error handling logic you want
         }
+    }
     public static function format_phone_number($number) {
         if (!empty($number)) {
             $number = preg_replace('/\D/', '', $number);
@@ -141,6 +141,53 @@ class helper{
     }
     public static function format_email($email){
         return filter_var($email, FILTER_SANITIZE_EMAIL);
+    }
+    public static function upload_image($source, $destination, $sizes = ['width'=>800, 'height'=>600]){
+        list($width, $height, $type) = getimagesize($source);
+        $finaldst = $destination;
+
+        if( $type == IMAGETYPE_JPEG ) $src = imagecreatefromjpeg($source);
+        elseif( $type == IMAGETYPE_GIF ) $src = imagecreatefromgif($source);
+        elseif( $image_type == IMAGETYPE_PNG ) $src = imagecreatefrompng($source);
+        else return 'Unsupported image format';
+
+        $w = $sizes['width'];
+        $h = $sizes['height'];
+        $ir = $width/$height; // Source ratio
+        $fir = $w/$h; // Destination ratio
+        if($ir >= $fir){
+            $newheight = $h; 
+            $newwidth = round($w * ($width / $height));
+        }
+        else {
+            $newheight = round($w / ($width/$height));
+            $newwidth = $w;
+        }   
+        $xcor = round(0 - ($newwidth - $w) / 2);
+        $ycor = round(0 - ($newheight - $h) / 2);
+     
+        $dst = imagecreatetruecolor($w, $h);
+
+        $dest_info = explode('.',$destination);
+        $dest_ext = end($dest_info);
+        $dest_ext = strtolower($dest_ext);
+        $transparent_images = ['gif', 'png'];
+
+        if( in_array($dest_ext, $transparent_images) && ( $type == IMAGETYPE_GIF or $type == IMAGETYPE_PNG) ){
+            $background = imagecolorallocatealpha($dst, 0, 0, 0, 127);
+            imagecolortransparent($dst, $background);
+            imagealphablending($dst, false);
+            imagesavealpha($dst, true);
+        }
+        imagecopyresampled($dst, $src, $xcor, $ycor, 0, 0, $newwidth, $newheight, $width, $height);
+        
+        if($dest_ext == 'jpg' or $dest_ext == 'jpeg') imagejpeg($dst, $finaldst);
+        elseif($dest_ext == 'png') imagepng($dst, $finaldst);
+        elseif($dest_ext == 'gif') imagegif($dst, $finaldst);
+
+        imagedestroy($dst);
+        unlink($source);
+        return $destination;
     }
     public static function find_template($template_name, $data = []){
         $storage = storage::init();
