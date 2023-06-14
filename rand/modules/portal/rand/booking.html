@@ -356,25 +356,23 @@
         if(checkin == '' || checkout == '') return;
         let days = (new Date(checkout).getTime() - new Date(checkin).getTime()) / 86400000;
         let min_price = cat_price / 30;
-        discount_rate = (price_per_day - min_price) / 16;
+        discount_rate = (price_per_day - min_price) / 15;
         
         if(days > 14){
             let discountable = days - 14;
             if(days > 30){
                 discount = min_price;
-                console.log('days > 30:',discount);
             }
-            else{//discount_rate * discountable
-                discount = (min_price + (discountable * discount_rate));
-                console.log('days < 30:',discount);
+            else{
+                discount = price_per_day - (price_per_day * ( (discountable * discount_rate) / 100 ) );
+                if(discount < min_price) discount = min_price;
             }
             amount = discount * days;
         }
         else{
-            console.log('days < 15:',discount);
             amount = price_per_day * days;
         }
-        price_panel.value = amount;
+        price_panel.value = Math.round(amount);
     }
     function changeCheckoutDate(checkin) {
         var checkout = document.getElementById("checkout") 
