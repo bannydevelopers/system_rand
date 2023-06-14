@@ -56,7 +56,6 @@ if(isset($_POST['edit-tenant']) ){
 if(isset($_POST['add-tenant'])){
     if($helper->user_can('can_add_tenants')){
         $token = helper::create_hash(time());
-
         $password = isset($_POST['password']) ? $_POST['password'] : '';
         $email = isset($_POST['email']) ? $_POST['email'] : '';
         $phone_number = isset($_POST['phone_number']) ? $_POST['phone_number'] : '';
@@ -71,14 +70,14 @@ if(isset($_POST['add-tenant'])){
             'first_name' => $fn, 
             'middle_name' => $mn, 
             'last_name' => $ln, 
-            'system_role' => $role['role_id'], 
-            'status'=>'active', 
             'phone_number'=> isset($_POST['phone_number'])
             ? helper::format_phone_number($_POST['phone_number']) : '',
             'email' => isset($_POST['tenants_email']) 
             ? helper::format_email($_POST['tenants_email']) : '',
             'password' => helper::create_hash('tenant123'), 
             'activation_token' => $token, 
+            'system_role' => $_POST['role'], 
+            'status'=>'active', 
         ];
         $test = $db->select('tenants', 'user_reference')
                 ->join('user','user_reference=user_id')
@@ -88,12 +87,24 @@ if(isset($_POST['add-tenant'])){
         if($test) $msg = 'tenants information exists, try to edit existing one if necessary';
         else {
             $user_id = $db->insert('user',$user);
+            // var_dump('<pre>', $tenantDetails);
             if(intval($user_id)){
-                $tenants = [
+                $tenantsD = [
                     'user_reference' => $user_id, 
                 ];
-                $k = $db->insert('tenants',$tenants);
-                if($db->error() or !$k) $db->delete('user')->where(['user_id',$user_id])->commit(); // revert changes, tenants issues
+                $k = $db->insert('tenants',$tenantsD);
+
+                $tenantDetails1 = [
+                    'check_in' => $_POST['date_in'], 
+                    'check_out' => $_POST['date_out'], 
+                    'adults' => $_POST['adults'], 
+                    'children' => $_POST['children'], 
+                    'apartment_reference' => $_POST['occupied_apartment'], 
+                    'check_status' => 'pending'
+                ];
+                $l = $db->insert('check_scheduling',$tenantDetails1);
+                //var_dump($db->error());
+                if($db->error() or !$k or !$l) $db->delete('user')->where(['user_id',$user_id])->commit(); // revert changes, tenants issues
                 else {
                     $msg = 'tenants created'; 
                     $status = 'success';
@@ -128,7 +139,8 @@ if($helper->user_can('can_view_tenants')){
         'tenants' => $tenants,
         'msg' => $msg, 
         'status' => $status,
-        'request_uri' => $request
+        'request_uri' => $request,
+        // 'user' => $user
     ];
 
     echo helper::find_template('tenants', $data);

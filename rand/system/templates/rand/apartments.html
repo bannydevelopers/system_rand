@@ -179,9 +179,6 @@ Add Category
                     <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg p-4 text-md font-bold text-center border-transparent border-b-2" id="t<?=$apartment_cat['category_id']?>-tab" data-tabs-target="#t<?=$apartment_cat['category_id']?>" type="button" role="tab" aria-controls="t<?=$apartment_cat['category_id']?>"><?=$apartment_cat['category_name']?></button>
                   </li>
                 <?php } ?>
-                <li class="mr-2 text-right">
-                  <button class="inline-block text-blue-500 hover:text-blue-600 hover:border-blue-300 rounded-t-lg my-3 py-1 px-4 text-md font-bold text-center border border-blue-400" type="button">Edit</button>
-                </li>
               </ul>
             </div>
             <!-- Tabs -->
@@ -191,37 +188,7 @@ Add Category
               <div class="px-4 rounded-lg" id="t<?=$apartment_cat['category_id']?>" role="tabpanel" aria-labelledby="t<?=$apartment_cat['category_id']?>-tab">
                 <div class="grid divide-y-4 divide-gray-100 dark:divide-gray-900 ">
                   <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500 bg-gray-100">
-                    <!--thead class="align-bottom uppercase text-slate-800 text-sm text-left"></thead>
                     <tr>
-                      
-                      <th class="px-4 py-3 text-sm">
-                        Price
-                      </th>
-                      <th class="px-4 py-3 text-sm">
-                        Kitchen
-                      </th>
-                      <th class="px-4 py-3 text-sm">
-                        Dining room
-                      </th>
-                      <th class="px-4 py-3 text-sm">
-                        Living room
-                      </th>
-                      <th class="px-4 py-3 text-sm">
-                        Bedroom
-                      </th>
-                      <th class="px-4 py-3 text-sm">
-                        Bathroom
-                      </th>
-                      <th class="px-4 py-3 text-sm">
-                        Tv
-                      </th>
-                      <th class="px-4 py-3 text-sm">
-                        Phone
-                      </th>
-                    </tr>
-                    </thead-->
-                    <tr>
-                      
                       <td class="px-4 py-3 text-sm">
                         <b>Price: </b> <?=$conf->system_currency?> <?=$apartment_cat['price']?>
                       </td>
@@ -246,7 +213,81 @@ Add Category
                       <td class="px-4 py-3 text-sm">
                         <b>Phone: </b><?=$apartment_cat['asserts']['phone']?>
                       </td>
+                      <td class="mr-2 text-center">
+                        <button data-modal-target="edit-category-modal-<?=$apartment_cat['category_id']?>" data-modal-toggle="edit-category-modal-<?=$apartment_cat['category_id']?>" class="inline-block text-blue-500 hover:text-blue-600 hover:border-blue-300 rounded-t-lg my-3 py-1 px-4 text-md font-bold text-center border border-blue-400" type="button">Edit</button>
+                      </td>
                     </tr>
+                    <div id="edit-category-modal-<?=$apartment_cat['category_id']?>" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full">
+                      <div class="relative w-full max-w-lg max-h-full items-center">
+                          <!-- Modal content -->
+                          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                              <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="edit-category-modal-<?=$apartment_cat['category_id']?>">
+                                <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+                                <span class="sr-only">Close modal</span>
+                              </button>
+                              <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
+                                <h3 class="mb-4 text-xl font-medium">Edit <?=$apartment_cat['category_name']?> category </h3>
+                                <form class="space-y-6" method="POST">
+                                  <div class="flex flex-wrap -mx-3 mb-6">
+                                    <div class="w-1/2 px-3">
+                                      <label>Category name 
+                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="category" name="category_name" value="<?=$apartment_cat['category_name']?>" required>
+                                      </label>
+                                    </div>
+                                    <div class="w-1/2 px-3">
+                                      <label>Category description 
+                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="description" name="category_description">
+                                      </label>
+                                    </div>
+                                    <div class="w-1/2 px-3">
+                                      <label>Bedroom 
+                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="bedroom" value="<?=$apartment_cat['bedroom']?>">
+                                      </label>
+                                    </div>
+                                    <div class="w-1/2 px-3">
+                                      <label>Bathroom 
+                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="bathroom" value="<?=$apartment_cat['bathroom']?>">
+                                      </label>
+                                    </div>
+                                    <div class="w-1/2 px-3">
+                                      <label>Kitchen 
+                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="kitchen" value="<?=$apartment_cat['kitchen']?>">
+                                      </label>
+                                    </div>
+                                    <div class="w-1/2 px-3">
+                                      <label>Livingroom 
+                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="livingroom" value="<?=$apartment_cat['livingroom']?>">
+                                      </label>
+                                    </div>
+                                    <div class="w-1/2 px-3">
+                                      <label>Dining room 
+                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="dinning_room" value="<?=$apartment_cat['dinning_room']?>">
+                                      </label>
+                                    </div>
+                                    <div class="w-1/2 px-3">
+                                      <label>TV
+                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="asserts[tv]" value="<?=$apartment_cat['asserts']['tv']?>">
+                                      </label>
+                                    </div>
+                                    <div class="w-1/2 px-3">
+                                      <label>Phone
+                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="asserts[phone]" value="<?=$apartment_cat['asserts']['phone']?>">
+                                      </label>
+                                    </div>
+                                    <div class="w-1/2 px-3">
+                                      <label>Price
+                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="price" value="<?=$apartment_cat['price']?>" name="price">
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="pb-8">
+                                    <button type="submit" class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
+                                  </div>
+                                </form>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
                   </table>
                   <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
                     <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
@@ -321,7 +362,6 @@ Add Category
                                               <?php foreach($apartment as $cat){?>
                                                 <option value="<?=$cat['category_id']?>"><?=$cat['category_name']?></option>
                                               <?php }?>
-                                              <option value="">Add category</option>
                                             </select>
                                           </label>
                                         </div>

@@ -8,7 +8,6 @@ $request = $_SERVER['REQUEST_URI'];
 if(isset($_POST['expenses_description'])){
     $data = [
         'expenses_date'=>$_POST['expenses_date'], 
-        'expenses_number_item'=>$_POST['expenses_number_item'], 
         'expenses_description'=>$_POST['expenses_description'], 
         'expenses_amount'=>$_POST['expenses_amount']
        

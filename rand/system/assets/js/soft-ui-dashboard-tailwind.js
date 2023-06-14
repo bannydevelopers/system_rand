@@ -66,7 +66,7 @@ if (document.querySelector("canvas")) {
 //   } );
 // }
 
-if (document.querySelector("#message")) {
+if (document.querySelector("#message") || document.querySelector(".msg")) {
   loadJS(to_build + "js/plugins/alpine.min.js", true);
 }
 

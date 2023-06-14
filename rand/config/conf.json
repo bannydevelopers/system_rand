@@ -15,7 +15,6 @@
     "modules": [
         "Lease",
         "Expenses",
-        "Assets",
         "Staff",
         "Contract",
         "Requests",
