@@ -5,11 +5,59 @@
                 <div class="bg-white rounded text-center p-5">
                     <h4 class="mb-4">Subscribe Our <span class="text-primary text-uppercase">Newsletter</span></h4>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
-                        <input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
-                        <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>
+                        <form id="newsletter">
+                            <input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                            <button type="button" id="newsletter-btn" onclick="newsletter()" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    async function newsletter() {
+        newsletterForm = document.getElementById("newsletter");
+        newsletterBtn = document.getElementById("newsletter-btn");
+        newsletterBtn.disabled = true;
+        newsletterBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>'
+    
+        const newsletterData = new FormData(newsletterForm);
+        newsletterData.append('ajax_newsletter', 1);
+        for (let obj of newsletterData) {
+          console.log(obj);
+        }
+    
+        let url = '';
+        let obj = {
+          method: "POST", 
+          body: newsletterData,
+        }
+    
+        let response = await fetch(url, obj)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('The request wasn\'t successful!');
+          }
+          return response.json();
+        })
+        .then(data => {
+          if(data.status == 'success'){
+            alert(data);
+            newsletterBtn.disabled = false;
+            newsletterBtn.innerHTML = 'Submit';
+          }
+          if(data.status == 'fail'){
+            alert(data);
+            newsletterBtn.disabled = false;
+            newsletterBtn.innerHTML = 'Submit';
+          }
+        })
+        .catch(error => {
+            alert(error);
+            newsletterBtn.disabled = false;
+            newsletterBtn.innerHTML = 'Submit';
+        });
+    }
+</script>
