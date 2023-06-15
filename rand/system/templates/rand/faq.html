@@ -170,7 +170,6 @@
     const staffData = new FormData();
     staffData.append('ajax_del_faq', faqId[1]);
     
-    console.log('<?=$request_uri?>')
     let url = '<?=$request_uri?>';
     let obj = {
       method: "POST", 
@@ -196,7 +195,7 @@
           <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
             <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
           </button>
-        </div>`;console.log(data);
+        </div>`;
         document.getElementById('faqDiv-'+faqId[1]).remove();
       }
       else {
@@ -228,7 +227,6 @@
           <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
         </button>
       </div>`;
-      console.error('Problem:', error);
       faqDelBtn.disabled = false;
       faqDelBtn.innerHTML = `<span class="lg:hidden"><i class="fa-sharp fa-solid fa-trash"></i></span>
         <span class="hidden lg:flex">Delete</span>`;

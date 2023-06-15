@@ -119,6 +119,8 @@
   <?php }
 }?>
 
+<div id="message"></div>
+
 <div class="flex flex-wrap -mx-3">
   <div class="flex-none w-full max-w-full pl-3">
     <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
@@ -136,8 +138,6 @@
             <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
               <tr>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Name</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Email</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Phone</th>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Adress</th> 
                 <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date in</th>
                 <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date out</th>
@@ -152,7 +152,7 @@
                 if (is_array($tenants) || is_object($tenants))
                 foreach ($tenants as $tena)
               {?>
-              <tr class="border-b border-gray-200 border-b-solid hover:bg-gray-200">
+              <tr id="tr-<?=$tena['tenants_id']?>" class="border-b border-gray-200 border-b-solid hover:bg-gray-200">
                 <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
                   <div class="flex px-2 py-1">
                       <div class="relative h-10 w-10 mr-4">
@@ -161,14 +161,10 @@
                       </div>
                       <div class="text-sm">
                         <span style="white-space: nowrap;"><?=$tena['first_name']?> <?=$tena['middle_name']?> <?=$tena['last_name']?></span><br>
+                        <?=$tena['email']?><br>
+                        <?=$tena['phone_number']?><br>
                       </div>
                   </div>
-                </td>
-                <td class="px-4 py-3 text-sm">
-                  <?=$tena['email']?>
-                </td>
-                <td class="px-4 py-3 text-sm">
-                  <?=$tena['phone_number']?>
                 </td>
                 <td class="px-4 py-3 text-sm">
                   <?=$tena['resident_adress']?>
@@ -190,7 +186,8 @@
                 </td>
                 <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
                   <a href="javascript:;" data-modal-target="edit-asset-modal-<?=$tena['tenants_id']?>" data-modal-toggle="edit-asset-modal-<?=$tena['tenants_id']?>" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
-                  <button class="font-semibold leading-tight text-sm text-red-500 pl-2"> Delete </button>
+                  <button id="<?=$tena['tenants_id']?>" class="font-semibold leading-tight text-sm text-red-500 pl-2" onclick="deleteTenant(this)">Delete</button>
+
                 </td>
               </tr>
               <!-- Modal toggle -->
@@ -279,4 +276,57 @@
     </div>
   </div>
 </div>
-  
+<script>
+  function deleteTenant(tenant) {
+    const formData = new FormData();
+    formData.append('tenantId', tenant.id)
+    fetch('<?=$request_uri?>', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if(data.status == 'success'){
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+          <span>
+            <i class="fa-solid fa-circle-info fa-lg"></i>
+          </span>
+          <div class="ml-3 text-sm font-medium">
+            `+data.msg+`
+          </div> 
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+          </button>
+        </div>`;
+        document.getElementById('tr-'+tenant.id).remove();
+      }
+      else {
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+          <span>
+            <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+          </span>
+          <div class="ml-3 text-sm font-medium">
+            `+data.msg+`
+          </div> 
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
+            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+          </button>
+        </div>`;
+      }
+    })
+    .catch(error => {
+      document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-red-700 dark:bg-opacity-20 dark:text-red-400" role="alert">
+        <span>
+          <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+        </span>
+        <div class="ml-3 text-sm font-medium">
+          An error occured! Please try again later.
+        </div> 
+        <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 hover:bg-red-200 inline-flex  dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700">
+          <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+        </button>
+      </div>`;
+    });
+  }
+
+</script>
