@@ -833,10 +833,6 @@ h6 {
   margin: 1rem;
 }
 
-.-m-3 {
-  margin: -0.75rem;
-}
-
 .-mx-1 {
   margin-left: -0.25rem;
   margin-right: -0.25rem;
@@ -926,6 +922,10 @@ h6 {
 
 .-ml-16 {
   margin-left: -4rem;
+}
+
+.-ml-3 {
+  margin-left: -0.75rem;
 }
 
 .-ml-6 {
@@ -1122,14 +1122,6 @@ h6 {
 
 .mt-8 {
   margin-top: 2rem;
-}
-
-.-mr-3 {
-  margin-right: -0.75rem;
-}
-
-.-ml-3 {
-  margin-left: -0.75rem;
 }
 
 .block {
@@ -4090,6 +4082,11 @@ h6 {
 :is(.dark .dark\:bg-red-600) {
   --tw-bg-opacity: 1;
   background-color: rgb(234 6 6 / var(--tw-bg-opacity));
+}
+
+:is(.dark .dark\:bg-red-700) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
 }
 
 :is(.dark .dark\:bg-yellow-700) {

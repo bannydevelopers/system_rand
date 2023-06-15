@@ -11,7 +11,7 @@ if(isset($_POST['add-faq'])){
         'faq_description'=>$_POST['answer']
        ];
     $k = $db->insert('faq', $data);
-   
+   var_dump($db->error());
     if(!$db->error() && $k) {
         $msg = 'FAQ added successful';
         $status = 'success';
@@ -32,6 +32,24 @@ if(isset($_POST['edit-faq'])){
         $status = 'success';
     }
     else $msg = 'Error updating question';
+}
+
+if(isset($_POST['ajax_del_faq'])){
+    if($helper->user_can('can_delete_faq')){
+        $faq_id = intval($_POST['ajax_del_faq']);
+        $k = $db->delete('faq')->where(['faq_id'=>$faq_id])->commit();
+        if(!$db->error() && $k) {
+            $msg = 'Deletion succesfully';
+            $status = 'success';
+        }
+        else {
+            $msg = 'Deletion failed';
+        }
+    }
+    else {
+        $msg = 'Permission denied';
+    }
+    die(json_encode(['status'=>$status,'msg'=>$msg]));
 }
 
 $faqs = $db->select('faq')

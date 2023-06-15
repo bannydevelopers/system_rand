@@ -284,8 +284,6 @@
     <script src="rand/modules/portal/rand/js/main.js"></script>
 </body>
 <script>
-    var problem = `An error occured! Please refresh the page or try again later.`;
-
     async function regUser() {
 
         regForm = document.getElementById("reg-form");
@@ -311,21 +309,14 @@
         })
         .then(data => {
           if(data.status == 'success'){
-            //document.getElementById("login").value = data.fullname;
-            console.log(data);
+            document.getElementById("login").value = userData.get('cust_email');
           }
-          if(data.status == 'fail'){
-            regSmg.innerHTML = data.msg;
-            regUserBtn.disabled = false;
-            regUserBtn.innerHTML = 'Register';
-          }
-          //if(data.status == 'not-exist' || data.status == 'denied'){
-            regSmg.innerHTML = data.message;
-          //}
+          regSmg.innerHTML = data.message;
+          regUserBtn.disabled = false;
+          regUserBtn.innerHTML = 'Register';
         })
         .catch(error => {
-          regSmg.innerHTML = problem;
-          console.error('Problem:', error);
+          regSmg.innerHTML = `An error occured! Please refresh the page or try again later.`;
           regUserBtn.disabled = false;
           regUserBtn.innerHTML = 'Register';
         });
