@@ -10,7 +10,7 @@ $role = $db->select('role','role_id')
 $apartment = $db->select('apartments','apartment_id')
                ->fetch();
 
-if(isset($_POST['edit-tenant']) ){
+if(isset($_POST['edit-tenant'])){
     if($helper->user_can('can_edit_tenants')){
         $names = explode(' ', addslashes($_POST['full_name']));
         $fn = $names[0];
@@ -72,7 +72,7 @@ if(isset($_POST['add-tenant'])){
             'email' => helper::format_email($_POST['tenants_email']),
             'password' => helper::create_hash('tenant123'), 
             'activation_token' => $token, 
-            'system_role' => $_POST['role'], 
+            'system_role' => 10, 
             'status'=>'active', 
         ];
         $test = $db->select('user','user_id')
@@ -82,7 +82,6 @@ if(isset($_POST['add-tenant'])){
         if($test) $msg = 'Tenants information exists, try to edit existing one if necessary';
         else {
             $user_id = $db->insert('user',$user);
-            //var_dump('<pre>', $tenantDetails);die();
             if(intval($user_id)){
                 $tenantsD = [
                     'user_reference' => $user_id, 
@@ -91,57 +90,51 @@ if(isset($_POST['add-tenant'])){
                     'country'=>$_POST['country']
                 ];
                 $k = $db->insert('tenants',$tenantsD);
-                var_dump($db->error());
                 $tenantDetails = [
-                    'check_in' => $_POST['date_in'], 
-                    'check_out' => $_POST['date_out'], 
-                    'adults' => $_POST['adults'], 
-                    'children' => $_POST['children'], 
-                    'apartment_reference' => $_POST['occupied_apartment'], 
-                    'check_status' => 'pending'
+                    'check_in' => $_POST['date_in'],
+                    'check_out' => $_POST['date_out'],
+                    'adults' => $_POST['adults'],
+                    'children' => $_POST['children'],
+                    'apartment_reference' => $_POST['apartment_reference'],
+                    'check_status' => 'pending',
+                    'user_ref' => $user_id
                 ];
+
                 $l = $db->insert('check_scheduling', $tenantDetails);
-                var_dump($db->error());
-                if($db->error() or !$k or !$l) $db->delete('user')->where(['user_id',$user_id])->commit(); // revert changes, tenants issues
-                else {
-                    $msg = 'tenants created'; 
+
+                if (!$db->error() && $l) {
+                    // Insertion successful
+                    $msg = 'Tenants created';
                     $status = 'success';
+                } else {
+                    // Revert changes and handle the error
+                    $db->delete('user')->where(['user_id', $user_id])->commit();
+                    $msg = 'Something went wrong';
                 }
             }
-            else $msg = 'Fatal error occured';
         }
     }
-    else $msg = 'Not enough privilege, sorry';
 }
-
-
-$roles = $db->select('role','role_id,role_name')
-            ->order_by('role_name', 'asc')
-            ->fetchAll();
-                  
-$apartment = $db->select('apartments','apartment_id,apartment_name')
-            ->order_by('apartment_name', 'asc')
-            ->fetchAll();
-
-
-$tenants = $db->select('user')
-            ->join('tenants','user.user_id=tenants.user_reference')
-            ->join('check_scheduling','user.user_id=check_scheduling.user_ref','left')
-            // ->where("user.status != 'deleted'")
-            ->order_by('user_id', 'desc')
-            ->fetchAll();
             
 if($helper->user_can('can_view_tenants')){
+    $apartment = $db->select('apartments','apartment_id,apartment_name')
+                ->order_by('apartment_name', 'asc')
+                ->fetchAll();
+
+    $tenants = $db->select('user')
+                ->join('tenants', 'user.user_id = tenants.user_reference')
+                ->join('check_scheduling', 'user.user_id = check_scheduling.user_ref', 'left')
+                ->order_by('user.user_id', 'desc')
+                ->fetchAll();
     $data = [
-        'roles' => $roles,
         'apartment' => $apartment,
         'tenants' => $tenants,
         'msg' => $msg, 
         'status' => $status,
         'request_uri' => $request,
-        // 'user' => $user
     ];
 
     echo helper::find_template('tenants', $data);
 }
 else echo helper::find_template('permission_denied');
+            
