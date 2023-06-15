@@ -254,6 +254,17 @@ if(isset($_REQUEST['OrderMerchantReference'])){
 }
 
 
+function get_faqs() {
+    $db = db::get_connection(storage::init()->system_config->database);
+    $faqs = $db->select('faq')
+        ->order_by('faq_id', 'desc')
+        ->fetchAll();
+    if(!$db->error()){
+        return $faqs;
+    }
+    else print_r($db->error()['message']);
+} 
+
 $page = '404';
 $parts = explode('/',$_SERVER['REQUEST_URI']);
 $req = end($parts);

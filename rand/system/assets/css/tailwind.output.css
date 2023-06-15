@@ -833,8 +833,8 @@ h6 {
   margin: 1rem;
 }
 
-.m-auto {
-  margin: auto;
+.-m-3 {
+  margin: -0.75rem;
 }
 
 .-mx-1 {
@@ -887,6 +887,11 @@ h6 {
   margin-bottom: 0.5rem;
 }
 
+.my-3 {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -905,11 +910,6 @@ h6 {
 .my-auto {
   margin-top: auto;
   margin-bottom: auto;
-}
-
-.my-3 {
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
 }
 
 .-mb-px {
@@ -1124,6 +1124,14 @@ h6 {
   margin-top: 2rem;
 }
 
+.-mr-3 {
+  margin-right: -0.75rem;
+}
+
+.-ml-3 {
+  margin-left: -0.75rem;
+}
+
 .block {
   display: block;
 }
@@ -1174,10 +1182,6 @@ h6 {
 
 .h-12 {
   height: 3rem;
-}
-
-.h-16 {
-  height: 4rem;
 }
 
 .h-18\.5 {
@@ -1296,10 +1300,6 @@ h6 {
   width: 3rem;
 }
 
-.w-16 {
-  width: 4rem;
-}
-
 .w-18\.5 {
   width: 4.625rem;
 }
@@ -1410,10 +1410,6 @@ h6 {
 
 .min-w-full {
   min-width: 100%;
-}
-
-.max-w-2xl {
-  max-width: 42rem;
 }
 
 .max-w-4xl {
@@ -2125,11 +2121,6 @@ h6 {
   background-color: rgb(234 6 6 / var(--tw-bg-opacity));
 }
 
-.bg-red-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(127 29 29 / var(--tw-bg-opacity));
-}
-
 .bg-slate-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(103 116 142 / var(--tw-bg-opacity));
@@ -2168,16 +2159,6 @@ h6 {
 .bg-yellow-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 252 232 / var(--tw-bg-opacity));
-}
-
-.bg-blue-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 125 / var(--tw-bg-opacity));
-}
-
-.bg-blue-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(33 82 255 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50 {
@@ -2490,6 +2471,11 @@ h6 {
   padding-bottom: 1rem;
 }
 
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -2600,10 +2586,6 @@ h6 {
   padding-right: 0.75rem;
 }
 
-.pr-32 {
-  padding-right: 8rem;
-}
-
 .pr-4 {
   padding-right: 1rem;
 }
@@ -2680,6 +2662,11 @@ h6 {
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
+}
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
 }
 
 .text-6xl {
@@ -2892,6 +2879,16 @@ h6 {
 .text-neutral-100 {
   --tw-text-opacity: 1;
   color: rgb(245 245 245 / var(--tw-text-opacity));
+}
+
+.text-neutral-500 {
+  --tw-text-opacity: 1;
+  color: rgb(115 115 115 / var(--tw-text-opacity));
+}
+
+.text-neutral-600 {
+  --tw-text-opacity: 1;
+  color: rgb(82 82 82 / var(--tw-text-opacity));
 }
 
 .text-purple-200 {
