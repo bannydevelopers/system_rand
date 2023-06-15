@@ -10,6 +10,24 @@ $role = $db->select('role','role_id')
 $apartment = $db->select('apartments','apartment_id')
                ->fetch();
 
+if(isset($_POST['tenantId'])){
+    if($helper->user_can('can_delete_tenants')){
+        $tenants_id = intval($_POST['tenantId']);
+        $k = $db->delete('tenants')->where(['tenants_id'=>$tenants_id])->commit();
+        if(!$db->error() && $k) {
+            $msg = 'Tenant deletion succesfully';
+            $status = 'success';
+        }
+        else {
+            $msg = 'Tenant deletion failed';
+        }
+    }
+    else {
+        $msg = 'Permission denied to delete Tenant';
+    }
+    die(json_encode(['status'=>$status,'msg'=>$msg]));
+}
+
 if(isset($_POST['edit-tenant'])){
     if($helper->user_can('can_edit_tenants')){
         $names = explode(' ', addslashes($_POST['full_name']));
