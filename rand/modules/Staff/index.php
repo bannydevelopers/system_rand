@@ -1,7 +1,7 @@
 <?php 
 $db = db::get_connection(storage::init()->system_config->database);
 $msg = '';
-$status = '';
+$status = 'fail';
 $request = $_SERVER['REQUEST_URI'];
 if(isset($_POST['ajax_del_staff'])){
     if($helper->user_can('can_delete_staff')){
@@ -28,15 +28,13 @@ if(isset($_POST['ajax_del_staff'])){
         }
     }
     else {
-        $msg = 'Permission denied';
+        $msg = 'Permission to delete staff denied';
         $status = 'denied';
     }
     die(json_encode(['status'=>$status,'msg'=>$msg,'staff'=>$staff]));
 }
 if(isset($_POST['ajax_activate_user'])){
-        $status = 'fail';
     if($helper->user_can('can_edit_staff')){
-        $msg = 'Status update failed';
         $k = $db->update('user', ['status'=>$_POST['status']])
                 ->where(['user_id'=>intval($_POST['ajax_activate_user'])])
                 ->commit();
@@ -44,10 +42,12 @@ if(isset($_POST['ajax_activate_user'])){
             $msg = 'Status updated';
             $status = 'success';
         }
+        else $msg = 'Status update failed';
     }
     else $msg = 'Permission denied';
     die(json_encode(['status'=>$status,'msg'=>$msg]));
 }
+
 if(isset($_POST['designation_name']) && isset($_POST['designation_details'])){
     if($helper->user_can('can_add_designation')){
         $data = [

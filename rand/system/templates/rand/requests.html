@@ -27,7 +27,9 @@
 <?php }
 }?>
 
-  <div class="flex flex-wrap">
+<div id="message"></div>
+
+<div class="flex flex-wrap">
     <div class="flex-none w-full max-w-full pl-3">
       <div class="relative flex flex-col min-w-0 mb-6 break-words border-0 border-transparent border-solid rounded-2xl bg-clip-border">
         <div class="flex flex-wrap-reverse mt-6 -mx-3">
@@ -56,7 +58,7 @@
                             if (is_array($requests) || is_object($requests))
                             foreach ($requests as $req)
                           { ?>
-                          <tr class="border-b py-4 hover:bg-gray-200">
+                          <tr id="tr-<?=$req['requests_id']?>" class="border-b py-4 hover:bg-gray-200">
                               <?php if(!helper::init()->user_can('can_add_requests')){?>
                               <td class="px-4 py-3 text-sm">
                                 <?=$req['house_details']?>
@@ -68,21 +70,54 @@
                               <td class="px-4 py-3 text-sm">
                                 <?=helper::format_time($req['submitted_date'],'d M, Y')?>
                               </td>
-                              <td class="px-4 py-3 text-sm">
+                              <td id="td-status-<?=$req['requests_id']?>" class="px-4 py-3 text-sm">
                                 <?=$req['status']?>
                               </td>
                               <?php if(helper::init()->user_can('can_add_requests')){?>
                               <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
-                                <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
-                                <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Delete </a>
+                                <?php if($req['status']=='declined' || $req['status']=='done'){?>
+                                  <span class="font-semibold leading-tight text-sm text-blue-500 line-through"> Edit </span>
+                                <?php } else { ?>
+                                <button data-modal-target="edit-faq-modal-<?=$req['requests_id']?>" data-modal-toggle="edit-faq-modal-<?=$req['requests_id']?>" class="font-semibold leading-tight text-sm text-blue-500"> Edit </button>
+                                <?php } ?>
+                                <button id="<?=$req['requests_id']?>" onclick="delReq(this)" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Delete </button>
                               </td>
                               <?php } else { ?>
                                 <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
-                                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-blue-500"> Done </a>
-                                  <a href="javascript:;" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Decline </a>
+                                  <button id="done-<?=$req['requests_id']?>" onclick="updateReqStatus(this)" class="font-semibold leading-tight text-sm text-blue-500"> Done </button>
+                                  <button id="declined-<?=$req['requests_id']?>" onclick="updateReqStatus(this)" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Decline </button>
                                 </td>
                               <?php } ?>
                             </tr>
+                            <!-- Modal toggle -->
+<div id="edit-faq-modal-<?=$req['requests_id']?>" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
+  <div class="relative w-full max-w-xl max-h-full items-center">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="edit-faq-modal-<?=$req['requests_id']?>" id="close-expense-modal-id">
+        <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+        <span class="sr-only">Close modal</span>
+      </button>
+      <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
+        <h3 class="mb-4 text-xl font-medium">Edit Request </h3>
+        <form class="space-y-6" method="POST">
+          <input type="hidden" value="<?=$req['requests_id']?>" name="faq_id">
+          <div class="flex flex-col -mx-3 mb-6">
+            <div class="w-full px-3 my-1 md:my-0">
+              <label>Answers <span class="text-red-500">*</span></label>
+              <textarea class="w-full block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" rows="5" name="descriptions" placeholder="Type your Message" required><?=$req['descriptions']?></textarea>
+            </div>
+          </div>
+          <div class="pb-8">
+            <button type="submit" name="edit-faq" class="float-right text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!--/ Modal content -->
+  </div>
+</div> 
+<!--/ Modal toggle -->
                             <?php }?>
                          </tbody>
                       </table>
@@ -106,10 +141,10 @@
               <div class="flex-auto p-4">
                 <div>
                   <h6>New Request</h6>
-                  <form action="" method="POST">
-                    <textarea class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-blue-300 focus:outline-none focus:transition-shadow" rows="5" name="descriptions" placeholder="Type your Message"></textarea>
+                  <form method="POST">
+                    <textarea class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-blue-300 focus:outline-none focus:transition-shadow" rows="5" name="descriptions" placeholder="Type your Message" required></textarea>
                     <div class="py-4 text-center">
-                      <button type="submit" class="float-centre text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-1.5 text-center">Send</button>
+                      <button type="submit" name="add-request" class="float-centre text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-1.5 text-center">Send</button>
                     </div>
                   </form>
                 </div>
@@ -122,7 +157,7 @@
        
       </div>
     </div>
-  </div>
+</div>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>  
@@ -132,3 +167,144 @@
   } );
 </script>
 <script src="js/plugins/flowbite.min.js"></script>
+<script>
+  problem = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-red-800 rounded-lg bg-red-50 role="alert">
+    <span>
+      <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+    </span>
+    <div class="ml-3 text-sm font-medium">
+      An error occured! Please refresh the page or try again later.
+    </div> 
+    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 hover:bg-red-200 inline-flex">
+      <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+    </button>
+  </div>`
+
+  async function updateReqStatus(values) {
+    reqUpdBtn = document.getElementById(values.id);
+    reqUpdBtnVal = reqUpdBtn.innerHTML;
+    reqUpdBtn.disabled = true;
+    reqUpdBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin fa-lg"></i>'
+
+    var reqId = values.id.split('-');
+    const reqData = new FormData();
+    reqData.append('ajax_update_request', 1);
+    reqData.append('status', reqId[0]);
+    reqData.append('requests_id', reqId[1]);
+    
+    let url = '<?=$request_uri?>';
+    let obj = {
+      method: "POST", 
+      body: reqData,
+    }
+
+    let response = await fetch(url, obj)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('The response side is not ok!');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if(data.status == 'success'){
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100" role="alert">
+          <span>
+            <i class="fa-solid fa-circle-info fa-lg"></i>
+          </span>
+          <div class="ml-3 text-sm font-medium">
+            `+data.msg+`.
+          </div> 
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex">
+            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+          </button>
+        </div>`;
+        document.getElementById('td-status-'+reqId[1]).innerHTML = reqId[0];
+      }
+      else {
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-100" role="alert">
+          <span>
+            <i class="fa-solid fa-circle-info fa-lg"></i>
+          </span>
+          <div class="ml-3 text-sm font-medium">
+            `+data.msg+`.
+          </div> 
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-100 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex">
+            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+          </button>
+        </div>`;
+      }
+      reqUpdBtn.disabled = false;
+      reqUpdBtn.innerHTML = reqUpdBtnVal;
+    })
+    .catch(error => {
+      document.getElementById("message").innerHTML = problem;
+      reqUpdBtn.disabled = false;
+      reqUpdBtn.innerHTML = reqUpdBtnVal;
+    });
+  }
+
+  async function delReq(values) {
+    if (!confirm("Sure you want to Request Question?")) {
+      return;
+    }
+    
+    reqDelBtn = document.getElementById(values.id);
+    reqDelBtn.disabled = true;
+    reqDelBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin fa-lg"></i>'
+
+    const reqData = new FormData();
+    reqData.append('ajax_del_req', values.id);
+    
+    let url = '<?=$request_uri?>';
+    let obj = {
+      method: "POST", 
+      body: reqData,
+    }
+
+    let response = await fetch(url, obj)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('The response side is not ok!');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if(data.status == 'success'){
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+          <span>
+            <i class="fa-solid fa-circle-info fa-lg"></i>
+          </span>
+          <div class="ml-3 text-sm font-medium">
+            `+data.msg+`
+          </div> 
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+          </button>
+        </div>`;
+        document.getElementById('tr-'+values.id).remove();
+      }
+      else {
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+          <span>
+            <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+          </span>
+          <div class="ml-3 text-sm font-medium">
+            `+data.msg+`
+          </div> 
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
+            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+          </button>
+        </div>`;
+        reqDelBtn.disabled = false;
+        reqDelBtn.innerHTML = `<span class="lg:hidden"><i class="fa-sharp fa-solid fa-trash"></i></span>
+          <span class="hidden lg:flex">Delete</span>`;
+      }
+    })
+    .catch(error => {
+      document.getElementById("message").innerHTML = problem;
+      reqDelBtn.disabled = false;
+      reqDelBtn.innerHTML = `<span class="lg:hidden"><i class="fa-sharp fa-solid fa-trash"></i></span>
+        <span class="hidden lg:flex">Delete</span>`;
+    });
+  }
+</script>

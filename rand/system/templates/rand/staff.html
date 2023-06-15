@@ -315,7 +315,7 @@
           </button>
         </div>`;
       }
-      if(data.status == 'fail') {
+      else {
         document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-100" role="alert">
           <span>
             <i class="fa-solid fa-circle-info fa-lg"></i>
@@ -331,7 +331,6 @@
     })
     .catch(error => {
       document.getElementById("message").innerHTML = problem;
-      //console.error('Problem:', error);
     });
   }
 </script>

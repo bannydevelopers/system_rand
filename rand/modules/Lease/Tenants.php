@@ -119,13 +119,13 @@ if(isset($_POST['add-tenant'])){
                 ];
 
                 $l = $db->insert('check_scheduling', $tenantDetails);
+                var_dump($db->error());
+                var_dump($l);
 
                 if (!$db->error() && $l) {
-                    // Insertion successful
                     $msg = 'Tenants created';
                     $status = 'success';
                 } else {
-                    // Revert changes and handle the error
                     $db->delete('user')->where(['user_id', $user_id])->commit();
                     $msg = 'Something went wrong';
                 }
