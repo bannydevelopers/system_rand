@@ -93,7 +93,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="add-tenant-modal" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" id="reg-btn" class="btn btn-primary" onclick="regUser()">Register</button>
                 </div>
             </div>
@@ -310,6 +310,8 @@
         .then(data => {
           if(data.status == 'success'){
             document.getElementById("login").value = userData.get('cust_email');
+            document.getElementById("add-tenant-modal").click();
+            alert(data.message);
           }
           regSmg.innerHTML = data.message;
           regUserBtn.disabled = false;
