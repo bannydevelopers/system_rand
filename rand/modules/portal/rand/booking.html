@@ -285,7 +285,6 @@
 </body>
 <script>
     async function regUser() {
-
         regForm = document.getElementById("reg-form");
         regSmg = document.getElementById("reg-smg");
         regUserBtn = document.getElementById("reg-btn");
@@ -294,7 +293,7 @@
     
         const userData = new FormData(regForm);
         userData.append('ajax', 1);
-    
+        
         let url = '';
         let obj = {
           method: "POST", 

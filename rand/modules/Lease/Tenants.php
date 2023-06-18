@@ -12,8 +12,8 @@ $apartment = $db->select('apartments','apartment_id')
 
 if(isset($_POST['tenantId'])){
     if($helper->user_can('can_delete_tenants')){
-        $tenants_id = intval($_POST['tenantId']);
-        $k = $db->delete('tenants')->where(['tenants_id'=>$tenants_id])->commit();
+        $user_id = intval($_POST['tenantId']);
+        $k = $db->delete('user')->where(['user_id'=>$user_id])->commit();
         if(!$db->error() && $k) {
             $msg = 'Tenant deletion succesfully';
             $status = 'success';
@@ -67,7 +67,6 @@ if(isset($_POST['edit-tenant'])){
 }
 
 $tenants = $db->select('tenants')->order_by('tenants_id', 'desc')->fetchAll();
-//  var_dump($db->error());
 
 if(isset($_POST['add-tenant'])){
     if($helper->user_can('can_add_tenants')){
@@ -97,7 +96,7 @@ if(isset($_POST['add-tenant'])){
                 ->where(['email' => $user['email']])
                 ->or(['phone_number' => $user['phone_number']])
                 ->fetch();
-        if($test) $msg = 'Tenants information exists, try to edit existing one if necessary';
+        if($test) $msg = 'Tenant with same information (Email/Phone number) exists';
         else {
             $user_id = $db->insert('user',$user);
             if(intval($user_id)){
@@ -119,8 +118,6 @@ if(isset($_POST['add-tenant'])){
                 ];
 
                 $l = $db->insert('check_scheduling', $tenantDetails);
-                var_dump($db->error());
-                var_dump($l);
 
                 if (!$db->error() && $l) {
                     $msg = 'Tenants created';
@@ -135,13 +132,14 @@ if(isset($_POST['add-tenant'])){
 }
             
 if($helper->user_can('can_view_tenants')){
-    $apartment = $db->select('apartments','apartment_id,apartment_name')
+    $apartment = $db->select('apartments','apartment_id, apartment_name')
                 ->order_by('apartment_name', 'asc')
                 ->fetchAll();
 
     $tenants = $db->select('user')
                 ->join('tenants', 'user.user_id = tenants.user_reference')
                 ->join('check_scheduling', 'user.user_id = check_scheduling.user_ref', 'left')
+                ->join('apartments', 'check_scheduling.apartment_reference = apartments.apartment_id', 'left')
                 ->order_by('user.user_id', 'desc')
                 ->fetchAll();
     $data = [
@@ -151,7 +149,6 @@ if($helper->user_can('can_view_tenants')){
         'status' => $status,
         'request_uri' => $request,
     ];
-
     echo helper::find_template('tenants', $data);
 }
 else echo helper::find_template('permission_denied');
