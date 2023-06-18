@@ -91,12 +91,7 @@ if(isset($_POST['branch_name'])){
     }
     else $msg = 'Permission denied';
 }
-if(isset($_POST['full_name'])){
-    
-    $role = $db->select('role','role_id')
-               ->fetch();
-
-    if(isset($_POST['staff_id']) && intval($_POST['staff_id'])){
+    if(isset($_POST['edit-staff'])){
         if($helper->user_can('can_edit_staff')){
             $names = explode(' ', addslashes($_POST['full_name']));
             $fn = $names[0];
@@ -109,20 +104,16 @@ if(isset($_POST['full_name'])){
                 'middle_name'=>$mn,
                 'last_name'=>$ln,
                 'system_role'=>$role['role_id'],
-                //'status'=>'active', 
                 'phone_number'=>helper::format_phone_number($_POST['phone_number']), //
                 'email'=>helper::format_email($_POST['email']), //
                 //'password'=>md5($token), 
-                //'activation_token'=>$token, 
-                //'created_by'=>helper::init()->get_session_user('user_id'), 
-                //'created_time'=>date('Y-m-d H:i:s')
             ];
             $reg_no = addslashes($_POST['registration_number']);
             $whr ="(email='{$user['email']}' OR phone_number = '{$user['phone_number']}' OR staff_registration_number = '{$reg_no}')";
             $test = $db->select('staff')
                     ->join('user','user_reference=user_id')
                     ->where($whr)
-                    ->and("staff_id != {$_POST['staff_id']}")
+                    ->and("staff_id != {intval($_POST['staff_id'])}")
                     ->fetch();
             if(!$test){
                 $whr = "user_id IN (SELECT user_reference FROM staff WHERE staff_id = '{$_POST['staff_id']}')";
@@ -149,11 +140,9 @@ if(isset($_POST['full_name'])){
         }
         else $msg = 'Not enough privilege, sorry';
     }
-    else{
+    
         if($helper->user_can('can_add_staff')){
             $token = helper::create_hash(time());
-            
-            
             $names = explode(' ', addslashes($_POST['full_name']));
             $fn = $names[0];
             $ln = end($names);
@@ -229,10 +218,9 @@ $banks = $db->select('bank','bank_id,bank_name')
 
 $staff = $db->select('staff')
             ->join('user','user.user_id=staff.user_reference')
-            //->join('user as creator', 'creator.user_id=user.created_by')
             ->join('designation', 'designation_id=designation','LEFT')
-            ->join('bank', 'bank.bank_id=staff.bank_id','LEFT')
-            // ->where("user.status != 'deleted'")
+            // ->join('bank', 'bank.bank_id=staff.bank_id','LEFT')
+            ->join('role', 'role.role_id=user.system_role','LEFT')
             ->order_by('user_id', 'desc')
             ->fetchAll();
             
