@@ -35,7 +35,7 @@
         <div class="flex flex-wrap-reverse mt-6 -mx-3">
           <!-- table -->
           <div class="w-full bg-white max-w-full shadow-soft-xl px-3 mt-0 mb-6 lg:mb-0 <?php if(helper::init()->user_can('can_add_requests')){ ?>lg:w-7/12<?php } ?> lg:flex-none rounded-2xl">
-            <div class="border-black/12.5 relative z-20 flex min-w-0 flex-col break-words border-0 border-solid bg-blue bg-clip-border">
+            <div class="border-black/12.5 relative flex min-w-0 flex-col break-words border-0 border-solid bg-blue bg-clip-border">
               <div class="flex-auto p-4">
                 <div class="py-4 pr-1 mb-4">
                   <h6><?php if(helper::init()->user_can('can_add_requests')){ ?>My<?php } ?> Requests</h6>
@@ -78,7 +78,7 @@
                                 <?php if($req['status']=='declined' || $req['status']=='done'){?>
                                   <span class="font-semibold leading-tight text-sm text-blue-500 line-through"> Edit </span>
                                 <?php } else { ?>
-                                <button data-modal-target="edit-faq-modal-<?=$req['requests_id']?>" data-modal-toggle="edit-faq-modal-<?=$req['requests_id']?>" class="font-semibold leading-tight text-sm text-blue-500"> Edit </button>
+                                <button data-modal-target="edit-req-modal-<?=$req['requests_id']?>" data-modal-toggle="edit-req-modal-<?=$req['requests_id']?>" class="font-semibold leading-tight text-sm text-blue-500"> Edit </button>
                                 <?php } ?>
                                 <button id="<?=$req['requests_id']?>" onclick="delReq(this)" class="font-semibold leading-tight text-sm text-red-500 pl-2"> Delete </button>
                               </td>
@@ -90,18 +90,18 @@
                               <?php } ?>
                             </tr>
                             <!-- Modal toggle -->
-<div id="edit-faq-modal-<?=$req['requests_id']?>" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
+<div id="edit-req-modal-<?=$req['requests_id']?>" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
   <div class="relative w-full max-w-xl max-h-full items-center">
     <!-- Modal content -->
     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-      <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="edit-faq-modal-<?=$req['requests_id']?>" id="close-expense-modal-id">
+      <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="edit-req-modal-<?=$req['requests_id']?>" id="close-expense-modal-id">
         <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
         <span class="sr-only">Close modal</span>
       </button>
       <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
         <h3 class="mb-4 text-xl font-medium">Edit Request </h3>
         <form class="space-y-6" method="POST">
-          <input type="hidden" value="<?=$req['requests_id']?>" name="faq_id">
+          <input type="hidden" value="<?=$req['requests_id']?>" name="requests_id">
           <div class="flex flex-col -mx-3 mb-6">
             <div class="w-full px-3 my-1 md:my-0">
               <label>Answers <span class="text-red-500">*</span></label>
@@ -109,7 +109,7 @@
             </div>
           </div>
           <div class="pb-8">
-            <button type="submit" name="edit-faq" class="float-right text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Update</button>
+            <button type="submit" name="edit-request" class="float-right text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Update</button>
           </div>
         </form>
       </div>

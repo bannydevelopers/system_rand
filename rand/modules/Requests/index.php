@@ -26,9 +26,11 @@ if(isset($_POST['add-request'])){
 if(isset($_POST['edit-request'])){
     if($helper->user_can('can_edit_requests')){
         $data = ['descriptions'=>$_POST['descriptions']];
-        $k = $db->update('requests', $data);
+        $k = $db->update('requests', $data)
+            ->where(['requests_id'=>intval($_POST['requests_id'])])
+            ->commit();
         if(!$db->error() && $k) {
-            $msg = 'requests updated successful';
+            $msg = 'Request updated successful';
             $status = 'success';
         }
         else $msg = 'Error updating requests';
