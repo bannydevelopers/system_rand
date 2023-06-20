@@ -21,11 +21,26 @@ function get_apartment_cards($opts = []){
 }
 function get_apartment_real_cards(){
     $db = db::get_connection(storage::init()->system_config->database);
-    $cards = $db->select('apartment_category','*')
-                     ->fetchAll();
-    $tree = [];
+    $cards = $db->select('apartment_category','*')->fetchAll();
+    // $currency=$storage->system_config->system_currency;
+    // $conf->system_currency
     if(!$db->error()){
+        // return ['cards'=>$cards, 'currency'=>$currency];
         return $cards;
+    }
+    else print_r($db->error()['message']);
+}
+
+function get_welcome_data(){
+    $db = db::get_connection(storage::init()->system_config->database);
+    $apartments = $db->select('apartments','COUNT(apartment_id) as apartCount')->fetchAll();
+    $orders = $db->select('orders','COUNT(order_id) as ordersCount')->fetchAll();
+    // $staffCount = $db->query("SELECT COUNT(staff_id) FROM staff")->fetchColumn();
+    $staff = $db->select('staff','COUNT(staff_id) as staffCount')->fetchAll();
+    // var_dump($db-error());
+    if(!$db->error()){
+        // return $staffCount;
+        return $staff;
     }
     else print_r($db->error()['message']);
 }

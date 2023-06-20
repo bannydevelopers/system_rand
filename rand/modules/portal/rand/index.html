@@ -87,7 +87,7 @@
             </div>
         </div>
         <!-- Carousel End -->
-
+        <?php $data = get_welcome_data()?>
         <!-- About Start -->
         <div class="container-xxl py-5">
             <div class="container">
@@ -110,7 +110,7 @@
                                 <div class="border rounded p-1">
                                     <div class="border rounded text-center p-4">
                                         <i class="fa fa-users-cog fa-2x text-primary mb-2"></i>
-                                        <h2 class="mb-1" data-toggle="counter-up">64</h2>
+                                        <h2 class="mb-1" data-toggle="counter-up"><?=$data[0]['staffCount']?></h2>
                                         <p class="mb-0">Staff</p>
                                     </div>
                                 </div>
