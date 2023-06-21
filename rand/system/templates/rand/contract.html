@@ -3,66 +3,49 @@ Contract
 </h2>
     
 <div>
-  <div class="w-full sm:w-5/6 ml-4 mr-auto">
-    <div class="bg-gray-50 px-4 py-8">
+  <div class="w-full sm:w-5/6 ml-2 mr-auto">
+    <div class="bg-gray-50 px-4 py-8 text-justify">
       <div class="text-center text-2xl pb-4">Tenant contract</div>
       This Residential Lease Agreement is made and entered into as of the <span class="font-semibold"><?=$user['create_time']?helper::format_time($user['create_time'],'d M, Y'):'[Date]'?></span> by and between <span class="font-semibold"><?=$user['first_name']?> <?=$user['last_name']?></span>, (“Tenant”), and <span class="font-semibold">Rand Company</span>, (“Landlord”).
-<br><br>
-In consideration of the mutual covenants and agreements contained herein, the parties agree as follows:
-<br><br>
-Premises. Landlord rents to Tenant, and Tenant rents from Landlord, the premises located at <span class="font-semibold">Oysterbay</span> (the “Apartment”). The Premises consist of <span class="font-semibold"><?=$user['bathroom']?$user['bathroom']:'[Number]'?></span> bedrooms and <span class="font-semibold"><?=$user['bathroom']?$user['bathroom']:'[Number]'?></span> bathrooms.
-<br><br>
+      <br><br>
+      In consideration of the mutual covenants and agreements contained herein, the parties agree as follows:
+      <br><br>
+      Premises. Landlord rents to Tenant, and Tenant rents from Landlord, the premises located at <span class="font-semibold">Oysterbay</span> (the “Apartment”). The Premises consist of <span class="font-semibold"><?=$user['bathroom']?$user['bathroom']:'[Number]'?></span> bedrooms and <span class="font-semibold"><?=$user['bathroom']?$user['bathroom']:'[Number]'?></span> bathrooms.
+      <br><br>
 
-Term. The term of this Agreement shall commence on [Start Date] and shall continue for a period of <span class="font-semibold"><?=$user['check_in']?helper::format_time($user['check_in'],'d M, Y'):'[Date]'?></span> to <span class="font-semibold"><?=$user['check_out']?helper::format_time($user['check_out'],'d M, Y'):'[Date]'?></span>, unless sooner terminated as provided herein.
-<br><br>
+      Term. The term of this Agreement shall commence on <span class="font-semibold"><?=$user['check_in']?helper::format_time($user['check_in'],'d M, Y'):'[Start Date]'?></span> and shall continue for a period up to <span class="font-semibold"><?=$user['check_out']?helper::format_time($user['check_out'],'d M, Y'):'[End Date]'?></span>, unless sooner terminated as provided herein.
+      <br><br>
 
-Rent. Tenant shall pay to Landlord a monthly rent of <span class="font-semibold"><?=$user['payment_amount']?$user['payment_amount']:'[Amont]'?></span>. Rent shall be due and payable on the first day of each month.
-4. Security Deposit. Tenant shall deposit with Landlord a security deposit in the amount of <span class="font-semibold"><?=$user['payment_amount']?$user['payment_amount']:'[Amount]'?></span>. The security deposit shall be returned to Tenant within [Number] days after the termination of this Agreement, less any amounts due to Landlord for unpaid rent, damages to the Premises, or other charges as permitted by law.
-<br><br>
+      Rent shall be due and payable before the tenant in the Apartment. Tenant shall deposit with Landlord a security deposit in the amount of days expected to live. <!--<span class="font-semibold"><?=$user['payment_amount']?$user['payment_amount']:'[Amount]'?></span>--> The payment will not be refunded under any circumstance even the termination of this Agreement.
+      <br><br>
 
-Utilities. Tenant shall be responsible for the payment of all utilities for the Premises, including water, sewer, gas, and electricity.
-<br><br>
+      Utilities. Tenant shall be responsible for the payment of all utilities for the Premises, including water, sewer, gas, and electricity.
+      <br><br>
 
-Use of Premises. Tenant shall use the Premises for residential purposes only and shall not use the Premises for any commercial or business purposes.
-<br><br>
+      Use of Premises. Tenant shall use the Premises for residential purposes only and shall not use the Premises for any commercial or business purposes.
+      <br><br>
 
-Assignment and Subletting. Tenant shall not assign this Agreement or sublet the Premises without the prior written consent of Landlord.
-<br><br>
+      Assignment and Subletting. Tenant shall not assign this Agreement or sublet the Premises without the prior written consent of Landlord.
+      <br><br>
 
-Condition of Premises. Tenant shall keep the Premises in good and clean condition and shall be responsible for all repairs to the Premises caused by the negligence or willful misconduct of Tenant or Tenant’s guests.
-<br><br>
+      Condition of Premises. Tenant shall keep the Premises in good and clean condition and shall be responsible for all repairs to the Premises caused by the negligence or willful misconduct of Tenant or Tenant’s guests.
+      <br><br>
 
-Notices. All notices and other communications hereunder shall be in writing and shall be deemed to have been duly given when delivered in person, upon the first business day following deposit in the United States mail, postage prepaid, certified or registered, return receipt requested, addressed as follows:
-<br><br>
+      Notices. All notices and other communications hereunder shall be in writing and shall be deemed to have been duly given when delivered in person, upon the first business day following deposit in the United States mail, postage prepaid, certified or registered, return receipt requested, addressed as follows:
+      <br><br>
 
-If to Tenant: <br>
-<span class="font-semibold"><?=$user['first_name']?> <?=$user['last_name']?></span><br>
-<span class="font-semibold"><?=$user['resident_adress']?>, <?=$user['country']?></span>
-<br><br>
-If to Landlord: <br>
-Rand Company <br>
-Oysterbay, Dar es Salaam
-<br><br>
+      Entire Agreement. This Agreement constitutes the entire agreement between the parties with respect to the subject matter hereof and supersedes all prior or contemporaneous communications, representations, or agreements, whether oral or written.
+      <br><br>
 
-or to such other address as either party may designate in writing from time to time.
-<br><br>
-Entire Agreement. This Agreement constitutes the entire agreement between the parties with respect to the subject matter hereof and supersedes all prior or contemporaneous communications, representations, or agreements, whether oral or written.
-<br><br>
+      Severability. If any provision of this Agreement is held to be invalid or unenforceable, such provision shall be struck from this Agreement and the remaining provisions shall remain in full force and effect.
+      <br><br>
+      Governing Law. This Agreement shall be governed by and construed in accordance with the laws of the State of Tanzania.
+      <br><br>
 
-Severability. If any provision of this Agreement is held to be invalid or unenforceable, such provision shall be struck from this Agreement and the remaining provisions shall remain in full force and effect.
-<br><br>
-Governing Law. This Agreement shall be governed by and construed in accordance with the laws of the State of Tanzania.
-<br><br>
-
-Waiver. No waiver of any provision of this Agreement shall be effective unless in writing and signed by both parties.
-<br><br>
-Binding Effect. This Agreement shall be binding upon and inure to the benefit of the parties hereto and their respective heirs, successors, and assigns.
-<br><br>
-
-<!-- IN WITNESS WHEREOF, the parties have executed this Agreement as of the date first written above. -->
-<!-- <br><br> -->
-<!-- [Tenant Signature] -->
-<!-- [Landlord Signature] -->
-</div>
+      <!-- IN WITNESS WHEREOF, the parties have executed this Agreement as of the date first written above. -->
+      <!-- <br><br> -->
+      <!-- [Tenant Signature] -->
+      <!-- [Landlord Signature] -->
+    </div>
   </div>
 </div>

@@ -2626,6 +2626,10 @@ h6 {
   text-align: right;
 }
 
+.text-justify {
+  text-align: justify;
+}
+
 .text-start {
   text-align: start;
 }

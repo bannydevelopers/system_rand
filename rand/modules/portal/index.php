@@ -40,7 +40,7 @@ function get_welcome_data(){
     // var_dump($db-error());
     if(!$db->error()){
         // return $staffCount;
-        return $staff;
+        return array($apartments, $staff, $orders);
     }
     else print_r($db->error()['message']);
 }
