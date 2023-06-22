@@ -16,8 +16,10 @@ if($helper->user_can('can_add_requests')){
         ->fetchAll();
                 
     $totalRequests = 0;
-    foreach($requests as $request) {
+    if (is_array($requests) || is_object($requests)) {
+        foreach($requests as $request) {
         $totalRequests += $request['requestCount'];
+        }
     }
     $data = [
         'requests' => $requests, 
