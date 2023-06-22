@@ -23,6 +23,12 @@ if(isset($_POST['expenses_description'])){
    //var_dump($db->error());
 }
 $expenses = $db->select('expenses')->order_by('expenses_id', 'desc')->fetchAll();
-$data = ['expenses'=>$expenses,'msg'=>$msg, 'status'=>$ok,'request_uri'=>$request];
+$data = [
+    'expenses'=>$expenses,
+    'msg'=>$msg, 
+    'status'=>$ok,
+    'request_uri'=>$request,
+    'currency'=>$storage->system_config->system_currency,
+];
 echo helper::find_template('expenses', $data);
 

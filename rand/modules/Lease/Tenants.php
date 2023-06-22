@@ -12,8 +12,8 @@ $apartment = $db->select('apartments','apartment_id')
 
 if(isset($_POST['tenantId'])){
     if($helper->user_can('can_delete_tenants')){
-        $tenants_id = intval($_POST['tenantId']);
-        $k = $db->delete('tenants')->where(['tenants_id'=>$tenants_id])->commit();
+        $user_id = intval($_POST['tenantId']);
+        $k = $db->delete('user')->where(['user_id'=>$user_id])->commit();
         if(!$db->error() && $k) {
             $msg = 'Tenant deletion succesfully';
             $status = 'success';
@@ -40,41 +40,38 @@ if(isset($_POST['edit-tenant'])){
             'first_name' => $fn,
             'middle_name' => $mn,
             'last_name' => $ln,
-            'system_role' => $role['role_id'],
             'phone_number'=>helper::format_phone_number($_POST['phone_number']), 
-            'email'=>helper::format_email($_POST['email']), 
+            'email'=>helper::format_email($_POST['tenants_email']), 
         ];
-        $whr ="(email='{$user['email']}' OR phone_number = '{$user['phone_number']}')";
-        $test = $db->select('tenants')
-                ->join('user','user_reference=user_id')
-                ->where($whr)
-                ->and("tenants_id != {$_POST['tenants_id']}")
-                ->fetch();
-        if(!$test){
-            $whr = "user_id IN (SELECT user_reference FROM tenants WHERE tenants_id = '{$_POST['tenants_id']}')";
-            $db->update('user', $user)->where($whr)->commit();
-
-          $db->update('tenants', $tenants)->where(['tenants_id'=>intval($_POST['tenants_id'])])->commit();
-            if(!$db->error()) {
-                $msg = 'Updated successful!';
-                $status = 'success';
-            }
-            else $msg = 'Something went wrong!';
+        $db->update('user', $user)->where(['user_id'=>intval($_POST['user_id'])])->commit();
+        $tenants = [
+            'passport_number'=>$_POST['passport_number'], 
+            'resident_adress'=>$_POST['resident_adress'], 
+            'country'=>$_POST['country']
+        ];
+        $db->update('tenants', $tenants)->where(['tenants_id'=>intval($_POST['tenants_id'])])->commit();
+        $tenantDetails = [
+            'check_in' => $_POST['date_in'],
+            'check_out' => $_POST['date_out'],
+            'adults' => $_POST['adults'],
+            'children' => $_POST['children'],
+            'apartment_reference' => $_POST['apartment_reference'],
+        ];
+        $db->update('check_scheduling', $tenantDetails)->where(['check_id'=>intval($_POST['check_id'])])->commit();
+        if(!$db->error()) {
+            $msg = 'Updated successful!';
+            $status = 'success';
         }
-        else $msg = 'Some unique information already used by other employee';
+        else $msg = 'Something went wrong!';
     }
     else $msg = 'Not enough privilege, sorry';
 }
 
 $tenants = $db->select('tenants')->order_by('tenants_id', 'desc')->fetchAll();
-//  var_dump($db->error());
 
 if(isset($_POST['add-tenant'])){
     if($helper->user_can('can_add_tenants')){
         $token = helper::create_hash(time());
-        // $password = isset($_POST['password']) ? $_POST['password'] : '';
-        // $email = isset($_POST['email']) ? $_POST['email'] : '';
-        // $phone_number = isset($_POST['phone_number']) ? $_POST['phone_number'] : '';
         $full_name = isset($_POST['full_name']) ? $_POST['full_name'] : '';
         $names = explode(' ', addslashes($full_name));
         $fn = $names[0];
@@ -97,7 +94,7 @@ if(isset($_POST['add-tenant'])){
                 ->where(['email' => $user['email']])
                 ->or(['phone_number' => $user['phone_number']])
                 ->fetch();
-        if($test) $msg = 'Tenants information exists, try to edit existing one if necessary';
+        if($test) $msg = 'Tenant with same information (Email/Phone number) exists';
         else {
             $user_id = $db->insert('user',$user);
             if(intval($user_id)){
@@ -121,11 +118,9 @@ if(isset($_POST['add-tenant'])){
                 $l = $db->insert('check_scheduling', $tenantDetails);
 
                 if (!$db->error() && $l) {
-                    // Insertion successful
                     $msg = 'Tenants created';
                     $status = 'success';
                 } else {
-                    // Revert changes and handle the error
                     $db->delete('user')->where(['user_id', $user_id])->commit();
                     $msg = 'Something went wrong';
                 }
@@ -135,13 +130,14 @@ if(isset($_POST['add-tenant'])){
 }
             
 if($helper->user_can('can_view_tenants')){
-    $apartment = $db->select('apartments','apartment_id,apartment_name')
+    $apartment = $db->select('apartments','apartment_id, apartment_name')
                 ->order_by('apartment_name', 'asc')
                 ->fetchAll();
 
     $tenants = $db->select('user')
                 ->join('tenants', 'user.user_id = tenants.user_reference')
                 ->join('check_scheduling', 'user.user_id = check_scheduling.user_ref', 'left')
+                ->join('apartments', 'check_scheduling.apartment_reference = apartments.apartment_id', 'left')
                 ->order_by('user.user_id', 'desc')
                 ->fetchAll();
     $data = [
@@ -150,8 +146,8 @@ if($helper->user_can('can_view_tenants')){
         'msg' => $msg, 
         'status' => $status,
         'request_uri' => $request,
+        'currency'=>$storage->system_config->system_currency,
     ];
-
     echo helper::find_template('tenants', $data);
 }
 else echo helper::find_template('permission_denied');

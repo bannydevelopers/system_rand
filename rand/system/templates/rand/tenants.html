@@ -30,30 +30,11 @@
                 </div>
               </div>
               <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full md:w-1/3 px-3"> 
-                  <label>Date in <span class="text-red-500">*</span>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date"  min="<?= date('Y-m-d'); ?>" name="date_in" required>
-                  </label>
-                </div>
-                <div class="w-full md:w-1/3 px-3"> 
-                  <label>Date out <span class="text-red-500">*</span>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" min="<?= date('Y-m-d'); ?>" name="date_out" required>
-                  </label>
-                </div>
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
                   <label>Country <span class="text-red-500">*</span>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="country" name="country" required>
-                  </label>
-                </div>
-              </div>
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
-                  <label>Apartment <span class="text-red-500">*</span>
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="apartment_reference" required>
-                      <option selected="true" disabled="disabled">Choose...</option>   
-                      <?php foreach($apartment as $pp) { ?>
-                        <option value="<?=$pp['apartment_id']?>"><?=$pp['apartment_name']?></option>
-                      <?php } ?>
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="country" required>
+                      <option value="">Choose...</option>
+                      <?php include('countries.html') ?>
                     </select>
                   </label>
                 </div>
@@ -64,19 +45,43 @@
                 </div>
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
                   <label>Passport number <span class="text-red-500">*</span>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="passport number" name="passport_number" required>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="passport number" name="passport_number" required>
                   </label>
                 </div>
+              </div>
+              <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
-                  <label>Adults <span class="text-red-500">*</span>
+                  <label>Apartment <span class="text-red-500">*</span></label>
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="apartment_reference" required>
+                      <option selected="true" disabled="disabled">Choose...</option>   
+                      <?php foreach($apartment as $pp) { ?>
+                        <option value="<?=$pp['apartment_id']?>"><?=$pp['apartment_name']?></option>
+                      <?php } ?>
+                    </select>
+                </div>
+                <div class="w-full md:w-1/3 px-3"> 
+                  <label>Date in <span class="text-red-500">*</span></label>
+                    <input id="checkin" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="date_in" onchange="changeCheckoutDate(this)" required>
+                </div>
+                <div class="w-full md:w-1/3 px-3"> 
+                  <label>Date out <span class="text-red-500">*</span></label>
+                    <input id="checkout" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="date_out" required>
+                </div>
+              </div>
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                  <label>Adults <span class="text-red-500">*</span></label>
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="Number of adults" name="adults" required>
-                  </label>
                 </div>
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
                   <label>Children <span class="text-red-500">*</span>
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="children" name="children" required>
                   </label>
                 </div>
+                <!-- <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                  <div class="pt-4">Total amount</div>
+                  <div class="font-bold"><?=$currency?> 800000</div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -139,6 +144,7 @@
               <tr>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Name</th>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Adress</th> 
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Passport #</th> 
                 <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date in</th>
                 <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date out</th>
                 <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Apartment</th>
@@ -152,7 +158,7 @@
                 if (is_array($tenants) || is_object($tenants))
                 foreach ($tenants as $tena)
               {?>
-              <tr id="tr-<?=$tena['tenants_id']?>" class="border-b border-gray-200 border-b-solid hover:bg-gray-200">
+              <tr id="tr-<?=$tena['user_id']?>" class="border-b border-gray-200 border-b-solid hover:bg-gray-200">
                 <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
                   <div class="flex px-2 py-1">
                       <div class="relative h-10 w-10 mr-4">
@@ -161,13 +167,17 @@
                       </div>
                       <div class="text-sm">
                         <span style="white-space: nowrap;"><?=$tena['first_name']?> <?=$tena['middle_name']?> <?=$tena['last_name']?></span><br>
-                        <?=$tena['email']?><br>
-                        <?=$tena['phone_number']?><br>
+                        <a href="mailto:<?=$tena['email']?>" class="hover:text-blue-500 hover:underline"><?=$tena['email']?></a><br>
+                        <a href="tel:+<?=$tena['phone_number']?>" class="hover:text-blue-500 hover:underline">+<?=$tena['phone_number']?></a><br>
                       </div>
                   </div>
                 </td>
                 <td class="px-4 py-3 text-sm">
+                  <?=$tena['country']?><br>
                   <?=$tena['resident_adress']?>
+                </td> 
+                <td class="px-4 py-3 text-sm">
+                  <?=$tena['passport_number']?>
                 </td> 
                 <td class="px-4 py-3 text-sm">
                   <?=helper::format_time($tena['check_in'],'d M, Y')?>
@@ -176,7 +186,7 @@
                   <?=helper::format_time($tena['check_out'],'d M, Y')?>
                 </td>
                 <td class="px-4 py-3 text-sm text-center">
-                  <?=$tena['apartment_reference']?>
+                  <?=$tena['apartment_name']?>
                 </td>
                 <td class="px-4 py-3 text-sm text-center">
                   <?=$tena['adults']?>
@@ -186,8 +196,7 @@
                 </td>
                 <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
                   <a href="javascript:;" data-modal-target="edit-asset-modal-<?=$tena['tenants_id']?>" data-modal-toggle="edit-asset-modal-<?=$tena['tenants_id']?>" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
-                  <button id="<?=$tena['tenants_id']?>" class="font-semibold leading-tight text-sm text-red-500 pl-2" onclick="deleteTenant(this)">Delete</button>
-
+                  <button id="<?=$tena['user_id']?>" class="font-semibold leading-tight text-sm text-red-500 pl-2" onclick="deleteTenant(this)">Delete</button>
                 </td>
               </tr>
               <!-- Modal toggle -->
@@ -202,6 +211,9 @@
       <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
         <h3 class="mb-4 text-xl font-medium">Edit tenants </h3>
         <form class="space-y-6" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="tenants_id" value="<?=$tena['tenants_id']?>">
+          <input type="hidden" name="user_id" value="<?=$tena['user_id']?>">
+          <input type="hidden" name="check_id" value="<?=$tena['check_id']?>">
           <div class="divide-y">
             <div>
               <div class="flex flex-wrap -mx-3 mb-6">
@@ -223,28 +235,45 @@
                 </div>
               </div>
               <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full md:w-1/3 px-3"> 
-                  <label>Date in <span class="text-red-500">*</span>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date"  min="<?= date('Y-m-d'); ?>" name="date_in" value="<?$tena['check_in']?>" required>
+                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                  <label>Country <span class="text-red-500">*</span>
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="country" required>
+                      <option value="<?=$tena['country']?>"><?=$tena['country']?></option>
+                      <?php include('countries.html') ?>
+                    </select>
                   </label>
                 </div>
-                <div class="w-full md:w-1/3 px-3"> 
-                  <label>Date out <span class="text-red-500">*</span>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" min="<?= date('Y-m-d'); ?>" name="date_out" value="<?$tena['check_out']?>" required>
+                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                  <label>Resident adress <span class="text-red-500">*</span>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="Resident adress" name="resident_adress" value="<?=$tena['resident_adress']?>" required>
+                  </label>
+                </div>
+                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                  <label>Passport number 
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" value="<?=$tena['passport_number']?>" placeholder="passport number" name="passport_number">
                   </label>
                 </div>
               </div>
               <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
-                  <label>Apartment <span class="text-red-500">*</span>
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="occupied_apartment" required>
-                      <option selected="true" disabled="disabled">Choose...</option>   
+                  <label>Apartment <span class="text-red-500">*</span></label>
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="apartment_reference" required>
+                      <option value="<?=$tena['apartment_id']?>"><?=$tena['apartment_name']?></option>   
                       <?php foreach($apartment as $pp) { ?>
                         <option value="<?=$pp['apartment_id']?>"><?=$pp['apartment_name']?></option>
                       <?php } ?>
                     </select>
-                  </label>
                 </div>
+                <div class="w-full md:w-1/3 px-3"> 
+                  <label>Date in <span class="text-red-500">*</span></label>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date"  min="<?= date('Y-m-d'); ?>" name="date_in" value="<?=helper::format_time($tena['check_in'], 'Y-m-d')?>" required>
+                </div>
+                <div class="w-full md:w-1/3 px-3"> 
+                  <label>Date out <span class="text-red-500">*</span></label>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" min="<?= date('Y-m-d'); ?>" name="date_out" value="<?=helper::format_time($tena['check_out'], 'Y-m-d')?>" required>
+                </div>
+              </div>
+              <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
                   <label>Adults <span class="text-red-500">*</span>
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="adults" name="adults" value="<?=$tena['adults']?>" required>
@@ -259,7 +288,7 @@
             </div>
           </div>
           <div class="pb-8">
-            <button type="submit" name="add-tenant" class="float-right text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Save</button>
+            <button type="submit" name="edit-tenant" class="float-right text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Save</button>
           </div>
         </form>
       </div>
@@ -277,7 +306,38 @@
   </div>
 </div>
 <script>
+    function setMinimumDate() {
+        const today = new Date();
+        const todayString = today.toISOString().slice(0, 10);
+        document.getElementById("checkin").min = todayString;
+        const tomorrow = new Date(today.getTime() + 86400000);
+        const tomorrowString = tomorrow.toISOString().slice(0, 10);
+        document.getElementById("checkout").min = tomorrowString;
+    }
+    setMinimumDate();
+
+    function changeCheckoutDate(checkin) {
+      var checkout = document.getElementById("checkout") 
+      var checkinDateObj = new Date(checkin.value);
+      var checkoutDateObj = new Date(checkout.value);
+      var nextDay = new Date(checkinDateObj.getTime() + 86400000);
+      const nextDayString = nextDay.toISOString().slice(0, 10);
+      if(checkinDateObj > checkoutDateObj) {
+          checkout.value = nextDayString;
+          checkout.min = nextDayString;
+      }else {
+          checkout.min = nextDayString;
+      }
+  }
+
   function deleteTenant(tenant) {
+    if (!confirm("Sure you want to delete tenant? \nThis action can not be undone!")) {
+      return;
+    }
+    tenantDelBtn = document.getElementById(tenant.id);
+    tenantDelBtn.disabled = true;
+    tenantDelBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin fa-lg"></i>'
+
     const formData = new FormData();
     formData.append('tenantId', tenant.id)
     fetch('<?=$request_uri?>', {
@@ -312,6 +372,8 @@
             <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
           </button>
         </div>`;
+        tenantDelBtn.disabled = false;
+        tenantDelBtn.innerHTML = `Delete`;
       }
     })
     .catch(error => {
@@ -326,6 +388,8 @@
           <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
         </button>
       </div>`;
+      tenantDelBtn.disabled = false;
+      tenantDelBtn.innerHTML = `Delete`;
     });
   }
 

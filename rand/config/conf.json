@@ -2,7 +2,7 @@
     "system_name": "RAND",
     "dashboard": "admin",
     "theme": "rand",
-    "session_name": "cmis_session",
+    "session_name": "rand_session",
     "system_locale": "sw-TZ",
     "system_currency": "TSH",
     "database": {
@@ -23,7 +23,7 @@
     
     ],
     "phpmailer": {
-        "sender": "noreply@cmis.co",
+        "sender": "noreply@rand.co",
         "host": "mail.jamboexpedition.com",
         "username": "mailsender@jamboexpedition.com",
         "password": "MS@jambo.1"
