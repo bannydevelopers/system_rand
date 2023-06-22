@@ -11,7 +11,6 @@ if(isset($_POST['add-faq'])){
         'faq_description'=>$_POST['answer']
        ];
     $k = $db->insert('faq', $data);
-   var_dump($db->error());
     if(!$db->error() && $k) {
         $msg = 'FAQ added successful';
         $status = 'success';
