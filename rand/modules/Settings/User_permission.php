@@ -1,14 +1,11 @@
 <?php 
 $db = db::get_connection(storage::init()->system_config->database);
-$status = 'fail';
+$status = false;
 $msg = '';
 if(isset($_POST['role_name'])){
     $role_id = $db->insert('role',['role_name'=>$_POST['role_name']]);
-    if(intval($role_id)) {
-        $msg = 'Role addition successful';
-        $status = 'success';
-    }
-    else $msg = 'Role addition failed';
+    if(intval($role_id)) $msg = 'Role added successful';
+    else $msg = 'Role adding failed';
 }
 if(isset($_POST['perms'])){
     $role = array_key_first($_POST['perms']);
@@ -49,13 +46,13 @@ foreach ((array) $roles as $role) {
         $role_tree[$role['role_name']][$role['legend']] = [];
     }*/
     $role_tree[$role['role_name']][$role['legend']][] = [
-        // 'role_id'=>$role['role_id'],
+        //'role_id'=>$role['role_id'],
         'permission_id'=>$role['permission_id'],
         'permission_name'=>$role['permission_name']
     ];
 }
 //var_dump('<pre>',$role_tree);
-// $designations = $db->select('designation','designation_id,designation_name')->fetchAll();
+$designations = $db->select('designation','designation_id,designation_name')->fetchAll();
 //if(isset($_POST['get_permission'])){
     $permission = $db->select('permission')
                     ->fetchAll();
@@ -85,11 +82,12 @@ foreach ((array) $roles as $role) {
     }
     //die(helper::get_sub_template('user_permission_edit', ['permission'=>$perm_tree]));
 //}
+//var_dump('<pre>',$perm_tree);
 echo helper::find_template(
     'User_permission', 
     [
         'roles' => $role_tree,
-        // 'designations'=>$designations,
+        'designations'=>$designations,
         'permissions'=>$perm_tree,
         'msg' => $msg
     ]
