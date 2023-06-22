@@ -4,9 +4,8 @@
     "nav":[
       
         {"name":"Apartments","href":"Apartments/", "permission":"can_view_apartments"},
-        {"name":"Tenants","href":"Tenants/","permission":"can_view_tenants"},
-        {"name":"Contracts","href":"Contracts/","permission":"can_view_contracts"}
-      
+        {"name":"Tenants","href":"Tenants/","permission":"can_view_tenants"}
+       
     ],
     "permissions":[
         "can_add_tenants",
@@ -15,12 +14,7 @@
         "can_view_tenants",
         "can_approve_tenants",
         
-        "can_add_contracts",
-        "can_edit_contracts",
-        "can_delete_contracts",
-        "can_view_contracts",
-
-        "can_add_apartments",
+       "can_add_apartments",
         "can_edit_apartments",
         "can_view_apartments",
         "can_delete_apartments"
