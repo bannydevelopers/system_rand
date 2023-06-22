@@ -777,6 +777,10 @@ h6 {
   top: 1%;
 }
 
+.-top-0 {
+  top: -0px;
+}
+
 .z-0 {
   z-index: 0;
 }
@@ -2614,6 +2618,18 @@ h6 {
   padding-top: 1rem;
 }
 
+.pt-6 {
+  padding-top: 1.5rem;
+}
+
+.pt-9 {
+  padding-top: 2.25rem;
+}
+
+.pt-8 {
+  padding-top: 2rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -2697,6 +2713,10 @@ h6 {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-2 {
+  font-size: 0.5rem;
 }
 
 .font-bold {
@@ -4535,6 +4555,10 @@ h6 {
 
   .md\:pr-4 {
     padding-right: 1rem;
+  }
+
+  .md\:pr-6 {
+    padding-right: 1.5rem;
   }
 }
 

@@ -35,15 +35,14 @@ function get_welcome_data(){
     $db = db::get_connection(storage::init()->system_config->database);
     $apartments = $db->select('apartments','COUNT(apartment_id) as apartCount')->fetchAll();
     $orders = $db->select('orders','COUNT(order_id) as ordersCount')->fetchAll();
-    // $staffCount = $db->query("SELECT COUNT(staff_id) FROM staff")->fetchColumn();
     $staff = $db->select('staff','COUNT(staff_id) as staffCount')->fetchAll();
-    // var_dump($db-error());
-    if(!$db->error()){
-        // return $staffCount;
-        return array($apartments, $staff, $orders);
-    }
-    else print_r($db->error()['message']);
+    return array($apartments, $staff, $orders);
 }
+// function get_base_url(){
+//     $registry = storage::init();
+//     $home = str_replace('//','/', "/{$registry->request_dir}/{$registry->request[0]}");
+//     return $home;
+// }
 $storage= storage::init();
 $helper = helper::init();
 $db = db::get_connection($storage->system_config->database);

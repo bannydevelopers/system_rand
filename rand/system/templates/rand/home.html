@@ -21,46 +21,30 @@
             </div>
           </div>
           <!--/ card -->
+          <?php foreach($myApartments as $myApartment){ ?>
           <!-- card -->
           <div class="w-full px-4 py-3 bg-white rounded-md shadow-md dark:bg-gray-800">
             <div class="flex items-center justify-between">
-                <span class="text-lg font-semibold text-gray-900"> Junior suite Apartment</span>
-                <span class="px-3 py-1 text-xs text-blue-800 uppercase bg-blue-200 rounded-full dark:bg-blue-300 dark:text-blue-900">Paid</span>
+                <span class="text-lg font-semibold text-gray-900"><?=$myApartment['apartment_name']?> - <?=$myApartment['category_name']?></span>
+                <span class="px-3 py-1 text-xs text-blue-800 uppercase bg-blue-200 rounded-full dark:bg-blue-300 dark:text-blue-900"><?=$myApartment['order_response']?></span>
             </div>
             <div>
-                <h1 class="mt-2 text-sm font-light text-gray-900 dark:text-white">You own this apartment</h1>
-                <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Apartment details - Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit molestiae iusto illo?</p>
+                <h1 class="mt-2 text-sm font-light text-gray-900 dark:text-white">
+                  <?=$myApartment['order_response']!='paid'?'You have not complited booking this apartment':'You own this apartment'?>
+                </h1>
+                <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Details - <?=$myApartment['category_description']?></p>
             </div>
-            <!-- <div>
+            <?php if($myApartment['order_response']!='paid') {?>
+            <div>
                 <div class="flex items-center mt-2 text-gray-700 dark:text-gray-200">
                     <span>Continue:</span>
                     <a class="mx-2 text-blue-600 cursor-pointer dark:text-blue-400 hover:underline" tabindex="0" role="link">Here</a>
                 </div>
-            </div> -->
+            </div>
+            <?php } ?>
           </div>
           <!--/ card -->
-          <!-- card -->
-          <div class="w-full px-4 py-3 bg-white rounded-md shadow-md dark:bg-gray-800">
-            <div class="flex items-center justify-between">
-                <span class="text-lg font-semibold text-gray-900"> Executive suite Apartment</span>
-                <span class="px-3 py-1 text-xs text-blue-800 uppercase bg-blue-200 rounded-full dark:bg-blue-300 dark:text-blue-900">Pending</span>
-            </div>
-            <div>
-                <h1 class="mt-2 text-sm font-light text-gray-900 dark:text-white">you have not complited boking this apartment</h1>
-                <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Apartment details - Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit molestiae iusto illo?</p>
-            </div>
-            <div class="flex flex-row mt-2">
-                <div class="flex items-center text-gray-700 dark:text-gray-200">
-                    <span>Continue:</span>
-                    <a class="mx-2 text-blue-600 cursor-pointer dark:text-blue-400 hover:underline" tabindex="0" role="link">Here</a>
-                </div>
-                <span class="px-2">|</span>
-                <div class="flex items-center text-gray-700 dark:text-gray-200">
-                    <a class="mx-2 text-blue-600 cursor-pointer dark:text-blue-400 hover:underline" tabindex="0" role="link">Cancel</a>
-                </div>
-            </div>
-          </div>
-          <!--/ card -->
+          <?php } ?>
         </div>
         <!--/ row -->
         <?php }?>
