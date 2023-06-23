@@ -21,14 +21,22 @@ function get_apartment_cards($opts = []){
 }
 function get_apartment_real_cards(){
     $db = db::get_connection(storage::init()->system_config->database);
-    $cards = $db->select('apartment_category','*')
-                     ->fetchAll();
-    $tree = [];
+    $cards = $db->select('apartment_category','*')->fetchAll();
+    $currency = storage::init()->system_config->system_currency;
+    // $conf->system_currency
     if(!$db->error()){
-        return $cards;
+        return array($cards, $currency);
     }
-    else print_r($db->error()['message']);
 }
+
+function get_welcome_data(){
+    $db = db::get_connection(storage::init()->system_config->database);
+    $apartments = $db->select('apartments','COUNT(apartment_id) as apartCount')->fetchAll();
+    $orders = $db->select('orders','COUNT(order_id) as ordersCount')->fetchAll();
+    $staff = $db->select('staff','COUNT(staff_id) as staffCount')->fetchAll();
+    return array($apartments, $staff, $orders);
+}
+
 $storage= storage::init();
 $helper = helper::init();
 $db = db::get_connection($storage->system_config->database);
@@ -253,6 +261,17 @@ if(isset($_REQUEST['OrderMerchantReference'])){
     exit;
 }
 
+
+function get_faqs() {
+    $db = db::get_connection(storage::init()->system_config->database);
+    $faqs = $db->select('faq')
+        ->order_by('faq_id', 'desc')
+        ->fetchAll();
+    if(!$db->error()){
+        return $faqs;
+    }
+    else print_r($db->error()['message']);
+} 
 
 $page = '404';
 $parts = explode('/',$_SERVER['REQUEST_URI']);

@@ -7,12 +7,12 @@
         <?php $cards = get_apartment_real_cards()?>
         <div class="row g-4">
             <!-- <?=var_dump('<pre>', $cards);?> -->
-            <?php foreach($cards as $card){?>
+            <?php foreach($cards[0] as $card){?>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="Apartment-item shadow rounded overflow-hidden">
                         <div class="position-relative">
-                            <img class="img-fluid" src="rand/modules/portal/rand/img/opt/3.jpg" alt="">
-                            <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4"><?=$card['price']?>/Night</small>
+                            <img class="img-fluid" src="rand/modules/portal/rand/img/opt/<?=$card['image']?>" alt="">
+                            <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4"><?=$cards[1]?> <?=$card['price_per_day']?>/Night</small>
                         </div>
                         <div class="p-4 mt-2">
                             <div class="d-flex justify-content-between mb-3">

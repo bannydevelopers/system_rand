@@ -266,22 +266,23 @@
                 </div>
               </div>
               <div id="user-info" class="flex-auto p-4">
-                <p id="user-bio" class="leading-normal text-sm">Hi, I’m Jusper Wendo. Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).</p>
-                <hr class="h-px my-6 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent" />
+                <!-- <p id="user-bio" class="leading-normal text-sm">Hi, I’m Jusper Wendo. Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).</p> -->
+                <!-- <hr class="h-px my-6 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent" /> -->
+                <hr class="h-px my-2 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent" />
                 <ul class="flex flex-col pl-0 mb-0 rounded-lg">
                   <li class="relative block px-4 py-2 pt-0 pl-0 leading-normal bg-white border-0 rounded-t-lg text-sm text-inherit"><strong class="text-slate-700">Full Name:</strong> &nbsp; 
                     <span id="user-name"><?=$user['first_name'] . " " . $user['middle_name'] . " " . $user['last_name']?></span>
                   </li>
-                  <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit"><strong class="text-slate-700">Mobile:</strong> &nbsp; 
+                  <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit"><strong class="text-slate-700">Mobile:</strong> 
                   <span id="user-phone"><?=$user['phone_number']?></span></li>
                   <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit"><strong class="text-slate-700">Email:</strong> &nbsp; 
                     <span id="user-email"><?=$user['email']?></span>
                   </li>
                   <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit"><strong class="text-slate-700">Location:</strong> &nbsp; 
-                    <span id="user-address">TZ</span>
+                    <span id="user-address"><?=$user['staff_residence_address']?$user['staff_residence_address']:$user['resident_adress'] ?></span>
                   </li>
                   <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit"><strong class="text-slate-700">Registered:</strong> &nbsp; 
-                    <span id="user-address"><?=$user['created_time']?></span>
+                    <span id="user-address"><?=helper::format_time($user['created_time'],'d M, Y')?></span>
                   </li>
                 </ul>
               </div>
@@ -380,7 +381,6 @@
   toggleUserEdit = document.getElementById("toggle-user-edit");
   userInfo = document.getElementById("user-info");
   var prevUserInfo = userInfo.innerHTML;
-  const userBio = document.getElementById("user-bio");
   const userName = document.getElementById("user-name");
   const userPhone = document.getElementById("user-phone");
   const userEmail = document.getElementById("user-email");
@@ -390,9 +390,6 @@
   function editUserInfo() {
     userInfo.innerHTML = `<div class="flex-auto">
       <form role="form" method="POST">
-        <div class="mb-4">
-          <textarea name="bio" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" rows="5" placeholder="Bio">`+userBio.innerHTML+`</textarea>
-        </div>
         <label class="mb-2 ml-1 font-bold text-xs text-slate-700">Full name</label>
         <div class="mb-4">
           <input type="text" name="name" class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Full name" value="`+userName.innerHTML+`"/>

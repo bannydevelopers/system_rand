@@ -2,8 +2,7 @@
     "name":"Contract",
     "icon":"handshake-o",
     "nav":[
-       
-           
+
            ],
 
     "permissions":[
@@ -11,6 +10,5 @@
         "can_edit_contract",
         "can_delete_contract",
         "can_view_contract"
- 
     ]
  }

@@ -93,7 +93,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="add-tenant-modal" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" id="reg-btn" class="btn btn-primary" onclick="regUser()">Register</button>
                 </div>
             </div>
@@ -284,10 +284,7 @@
     <script src="rand/modules/portal/rand/js/main.js"></script>
 </body>
 <script>
-    var problem = `An error occured! Please refresh the page or try again later.`;
-
     async function regUser() {
-
         regForm = document.getElementById("reg-form");
         regSmg = document.getElementById("reg-smg");
         regUserBtn = document.getElementById("reg-btn");
@@ -296,7 +293,7 @@
     
         const userData = new FormData(regForm);
         userData.append('ajax', 1);
-    
+        
         let url = '';
         let obj = {
           method: "POST", 
@@ -311,21 +308,16 @@
         })
         .then(data => {
           if(data.status == 'success'){
-            //document.getElementById("login").value = data.fullname;
-            console.log(data);
+            document.getElementById("login").value = userData.get('cust_email');
+            document.getElementById("add-tenant-modal").click();
+            alert(data.message);
           }
-          if(data.status == 'fail'){
-            regSmg.innerHTML = data.msg;
-            regUserBtn.disabled = false;
-            regUserBtn.innerHTML = 'Register';
-          }
-          //if(data.status == 'not-exist' || data.status == 'denied'){
-            regSmg.innerHTML = data.message;
-          //}
+          regSmg.innerHTML = data.message;
+          regUserBtn.disabled = false;
+          regUserBtn.innerHTML = 'Register';
         })
         .catch(error => {
-          regSmg.innerHTML = problem;
-          console.error('Problem:', error);
+          regSmg.innerHTML = `An error occured! Please refresh the page or try again later.`;
           regUserBtn.disabled = false;
           regUserBtn.innerHTML = 'Register';
         });
