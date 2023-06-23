@@ -124,7 +124,7 @@ if(isset($_POST['add-staff'])){
             'first_name'=>$fn, 
             'middle_name'=>$mn, 
             'last_name'=>$ln, 
-            'system_role'=>$role['role_id'], 
+            'system_role'=>$_POST['role'], 
             'status'=>'active', 
             'phone_number'=>helper::format_phone_number($_POST['phone_number']), 
             'email'=>helper::format_email($_POST['email']), 
