@@ -10,12 +10,13 @@ if(isset($_POST['add-request'])){
     if($helper->user_can('can_add_requests')){
         $data = [
             'descriptions'=>$_POST['descriptions'], 
+            'house'=>$_POST['apartment'], 
             'status'=>'pending',
             'requester'=>$my['user_id']
             ];
         $k = $db->insert('requests', $data);
         if(!$db->error() && $k) {
-            $msg = 'requests added successful';
+            $msg = 'Requests added successful';
             $status = 'success';
         }
         else $msg = 'Error adding requests';
@@ -25,7 +26,10 @@ if(isset($_POST['add-request'])){
 
 if(isset($_POST['edit-request'])){
     if($helper->user_can('can_edit_requests')){
-        $data = ['descriptions'=>$_POST['descriptions']];
+        $data = [
+            'descriptions'=>$_POST['descriptions'],
+            'house'=>$_POST['apartment'], 
+        ];
         $k = $db->update('requests', $data)
             ->where(['requests_id'=>intval($_POST['requests_id'])])
             ->commit();
@@ -72,10 +76,31 @@ if(isset($_POST['ajax_del_req'])){
 }
 
 if($helper->user_can('can_add_requests')){
-$requests = $db->select('requests')->where(['requester'=>$my['user_id']])->order_by('requests_id', 'desc')->fetchAll();
+$requests = $db->select('requests')
+    ->join('apartments','requests.house=apartments.apartment_id', 'LEFT')
+    ->where(['requester'=>$my['user_id']])
+    ->order_by('requests_id', 'desc')
+    ->fetchAll();
+$myApartments = $db->select('user','apartment_id, apartment_name')
+        ->join('orders','user.user_id=orders.order_customer', 'LEFT')
+        ->join('check_scheduling','orders.check_schedule=check_scheduling.check_id', 'LEFT')
+        ->join('apartments','check_scheduling.apartment_reference=apartments.apartment_id', 'LEFT')
+        ->where(['user_id'=>$my['user_id']])
+        ->fetchAll();
 }
-else $requests = $db->select('requests')->order_by('requests_id', 'desc')->fetchAll();
+else {
+    $requests = $db->select('requests')
+    ->join('apartments','requests.house=apartments.apartment_id', 'LEFT')
+    ->order_by('requests_id', 'desc')->fetchAll();
+    $myApartments=NULL;
+}
 
-$data = ['requests'=>$requests,'msg'=>$msg, 'status'=>$status,'request_uri'=>$request];
+$data = [
+    'requests'=>$requests,
+    'msg'=>$msg, 
+    'status'=>$status, 
+    'myApartments'=>$myApartments, 
+    'request_uri'=>$request
+];
 echo helper::find_template('requests', $data);
 

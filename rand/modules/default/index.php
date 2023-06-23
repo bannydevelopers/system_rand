@@ -90,7 +90,8 @@ else{
         'expensesDate' => json_encode($expensesDate),
         'aparCategories' => json_encode($aparCategories), 
         'occupiedApartments' => json_encode($occupiedApartments),
-        'freeApartments' => json_encode($freeApartments)
+        'freeApartments' => json_encode($freeApartments),
+        'currency'=>$storage->system_config->system_currency
     ];
 }
 

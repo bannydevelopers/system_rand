@@ -4,7 +4,7 @@
     "theme": "rand",
     "session_name": "rand_session",
     "system_locale": "sw-TZ",
-    "system_currency": "TSH",
+    "system_currency": "$",
     "database": {
         "host": "localhost",
         "username": "root",
@@ -20,7 +20,6 @@
         "Requests",
         "FAQ",
         "Settings"
-    
     ],
     "phpmailer": {
         "sender": "noreply@rand.co",
@@ -32,9 +31,9 @@
         "sender": "NEXTSMS",
         "token": "YmFubnk6QmFzZWFAQkNM"
     },
-    "payment_gateway":"pesapal",
-    "pesapal":{
-        "consumer_key":"qkio1BGGYAXTu2JOfm7XSXNruoZsrqEW",
-        "consumer_secret":"osGQ364R49cXKeOYSpaOnT++rHs="
+    "payment_gateway": "pesapal",
+    "pesapal": {
+        "consumer_key": "qkio1BGGYAXTu2JOfm7XSXNruoZsrqEW",
+        "consumer_secret": "osGQ364R49cXKeOYSpaOnT++rHs="
     }
 }

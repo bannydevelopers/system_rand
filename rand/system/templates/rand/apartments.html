@@ -4,7 +4,7 @@ Add Category
 </button>
 <!-- Add category modal -->
 <div id="add-category-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full">
-  <div class="relative w-full max-w-lg max-h-full items-center">
+  <div class="relative w-full max-w-lg xl:max-w-2xl max-h-full items-center">
       <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-category-modal">
@@ -15,59 +15,53 @@ Add Category
             <h3 class="mb-4 text-xl font-medium">Add category </h3>
             <form class="space-y-6" method="POST">
               <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-1/2 px-3">
-                  <label>Category name <span class="text-red-500">*</span>
+                <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                  <label>Category name <span class="text-red-500">*</span></label>
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="category" name="category_name" required>
-                  </label>
                 </div>
-                <div class="w-1/2 px-3">
-                  <label>Category description 
+                <div class="w-full md:w-1/2 xl:w-2/3 p-3">
+                  <label>Category description </label>
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="description" name="category_description">
-                  </label>
                 </div>
-                <div class="w-1/2 px-3">
-                  <label>Bedroom 
+                <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                  <label>Bedroom </label>
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="bedroom">
-                  </label>
                 </div>
-                <div class="w-1/2 px-3">
-                  <label>Bathroom 
+                <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                  <label>Bathroom </label>
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="bathroom">
-                  </label>
                 </div>
-                <div class="w-1/2 px-3">
-                  <label>Kitchen 
+                <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                  <label>Kitchen </label>
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="kitchen">
-                  </label>
                 </div>
-                <div class="w-1/2 px-3">
-                  <label>Livingroom 
+                <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                  <label>Livingroom </label>
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="livingroom">
-                  </label>
                 </div>
-                <div class="w-1/2 px-3">
-                  <label>Dining room 
+                <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                  <label>Dining room </label>
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="dinning_room">
-                  </label>
                 </div>
-                <div class="w-1/2 px-3">
-                  <label>TV
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="asserts[tv]">
-                  </label>
+                <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                  <label>TVs</label>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="assets[tv]">
                 </div>
-                <div class="w-1/2 px-3">
-                  <label>Phone
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="asserts[phone]">
-                  </label>
+                <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                  <label>Phones</label>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="assets[phone]">
                 </div>
-                <div class="w-1/2 px-3">
-                  <label>Price
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="price" name="price">
-                  </label>
+                <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                  <label>Price/Night</label>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Daily price" name="price_per_day">
+                </div>
+                <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                  <label>Price/Month</label>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Monthly price" name="price_per_month">
                 </div>
               </div>
               <div class="pb-8">
-                <button type="submit" class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
+                <button type="submit" name="add-ap-category" class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
               </div>
             </form>
           </div>
@@ -87,37 +81,33 @@ Add Category
           <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
             <h3 class="mb-4 text-xl font-medium text-center uppercase">Add new apartment </h3>
             <form class="space-y-6" action="" method="POST">
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3 my-2">
-                  <label>Apartment name
+              <div class="flex flex-wrap -mx-3">
+                <div class="w-full md:w-1/2 px-3 my-2">
+                  <label>Apartment name</label>
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_name" type="text" placeholder="apartment name" required>
-                  </label>
-              </div>
-            </div>
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-1/2 px-3 my-2">
-                  <label>Apartment block
+                </div>
+                <div class="w-full md:w-1/2 px-3 my-2">
+                  <label>Apartment block</label>
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_block" type="text" placeholder="apartment block" required>
-                  </label>
                 </div>
-                <div class="w-1/2 px-3 my-2">
-                  <label>Apartment floor
+              </div>
+              <div class="flex flex-wrap -mx-3">
+                <div class="w-full md:w-1/2 px-3 my-2">
+                  <label>Apartment floor</label>
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_floor" type="text" placeholder="apartment floor" required>
-                  </label>
                 </div>
-                <div class="w-1/2 px-3 my-2">
-                  <label>Apartment category
+                <div class="w-full md:w-1/2 px-3 my-2">
+                  <label>Apartment category</label>
                     <select class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_category" onchange="openCatModal(this)" required>
                       <?php foreach($apartment as $cat){?>
                         <option value="<?=$cat['category_id']?>"><?=$cat['category_name']?></option>
                       <?php }?>
                       <option value="">Add category</option>
                     </select>
-                  </label>
                 </div>
-                </div>
+              </div>
               <div class="pb-8 text-right gap-x-4">
-                <button  class="mx-2 text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save</button>
+                <button type="submit" name="add-apar" class="mx-2 text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add</button>
               </div>
             </form>
           </div>
@@ -208,17 +198,18 @@ Add Category
                         <b>bathroom: </b><?=$apartment_cat['bathroom']?>
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        <b>TV: </b> <?=$apartment_cat['asserts']['tv']?>
+                        <b>TV: </b> <?=$apartment_cat['assets']['tv']?>
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        <b>Phone: </b><?=$apartment_cat['asserts']['phone']?>
+                        <b>Phone: </b><?=$apartment_cat['assets']['phone']?>
                       </td>
                       <td class="mr-2 text-center">
-                        <button data-modal-target="edit-category-modal-<?=$apartment_cat['category_id']?>" data-modal-toggle="edit-category-modal-<?=$apartment_cat['category_id']?>" class="inline-block text-blue-500 hover:text-blue-600 hover:border-blue-300 rounded-t-lg my-3 py-1 px-4 text-md font-bold text-center border border-blue-400" type="button">Edit</button>
+                        <button data-modal-target="edit-category-modal-<?=$apartment_cat['category_id']?>" data-modal-toggle="edit-category-modal-<?=$apartment_cat['category_id']?>" class="inline-block text-blue-500 hover:text-blue-600 hover:border-blue-300 rounded-t-lg mr-2 py-1 px-2 text-md font-bold text-center border border-blue-400" type="button">Edit</button>
+                        <!-- <button class="inline-block text-red-500 hover:text-red-600 hover:border-red-300 rounded-t-lg mr-2 py-1 px-2 text-md font-bold text-center border border-red-400" type="button">Delete</button> -->
                       </td>
                     </tr>
                     <div id="edit-category-modal-<?=$apartment_cat['category_id']?>" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50 fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full">
-                      <div class="relative w-full max-w-lg max-h-full items-center">
+                      <div class="relative w-full max-w-lg xl:max-w-2xl max-h-full items-center">
                           <!-- Modal content -->
                           <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                               <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="edit-category-modal-<?=$apartment_cat['category_id']?>">
@@ -228,60 +219,55 @@ Add Category
                               <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
                                 <h3 class="mb-4 text-xl font-medium">Edit <?=$apartment_cat['category_name']?> category </h3>
                                 <form class="space-y-6" method="POST">
+                                  <input type="hidden" value="<?=$apartment_cat['category_id']?>" name="category_id">
                                   <div class="flex flex-wrap -mx-3 mb-6">
-                                    <div class="w-1/2 px-3">
-                                      <label>Category name 
+                                    <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                                      <label>Category name </label>
                                         <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="category" name="category_name" value="<?=$apartment_cat['category_name']?>" required>
-                                      </label>
                                     </div>
-                                    <div class="w-1/2 px-3">
-                                      <label>Category description 
+                                    <div class="w-full md:w-1/2 xl:w-2/3 p-3">
+                                      <label>Category description </label>
                                         <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="description" name="category_description">
-                                      </label>
                                     </div>
-                                    <div class="w-1/2 px-3">
-                                      <label>Bedroom 
+                                    <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                                      <label>Bedroom </label>
                                         <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="bedroom" value="<?=$apartment_cat['bedroom']?>">
-                                      </label>
                                     </div>
-                                    <div class="w-1/2 px-3">
-                                      <label>Bathroom 
+                                    <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                                      <label>Bathroom </label>
                                         <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="bathroom" value="<?=$apartment_cat['bathroom']?>">
-                                      </label>
                                     </div>
-                                    <div class="w-1/2 px-3">
-                                      <label>Kitchen 
+                                    <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                                      <label>Kitchen </label>
                                         <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="kitchen" value="<?=$apartment_cat['kitchen']?>">
-                                      </label>
                                     </div>
-                                    <div class="w-1/2 px-3">
-                                      <label>Livingroom 
+                                    <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                                      <label>Livingroom </label>
                                         <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="livingroom" value="<?=$apartment_cat['livingroom']?>">
-                                      </label>
-                                    </div>
-                                    <div class="w-1/2 px-3">
-                                      <label>Dining room 
+                                    </div> 
+                                    <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                                      <label>Dining room </label>
                                         <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="dinning_room" value="<?=$apartment_cat['dinning_room']?>">
-                                      </label>
                                     </div>
-                                    <div class="w-1/2 px-3">
-                                      <label>TV
-                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="asserts[tv]" value="<?=$apartment_cat['asserts']['tv']?>">
-                                      </label>
+                                    <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                                      <label>TV</label>
+                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="assets[tv]" value="<?=$apartment_cat['assets']['tv']?>">
                                     </div>
-                                    <div class="w-1/2 px-3">
-                                      <label>Phone
-                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="asserts[phone]" value="<?=$apartment_cat['asserts']['phone']?>">
-                                      </label>
+                                    <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                                      <label>Phone </label>
+                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Details" name="assets[phone]" value="<?=$apartment_cat['assets']['phone']?>">
                                     </div>
-                                    <div class="w-1/2 px-3">
-                                      <label>Price
-                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="price" value="<?=$apartment_cat['price']?>" name="price">
-                                      </label>
+                                    <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                                      <label>Price/Day</label>
+                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" value="<?=$apartment_cat['price_per_day']?>" placeholder="Daily price" name="price_per_day">
+                                    </div>
+                                    <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+                                      <label>Price/Month </label>
+                                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" value="<?=$apartment_cat['price']?>" placeholder="Monthly price" name="price_per_month">
                                     </div>
                                   </div>
                                   <div class="pb-8">
-                                    <button type="submit" class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
+                                    <button type="submit" name="edit-apar-category" class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
                                   </div>
                                 </form>
                               </div>
@@ -328,46 +314,41 @@ Add Category
                                   <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
                                     <h3 class="mb-4 text-xl font-medium text-center uppercase">Edit apartment </h3>
                                     <form class="space-y-6" action="" method="POST">
+                                      <input type="hidden" value="<?=$apartment_child['apartment_id']?>" name="apartment_id">
                                       <div class="flex flex-wrap -mx-3 mb-6">
-                                        <div class="w-full px-3 my-2">
-                                          <label>Apartment name
+                                        <div class="w-full md:w-1/2 px-3 my-2">
+                                          <label>Apartment name</label>
                                             <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_name" type="text" placeholder="apartment name" value="<?=$apartment_child['apartment_name']?>" required>
-                                          </label>
+                                        </div>
                                       </div>
-                                    </div>
                                       <div class="flex flex-wrap -mx-3 mb-6">
-                                        <div class="w-1/2 px-3 my-2">
-                                          <label>Apartment block
+                                        <div class="w-full md:w-1/2 px-3 my-2">
+                                          <label>Apartment block</label>
                                             <select class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_block" required>
-                                              <option value="A"<?=$apartment_child['apartment_block']=='A' ? ' selected' : ''?>>A</option>
                                               <option value="B"<?=$apartment_child['apartment_block']=='B' ? ' selected' : ''?>>B</option>
                                               <option value="C"<?=$apartment_child['apartment_block']=='C' ? ' selected' : ''?>>C</option>
                                               <option value="D"<?=$apartment_child['apartment_block']=='D' ? ' selected' : ''?>>D</option>
                                             </select>
-                                          </label>
                                         </div>
-                                        <div class="w-1/2 px-3 my-2">
-                                          <label>Apartment floor
+                                        <div class="w-full md:w-1/2 px-3 my-2">
+                                          <label>Apartment floor</label>
                                             <select class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_floor" required>
                                               <option value="Ground floor"<?=$apartment_child['apartment_floor']=='Ground floor' ? ' selected' : ''?>>Ground floor</option>
                                               <option value="First floor"<?=$apartment_child['apartment_floor']=='First floor' ? ' selected' : ''?>>First floor</option>
                                               <option value="Second floor"<?=$apartment_child['apartment_floor']=='Second floor' ? ' selected' : ''?>>Second floor</option>
-                                             
                                             </select>
-                                          </label>
                                         </div>
-                                        <div class="w-1/2 px-3 my-2">
-                                          <label>Apartment category
+                                        <div class="w-full md:w-1/2 px-3 my-2">
+                                          <label>Apartment category</label>
                                             <select class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_category" onchange="openCatModal(this)" required>
                                               <?php foreach($apartment as $cat){?>
                                                 <option value="<?=$cat['category_id']?>"><?=$cat['category_name']?></option>
                                               <?php }?>
                                             </select>
-                                          </label>
                                         </div>
-                                        </div>
+                                      </div>
                                       <div class="pb-8 text-right gap-x-4">
-                                        <button  class="mx-2 text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update</button>
+                                        <button name="edit-apar" class="mx-2 text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update</button>
                                       </div>
                                     </form>
                                   </div>

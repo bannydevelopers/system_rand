@@ -44,9 +44,7 @@
                       <table id="dTable" class="py-4 items-center w-full mb-0 align-top border-gray-200 text-slate-500">
                         <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
                           <tr>
-                            <?php if(!helper::init()->user_can('can_add_requests')){ ?>
-                              <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">House details</th>
-                            <?php } ?>
+                              <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">House</th>
                             <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Description</th>
                             <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Submitted date</th>
                             <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Status</th>
@@ -59,11 +57,9 @@
                             foreach ($requests as $req)
                           { ?>
                           <tr id="tr-<?=$req['requests_id']?>" class="border-b py-4 hover:bg-gray-200">
-                              <?php if(!helper::init()->user_can('can_add_requests')){?>
                               <td class="px-4 py-3 text-sm">
-                                <?=$req['house_details']?>
+                                <?=$req['apartment_name']?>
                               </td>
-                              <?php } ?>
                               <td class="px-4 py-3 text-sm">
                                 <?=$req['descriptions']?>
                               </td>
@@ -102,9 +98,16 @@
         <h3 class="mb-4 text-xl font-medium">Edit Request </h3>
         <form class="space-y-6" method="POST">
           <input type="hidden" value="<?=$req['requests_id']?>" name="requests_id">
-          <div class="flex flex-col -mx-3 mb-6">
-            <div class="w-full px-3 my-1 md:my-0">
-              <label>Answers <span class="text-red-500">*</span></label>
+          <div>
+            <div class="pb-6">
+              <select class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment" onchange="openCatModal(this)" required>
+                <option value="<?=$req['apartment_id']?>"><?=$req['apartment_name']?></option>
+                <?php foreach($myApartments as $myApartment){?>
+                  <option value="<?=$myApartment['apartment_id']?>"><?=$myApartment['apartment_name']?></option>
+                <?php }?>
+              </select>
+            </div>
+            <div>
               <textarea class="w-full block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" rows="5" name="descriptions" placeholder="Type your Message" required><?=$req['descriptions']?></textarea>
             </div>
           </div>
@@ -142,7 +145,19 @@
                 <div>
                   <h6>New Request</h6>
                   <form method="POST">
-                    <textarea class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-blue-300 focus:outline-none focus:transition-shadow" rows="5" name="descriptions" placeholder="Type your Message" required></textarea>
+                    <div>
+                      <div class="pb-6">
+                        <select class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment" onchange="openCatModal(this)" required>
+                          <option value="">Select apartment...</option>
+                          <?php foreach($myApartments as $myApartment){?>
+                            <option value="<?=$myApartment['apartment_id']?>"><?=$myApartment['apartment_name']?></option>
+                          <?php }?>
+                        </select>
+                      </div>
+                      <div>
+                        <textarea class="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-blue-300 focus:outline-none focus:transition-shadow" rows="5" name="descriptions" placeholder="Type your Message" required></textarea>
+                      </div>
+                    </div>
                     <div class="py-4 text-center">
                       <button type="submit" name="add-request" class="float-centre text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-1.5 text-center">Send</button>
                     </div>
