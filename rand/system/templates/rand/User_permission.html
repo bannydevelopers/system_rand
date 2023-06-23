@@ -38,7 +38,7 @@
 <!--/ Main modal -->
  
 <?php if($msg){ 
-  if($status == 'success') {?>
+  if(@$status == 'success') {?>
   <div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
     <span>
       <i class="fa-solid fa-circle-info fa-lg"></i>
@@ -51,7 +51,7 @@
     </button>
   </div>
 <?php } 
-  else if($status == 'fail') {?>
+  else if(@$status == 'fail') {?>
 <div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
   <span>
     <i class="fa-solid fa-circle-exclamation fa-lg"></i>
@@ -114,7 +114,7 @@
                   <!--/ Legend -->
 									<?php }?>
 									<div class="pb-8 pt-4 text-right gap-x-4">
-										<a href="javascript:void(0)" class="mx-2 px-5 py-1 text-sm font-medium leading-5 text-red-700 transition-colors duration-150 border border-red-300 rounded-lg sm:w-auto active:bg-transparent hover:border-red-500 focus:border-red-500 active:text-red-500 focus:outline-none focus:shadow-outline-red">Delete role</a>
+										<a href="javascript:void(0)" onclick="delete_role('<?=$role?>')" class="mx-2 px-5 py-1 text-sm font-medium leading-5 text-red-700 transition-colors duration-150 border border-red-300 rounded-lg sm:w-auto active:bg-transparent hover:border-red-500 focus:border-red-500 active:text-red-500 focus:outline-none focus:shadow-outline-red">Delete role</a>
 										<button type="button" data-modal-target="edit-role-modal-<?=$role?>" data-modal-toggle="edit-role-modal-<?=$role?>" class="mx-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1 text-center">Update permission</button>
 									</div>
                   <!-- Sub modal -->
@@ -187,5 +187,53 @@
     const kidos = window.event.target.parentNode.parentNode.nextElementSibling;
     let checks = kidos.querySelectorAll('input[type=checkbox]');
     [...checks].forEach(elem=>{elem.checked = window.event.target.checked});
+  }
+  function delete_role(role_name){
+    let target_elem = window.event.target;
+    let fd = new FormData();
+    fd.append('role', role_name);
+    fd.append('delete_role', 'ajax');
+    ajax(
+      req_uri,
+      response=>{
+        console.log(response);
+        let json_data = JSON.parse(response);
+        if(json_data){
+          if(json_data.status == 'success'){
+            /** show message and remove element */
+            let par = target_elem.parentNode.parentNode.parentNode.parentNode.parentNode;
+            par.parentNode.removeChild(par);
+            Swal.fire({
+              title: 'Delete is a success!',
+              html:json_data.msg,
+              icon:'success'
+            });
+          }
+          else{
+            Swal.fire({
+              title: 'Delete got glitches!',
+              html:json_data.msg,
+              icon:'error'
+            });
+          }
+        }
+        else{
+          Swal.fire({
+              title: 'Delete failed!',
+              html:"Unkown error occured!",
+              icon:'error'
+            });
+        }
+      },
+      error=>{
+        console.log(error);
+        Swal.fire({
+            title: 'Delete failed!',
+            html:error,
+            icon:'error'
+          });
+      },
+      fd
+    )
   }
 </script>

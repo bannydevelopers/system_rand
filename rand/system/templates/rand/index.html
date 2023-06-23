@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+  <head data-uri="<?=$_SERVER['REQUEST_URI']?>">
     <base href="/<?=$base?>/"/>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,7 +14,21 @@
     <link href="css/nucleo-svg.css" rel="stylesheet" />
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <!-- Main Styling -->
-    <link href="css/tailwind.output.css" rel="stylesheet" />    
+    <link href="css/tailwind.output.css" rel="stylesheet" />  
+    <script src="../../../vendor/sweetalert/sweetalert2@11.js"></script>
+    <script>
+      const ajax = (url, success, fail, data, method)=>{
+          fetch(url, {
+          method: method || 'POST', /* or 'PUT'*/
+          mode:"no-cors",/*cors, same-origin*/
+          body: data,
+          })
+          .then(response => response.text())
+          .then(data => {success(data);})
+          .catch((error) => {fail(error);});
+      };
+      var req_uri = document.querySelector('head').getAttribute('data-uri');
+  </script>  
   </head>
   
   <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-cyan-50 text-slate-800">

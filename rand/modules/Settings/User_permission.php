@@ -7,6 +7,29 @@ if(isset($_POST['role_name'])){
     if(intval($role_id)) $msg = 'Role added successful';
     else $msg = 'Role adding failed';
 }
+if(isset($_POST['delete_role'])){
+    $role = $db->select('role')->where(['role_name'=>addslashes($_POST['role'])])->fetch();
+    if(!$db->error() && $role){
+        $db->delete('designation_role')->where(['role_id'=>$role['role_id']])->commit();
+        $db->delete('role_permission_list')->where(['role_id'=>$role['role_id']])->commit();
+        $db->delete('role')->where(['role_id'=>$role['role_id']])->commit();
+        if(!$db->error()){
+            $msg = "Role named '{$_POST['role']}' deleted successfully";
+            $status = 'success';
+        }
+        else{
+            $msg = "Sorry! Role named '{$_POST['role']}' delete had issues";
+            $status = 'fail';
+        }
+    }
+    else{
+        $msg = "Sorry! Role named '{$_POST['role']}' does not exist";
+        $status = 'fail';
+    }
+    if($_POST['delete_role'] == 'ajax'){
+        die(json_encode(['status'=>$status, 'msg'=>$msg]));
+    }
+}
 if(isset($_POST['perms'])){
     $role = array_key_first($_POST['perms']);
     $role_key = $db->select('role','role_id')->where(['role_name'=>$role])->fetch();
@@ -30,7 +53,7 @@ $roles = $db->select('role_permission_list')
             ->join('role','role.role_id=role_permission_list.role_id')
             ->order_by('legend')->fetchAll();
 // Roles without permission hides from list, fixing it...
-$new_roles = $db->select('role','role_name')->fetchAll();
+$new_roles = $db->select('role','role_name,role_id')->fetchAll();
 $legends = $db->select('permission', 'DISTINCT legend')->fetchAll();
 
 $role_tree = [];
