@@ -19,7 +19,7 @@
     //print_r($ipn);
     $request = new stdClass();
 
-    $request->id = 'jasper-rupiak';
+    // $request->id = 'jasper-rupiak';
     $request->currency = $conf->system_currency;
     $request->amount = $post_data['order_amount'];
     $request->pesapalMerchantReference = $post_data['order_reference'];

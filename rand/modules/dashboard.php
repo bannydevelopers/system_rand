@@ -13,7 +13,7 @@ if(isset($_POST['login']) && isset($_POST['password'])){
     $helper->login_user($_POST);
     if(!$helper->check_user_session()) $msg = 'Login creditial mismatch';
 }
-if(isset($_GET['logout'])){
+if(isset($_POST['logout'])){
     // Unset session
     $helper->end_user_session();
     // Remove query string
