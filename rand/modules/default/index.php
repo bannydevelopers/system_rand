@@ -62,7 +62,7 @@ else{
                 ->fetchAll();
     $orders = $db->select('apartment_category','category_name, COUNT(payment_amount) as ordersCount, SUM(payment_amount) as ordersSum')
                 ->join('orders','orders.apartment_category=apartment_category.category_id', 'left')
-                ->group_by('category_id')
+                ->group_by('apartment_category.category_id')
                 ->order_by('category_id','asc')
                 ->fetchAll();
     $revenueSum = 0;

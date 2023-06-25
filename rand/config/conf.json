@@ -4,7 +4,7 @@
     "theme": "rand",
     "session_name": "rand_session",
     "system_locale": "sw-TZ",
-    "system_currency": "$",
+    "system_currency": "USD",
     "database": {
         "host": "localhost",
         "username": "root",

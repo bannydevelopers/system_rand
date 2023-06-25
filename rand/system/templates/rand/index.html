@@ -139,9 +139,11 @@
                 </a>
               </li>
               <li class="flex items-center px-2">
-                <a href="<?=$home?>?logout" class="transition-all text-sm ease-nav-brand text-slate-500">
-                  <i class="fa-solid fa-right-from-bracket"></i>
-                </a>
+                <form action="<?=$home?>" method="post">
+                  <button type="submit" value="logout" onclick="confirm('SURE WANT TO LOGOUT')" class="transition-all text-sm ease-nav-brand text-slate-500">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                  </button>
+                </form>
               </li>
               <!-- notifications -->
               <li class="relative flex items-center px-2">

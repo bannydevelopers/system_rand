@@ -63,20 +63,20 @@
                                     <label for="mob_number">Phone number</label>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-6">
                                 <div class="form-floating">
                                     <select class="form-select" id="countryReg" name="country">
                                     <?php include('components/countries.html')?>
                                     </select>
                                     <label for="countryReg">Select your country</label>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
+                            </div> -->
+                            <!-- <div class="col-md-6">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="passport_number" name="passport_number" placeholder="Passport number">
                                     <label for="passport_number">Passport number</label>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-md-6">
                                 <div class="form-floating">
                                     <input type="password" class="form-control" id="password-model1" name="password" placeholder="Strong password">
@@ -145,7 +145,7 @@
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="text" readonly value="<?=$user['first_name']?> <?=$user['middle_name']?><?=$user['last_name']?>" class="form-control" id="customer_name" name="customer_name" placeholder="customer_name">
+                                            <input type="text" readonly value="<?=$user['first_name']?> <?=$user['last_name']?>" class="form-control" id="customer_name" name="customer_name" placeholder="customer_name">
                                             <label for="name">Your Name</label>
                                         </div>
                                     </div>
@@ -210,7 +210,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Book Now</button>
+                                        <button type="submit" name="book-an-apar" class="btn btn-primary w-100 py-3">Book Now</button>
                                     </div>
                                 </div>
                             </form>
@@ -292,7 +292,7 @@
         regUserBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>'
     
         const userData = new FormData(regForm);
-        userData.append('ajax', 1);
+        userData.append('ajax-create-tenant', 1);
         
         let url = '';
         let obj = {
@@ -317,6 +317,7 @@
           regUserBtn.innerHTML = 'Register';
         })
         .catch(error => {
+            console.log(error);
           regSmg.innerHTML = `An error occured! Please refresh the page or try again later.`;
           regUserBtn.disabled = false;
           regUserBtn.innerHTML = 'Register';

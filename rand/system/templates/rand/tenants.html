@@ -139,7 +139,7 @@
       </div>
       <div class="px-1 pt-0 pb-2">
         <div class="p-0 overflow-x-auto">
-          <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
+          <table id="dTable" class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
             <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
               <tr>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Name</th>
@@ -305,6 +305,14 @@
     </div>
   </div>
 </div>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>  
+<script>
+  $(document).ready( function () {
+    $('#dTable').DataTable();
+  } );
+</script>
 <script>
     function setMinimumDate() {
         const today = new Date();

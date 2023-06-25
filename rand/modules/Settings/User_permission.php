@@ -1,52 +1,63 @@
 <?php 
 $db = db::get_connection(storage::init()->system_config->database);
-$status = false;
+$status = 'fail';
 $msg = '';
-if(isset($_POST['role_name'])){
-    $role_id = $db->insert('role',['role_name'=>$_POST['role_name']]);
-    if(intval($role_id)) $msg = 'Role added successful';
-    else $msg = 'Role adding failed';
-}
-if(isset($_POST['delete_role'])){
-    $role = $db->select('role')->where(['role_name'=>addslashes($_POST['role'])])->fetch();
-    if(!$db->error() && $role){
-        $db->delete('designation_role')->where(['role_id'=>$role['role_id']])->commit();
-        $db->delete('role_permission_list')->where(['role_id'=>$role['role_id']])->commit();
-        $db->delete('role')->where(['role_id'=>$role['role_id']])->commit();
-        if(!$db->error()){
-            $msg = "Role named '{$_POST['role']}' deleted successfully";
+if(isset($_POST['add-role'])){
+    if($helper->user_can('can_add_user_permission')){
+        $role_id = $db->insert('role',['role_name'=>$_POST['role_name']]);
+        if(!$db->error() && $role_id) {
+            $msg = 'Role added successful';
             $status = 'success';
         }
-        else{
-            $msg = "Sorry! Role named '{$_POST['role']}' delete had issues";
-            $status = 'fail';
-        }
+        else $msg = 'Role adding failed';
     }
-    else{
-        $msg = "Sorry! Role named '{$_POST['role']}' does not exist";
-        $status = 'fail';
-    }
-    if($_POST['delete_role'] == 'ajax'){
-        die(json_encode(['status'=>$status, 'msg'=>$msg]));
-    }
+    else $msg = 'Not enough privilege, sorry';
 }
-if(isset($_POST['perms'])){
-    $role = array_key_first($_POST['perms']);
-    $role_key = $db->select('role','role_id')->where(['role_name'=>$role])->fetch();
-
-    $data = [];
-    $plist = [];
-    foreach($_POST['perms'] as $role) 
-    {
-        foreach($role as $v) {
-            $data[] = "({$role_key['role_id']}, {$v})";
-            $plist[] = $v;
+if(isset($_POST['delete_role'])){
+    if($helper->user_can('can_delete_user_permission')){
+        $role = $db->select('role')->where(['role_name'=>addslashes($_POST['role'])])->fetch();
+        if(!$db->error() && $role){
+            //$db->delete('designation_role')->where(['role_id'=>$role['role_id']])->commit();
+            //$db->delete('role_permission_list')->where(['role_id'=>$role['role_id']])->commit();
+            $db->delete('role')->where(['role_id'=>$role['role_id']])->commit();
+            if(!$db->error()){
+                $msg = "Role named '{$_POST['role']}' deleted successfully";
+                $status = 'success';
+            }
+            else{
+                $msg = "Some users had assigned '{$_POST['role']}' role, Change their roles first";
+            }
+        }
+        else{
+            $msg = "Sorry! Role named '{$_POST['role']}' does not exist";
+        }
+        if($_POST['delete_role'] == 'ajax'){
+            die(json_encode(['status'=>$status, 'msg'=>$msg]));
         }
     }
-    $plist = implode(',', $plist);
-    $data = implode(',', $data);
-    $db->delete('role_permission_list')->where(['role_id' =>$role_key['role_id']])->commit();
-    $db->query("INSERT INTO role_permission_list(role_id, permission_id) VALUES{$data}");
+    else $msg = 'Not enough privilege, sorry';
+}
+
+if(isset($_POST['perms'])){
+    if($helper->user_can('can_edit_user_permission')){
+        $role = array_key_first($_POST['perms']);
+        $role_key = $db->select('role','role_id')->where(['role_name'=>$role])->fetch();
+
+        $data = [];
+        $plist = [];
+        foreach($_POST['perms'] as $role) 
+        {
+            foreach($role as $v) {
+                $data[] = "({$role_key['role_id']}, {$v})";
+                $plist[] = $v;
+            }
+        }
+        $plist = implode(',', $plist);
+        $data = implode(',', $data);
+        $db->delete('role_permission_list')->where(['role_id' =>$role_key['role_id']])->commit();
+        $db->query("INSERT INTO role_permission_list(role_id, permission_id) VALUES{$data}");
+    }
+    else $msg = 'Not enough privilege, sorry';
 }
 $roles = $db->select('role_permission_list')
             ->join('permission','permission.permission_id=role_permission_list.permission_id')
@@ -106,12 +117,12 @@ $designations = $db->select('designation','designation_id,designation_name')->fe
     //die(helper::get_sub_template('user_permission_edit', ['permission'=>$perm_tree]));
 //}
 //var_dump('<pre>',$perm_tree);
-echo helper::find_template(
-    'User_permission', 
+echo helper::find_template('User_permission', 
     [
         'roles' => $role_tree,
         'designations'=>$designations,
         'permissions'=>$perm_tree,
-        'msg' => $msg
+        'msg' => $msg,
+        'status' => $status,
     ]
 );

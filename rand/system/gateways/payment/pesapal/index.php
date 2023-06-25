@@ -19,6 +19,7 @@
     //print_r($ipn);
     $request = new stdClass();
 
+    $request->id = 'jasper-rupiak';
     $request->currency = $conf->system_currency;
     $request->amount = $post_data['order_amount'];
     $request->pesapalMerchantReference = $post_data['order_reference'];
@@ -27,7 +28,7 @@
     $request->app_id = 1;
     $request->billing_phone = $post_data['phone'];
     $request->billing_email = $post_data['email'];
-    $request->billing_country = $conf->system_currency;
+    $request->billing_country = $post_data['country'];
     $request->billing_first_name = $post_data['first_name'];
     $request->billing_last_name = $post_data['last_name'];
     $request->billing_address_1 = '';//$post_data['address1'];
@@ -38,6 +39,7 @@
     $request->callback_url = "{$callback}?pay_order=1";
     $request->notification_id = $ipn_id;
     $order = $gateway->getMerchertOrderURL($request, $access_token);
+
     if(isset($order->redirect_url)) {
       $src = $order->redirect_url;
       ob_start();

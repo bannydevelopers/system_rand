@@ -142,7 +142,6 @@ if(isset($_POST['add-staff'])){
         if($test) $msg = 'Staff information exists, try to edit existing one if necessary';
         else {
             $user_id = $db->insert('user',$user);
-            //var_dump('<pre>',$db->error());
             if(intval($user_id)){
                 $staff = [
                     'staff_registration_number'=>addslashes($_POST['staff_registration_number']), 
@@ -154,7 +153,6 @@ if(isset($_POST['add-staff'])){
                     'employment_status'=>'active'
                 ];
                 $k = $db->insert('staff',$staff);
-                // var_dump('<pre>',$db->error());
                 if($db->error() or !$k) $db->delete('user')->where(['user_id',$user_id])->commit(); // revert changes, staff issues
                 else {
                     $msg = 'Staff created'; 
