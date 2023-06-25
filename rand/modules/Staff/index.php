@@ -156,6 +156,7 @@ if(isset($_POST['add-staff'])){
                 if($db->error() or !$k) $db->delete('user')->where(['user_id',$user_id])->commit(); // revert changes, staff issues
                 else {
                     $msg = 'Staff created'; 
+                    $status = 'success';
                 }
             }
             else $msg = 'Fatal error occured';

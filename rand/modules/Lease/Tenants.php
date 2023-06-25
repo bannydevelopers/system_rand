@@ -114,8 +114,8 @@ if(isset($_POST['add-tenant'])){
                     'check_status' => 'pending',
                     'user_ref' => $user_id
                 ];
-
                 $l = $db->insert('check_scheduling', $tenantDetails);
+                var_dump($db->error());
 
                 if (!$db->error() && $l) {
                     $msg = 'Tenants created';
