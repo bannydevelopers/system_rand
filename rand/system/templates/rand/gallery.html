@@ -1,0 +1,206 @@
+<div class="text-right">
+    <!-- Modal toggle -->
+    <button data-modal-target="add-img-modal" data-modal-toggle="add-img-modal" 
+    class="text-white bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mx-6 mb-3 px-5 py-1.5" type="button">
+      Add Image
+    </button>
+</div>
+
+<!-- Modal toggle -->
+<div id="add-img-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
+    <div class="relative w-full max-w-2xl max-h-full items-center">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-img-modal" id="close-expense-modal-id">
+          <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+          <span class="sr-only">Close modal</span>
+        </button>
+        <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
+          <form class="space-y-6" method="POST">
+            
+            <!-- component -->
+            <div class="container py-4 mx-auto h-full flex flex-col justify-center items-center">
+                <div id="images-container"></div>
+                <div class="flex w-full justify-center">
+                    <div id="multi-upload-button"
+                        class="inline-flex items-center px-4 py-2 bg-gray-600 border border-gray-600 rounded-l font-semibold cursor-pointer text-sm text-white tracking-widest hover:bg-gray-500 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition ">
+                        Click to browse
+                    </div>
+                    <div class="w-4/8 border border-gray-300 rounded-r-md flex items-center justify-between">
+                        <span id="multi-upload-text" class="p-2">0 selected</span>
+                        <button id="multi-upload-delete" type="button" class="hidden" onclick="removeMultiUpload()">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-red-700 w-4 h-4"
+                                viewBox="0 0 320 512">
+                                <path  d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <input type="file" id="multi-upload-input" class="hidden" multiple/>
+            </div>
+
+          </form>
+        </div>
+      </div>
+      <!--/ Modal content -->
+    </div>
+</div> 
+<!--/ Modal toggle -->
+
+<?php if($msg){ 
+    if($status == 'success') {?>
+    <div x-data="{ open: true }" x-show="open" class="msg flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+      <span>
+        <i class="fa-solid fa-circle-info fa-lg"></i>
+      </span>
+      <div class="ml-3 text-sm font-medium">
+        <?=$msg?>
+      </div> 
+      <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg foinv:ring-2 foinv:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+        <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+      </button>
+    </div>
+  <?php } 
+    else if($status == 'fail') {?>
+  <div x-data="{ open: true }" x-show="open" class="msg flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+    <span>
+      <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+    </span>
+    <div class="ml-3 text-sm font-medium">
+      <?=$msg?>
+    </div> 
+    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
+      <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+    </button>
+  </div>
+<?php }
+}?>
+
+<div id="message"></div>
+
+<!-- component -->
+<section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-wrap -m-4">
+        <div class="lg:w-1/3 sm:w-1/2 p-4">
+          <div class="flex relative">
+            <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/600x360">
+            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+              <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">THE SUBTITLE</h2>
+              <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Shooting Stars</h1>
+              <p class="leading-relaxed">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-1/3 sm:w-1/2 p-4">
+          <div class="flex relative">
+            <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/601x361">
+            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+              <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">THE SUBTITLE</h2>
+              <h1 class="title-font text-lg font-medium text-gray-900 mb-3">The Catalyzer</h1>
+              <p class="leading-relaxed">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-1/3 sm:w-1/2 p-4">
+          <div class="flex relative">
+            <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/603x363">
+            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+              <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">THE SUBTITLE</h2>
+              <h1 class="title-font text-lg font-medium text-gray-900 mb-3">The 400 Blows</h1>
+              <p class="leading-relaxed">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-1/3 sm:w-1/2 p-4">
+          <div class="flex relative">
+            <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/602x362">
+            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+              <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">THE SUBTITLE</h2>
+              <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Neptune</h1>
+              <p class="leading-relaxed">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-1/3 sm:w-1/2 p-4">
+          <div class="flex relative">
+            <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/605x365">
+            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+              <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">THE SUBTITLE</h2>
+              <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Holden Caulfield</h1>
+              <p class="leading-relaxed">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-1/3 sm:w-1/2 p-4">
+          <div class="flex relative">
+            <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/606x366">
+            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+              <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">THE SUBTITLE</h2>
+              <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Alper Kamu</h1>
+              <p class="leading-relaxed">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<script>
+    //all ids and some classes are importent for this script
+    multiUploadButton = document.getElementById("multi-upload-button");
+    multiUploadInput = document.getElementById("multi-upload-input");
+    imagesContainer = document.getElementById("images-container");
+    multiUploadDisplayText = document.getElementById("multi-upload-text");
+    multiUploadDeleteButton = document.getElementById("multi-upload-delete");
+
+    multiUploadButton.onclick = function () {
+        multiUploadInput.click(); // this will trigger the click event
+    };
+
+    multiUploadInput.addEventListener('change', function (event) {
+
+        if (multiUploadInput.files) {
+            let files = multiUploadInput.files;
+
+            // show the text for the upload button text filed
+            multiUploadDisplayText.innerHTML = files.length + ' selected';
+
+            // removes styles from the images wrapper container in case the user readd new images
+            imagesContainer.innerHTML = '';
+            imagesContainer.classList.remove("w-full", "grid", "grid-cols-1","sm:grid-cols-2","md:grid-cols-3","lg:grid-cols-4", "gap-4");
+
+            // add styles to the images wrapper container
+            imagesContainer.classList.add("w-full", "grid", "grid-cols-1","sm:grid-cols-2","md:grid-cols-3","lg:grid-cols-4", "gap-4");
+
+            // the delete button to delete all files
+            multiUploadDeleteButton.classList.add("z-50", "p-2", "my-1");
+            multiUploadDeleteButton.classList.remove("hidden");
+
+            Object.keys(files).forEach(function (key) {
+
+                let file = files[key];
+
+                // the FileReader object is needed to display the image
+                let reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function () {
+                    // for each file we create a div to contain the image
+                    let imageDiv = document.createElement('div');
+                    imageDiv.classList.add("mb-3", "h-52", "lg:h-32", "w-full", "p-3", "rounded-lg", "bg-cover", "bg-center");
+                    imageDiv.style.backgroundImage = 'url(' + reader.result + ')';
+                    imagesContainer.appendChild(imageDiv);
+                }
+            })
+        }
+    })
+
+    function removeMultiUpload() {
+        imagesContainer.innerHTML = '';
+        imagesContainer.classList.remove("w-full", "grid", "grid-cols-1","sm:grid-cols-2","md:grid-cols-3","lg:grid-cols-4", "gap-4");
+        multiUploadInput.value = '';
+        multiUploadDisplayText.innerHTML = '0 selected';
+        multiUploadDeleteButton.classList.add("hidden");
+        multiUploadDeleteButton.classList.remove("z-100", "p-2", "my-auto");
+    }
+</script>

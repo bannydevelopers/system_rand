@@ -19,6 +19,7 @@
         "Contract",
         "Requests",
         "FAQ",
+        "Gallery",
         "Settings"
     ],
     "phpmailer": {

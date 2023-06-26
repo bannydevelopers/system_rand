@@ -1,0 +1,14 @@
+{
+    "name":"Gallery",
+    "icon":"question",
+    "nav":[
+       
+    ],
+
+   "permissions":[
+        "can_add_gallery",
+        "can_edit_gallery",
+        "can_delete_gallery",
+        "can_view_gallery"
+    ]
+}
