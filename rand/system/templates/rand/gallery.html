@@ -19,26 +19,40 @@
           <form class="space-y-6" method="POST">
             
             <!-- component -->
-            <div class="container py-4 mx-auto h-full flex flex-col justify-center items-center">
-                <div id="images-container"></div>
-                <div class="flex w-full justify-center">
-                    <div id="multi-upload-button"
-                        class="inline-flex items-center px-4 py-2 bg-gray-600 border border-gray-600 rounded-l font-semibold cursor-pointer text-sm text-white tracking-widest hover:bg-gray-500 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition ">
-                        Click to browse
-                    </div>
-                    <div class="w-4/8 border border-gray-300 rounded-r-md flex items-center justify-between">
-                        <span id="multi-upload-text" class="p-2">0 selected</span>
-                        <button id="multi-upload-delete" type="button" class="hidden" onclick="removeMultiUpload()">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-red-700 w-4 h-4"
-                                viewBox="0 0 320 512">
-                                <path  d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/>
-                            </svg>
-                        </button>
-                    </div>
+            <div class="container py-4 mx-auto flex flex-col justify-center items-center">
+              <div id="images-container"></div>
+              <div class="flex w-full justify-center">
+                <div id="multi-upload-button"
+                    class="inline-flex items-center px-4 py-2 bg-gray-600 border border-gray-600 rounded-l font-semibold cursor-pointer text-sm text-white tracking-widest hover:bg-gray-500 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition ">
+                    Click to browse
                 </div>
-                <input type="file" id="multi-upload-input" class="hidden" multiple/>
+                <!-- <div class="w-full flex flex-wrap"> -->
+                  <div class="w-full md:w-1/2 border border-gray-300 rounded-r-md flex items-center justify-between">
+                    <span id="multi-upload-text" class="p-2">0 selected</span>
+                    <button id="multi-upload-delete" type="button" class="hidden" onclick="removeMultiUpload()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-red-700 w-4 h-4"
+                            viewBox="0 0 320 512">
+                            <path  d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/>
+                        </svg>
+                    </button>
+                  </div>
+                  <!-- <div class="w-full md:w-1/2 px-3">
+                    <select class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="apartment_category">
+                        <option value="">Default</option>
+                        <?php foreach($apartment_categories as $cat){?>
+                          <option value="<?=$cat['category_id']?>"><?=$cat['category_name']?></option>
+                        <?php }?>
+                      </select>
+                  </div> -->
+                <!-- </div> -->
+              </div>
+              <!-- <input type="file" name="img_names[]" id="multi-upload-input" class="hidden" multiple/> -->
+              <input type="file" name="img_name" id="multi-upload-input" class="hidden"/>
+              
+              <div class="pb-8 pt-8">
+                <button name="add-to-gallery" type="submit" class="float-right text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center">Upload</button>
+              </div>
             </div>
-
           </form>
         </div>
       </div>
@@ -82,7 +96,7 @@
 <section class="text-gray-600 body-font">
     <div class="container p-5 mx-auto">
       <div class="flex flex-wrap -m-4">
-        <div class="lg:w-1/4 sm:w-1/2 p-4">
+        <div class="lg:w-1/4 md:1/3 sm:w-1/2 w-full p-4">
           <div class="flex relative h-32">
             <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/600x360">
             <div class="px-3 py-3 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
@@ -91,7 +105,7 @@
             </div>
           </div>
         </div>
-        <div class="lg:w-1/4 sm:w-1/2 p-4">
+        <div class="lg:w-1/4 md:1/3 sm:w-1/2 w-full p-4">
           <div class="flex relative h-32">
             <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/601x361">
             <div class="px-3 py-3 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
@@ -100,7 +114,7 @@
             </div>
           </div>
         </div>
-        <div class="lg:w-1/4 sm:w-1/2 p-4">
+        <div class="lg:w-1/4 md:1/3 sm:w-1/2 w-full p-4">
           <div class="flex relative h-32">
             <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/603x363">
             <div class="px-3 py-3 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
@@ -109,7 +123,7 @@
             </div>
           </div>
         </div>
-        <div class="lg:w-1/4 sm:w-1/2 p-4">
+        <div class="lg:w-1/4 md:1/3 sm:w-1/2 w-full p-4">
           <div class="flex relative h-32">
             <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/602x362">
             <div class="px-3 py-3 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
@@ -118,7 +132,7 @@
             </div>
           </div>
         </div>
-        <div class="lg:w-1/4 sm:w-1/2 p-4">
+        <div class="lg:w-1/4 md:1/3 sm:w-1/2 w-full p-4">
           <div class="flex relative h-32">
             <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/605x365">
             <div class="px-3 py-3 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
@@ -127,7 +141,7 @@
             </div>
           </div>
         </div>
-        <div class="lg:w-1/4 sm:w-1/2 p-4">
+        <div class="lg:w-1/4 md:1/3 sm:w-1/2 w-full p-4">
           <div class="flex relative h-32">
             <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="https://dummyimage.com/606x366">
             <div class="px-3 py-3 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">

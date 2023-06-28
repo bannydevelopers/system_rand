@@ -6,16 +6,24 @@ $msg = '';
 
 $request = $_SERVER['REQUEST_URI'];
 if(isset($_POST['add-to-gallery'])){
-    $data = [
-        'img_name'=>$_POST['img_name'],
-        'img_cat'=>$_POST['img_cat']
-       ];
-    $k = $db->insert('gallery', $data);
-    if(!$db->error() && $k) {
-        $msg = 'image added successful';
-        $status = 'success';
+    $check = getimagesize($_FILES["img_name"]["tmp_name"]);
+    if($check !== false) {
+        echo "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
+    } else {
+        echo "File is not an image.";
+        $uploadOk = 0;
     }
-    else $msg = 'Error adding image';
+    // $img_names = $_POST['img_names'];
+    // foreach($img_names as $img_name){
+    //     // upload_image($img_name, '', '');
+    //     $k = $db->insert('gallery', ['img_name'=>$img_name]);
+    // }
+    // if(!$db->error() && $k) {
+    //     $msg = 'image added successful';
+    //     $status = 'success';
+    // }
+    // else $msg = 'Error adding image';
 }
 
 if(isset($_POST['ajax_del_gallery'])){
@@ -39,8 +47,12 @@ if(isset($_POST['ajax_del_gallery'])){
 $images = $db->select('gallery')
         ->order_by('img_id', 'desc')
         ->fetchAll();
+$apartment_categories = $db->select('apartment_category', 'category_id,category_name')->fetchAll();
 
 $data = [
     'images'=>$images, 
-    'msg'=>$msg, 'status'=>$status, 'request_uri'=>$request];
+    'msg'=>$msg, 'status'=>$status, 
+    'request_uri'=>$request,
+    'apartment_categories' => $apartment_categories
+];
 echo helper::find_template('gallery', $data);
