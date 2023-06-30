@@ -7,7 +7,7 @@ if($helper->user_can('can_add_requests')){
     $requests = $db->select('requests','status, COUNT(requests_id) as requestCount')
         ->where(['requester'=>$my['user_id']])->group_by('status')
         ->fetchAll();
-    $myApartments = $db->select('user','order_response, category_name, category_description, apartment_name')
+    $myApartments = $db->select('user','order_response, pay_status, category_name, category_description, apartment_name')
         ->join('orders','user.user_id=orders.order_customer', 'LEFT')
         ->join('apartment_category','orders.apartment_category=apartment_category.category_id', 'LEFT')
         ->join('check_scheduling','orders.check_schedule=check_scheduling.check_id', 'LEFT')
