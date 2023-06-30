@@ -1,4 +1,5 @@
 <?php 
+$msg = '';
 function get_apartment_cards($opts = []){
     $db = db::get_connection(storage::init()->system_config->database);
     $today = date('Y-m-d H:i:s');
