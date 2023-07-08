@@ -154,7 +154,7 @@ if(isset($_POST['ajax-create-tenant'])){
             $db->delete('user')->where(['user_id'=>$uid])->commit(); // roll back, tenant adding failed
             $error = $db->error();
             $error = end($error);
-            $msg = isset($error['message']) ? $error['message']: 'Unexpected error occured';
+            $msg = 'Unexpected error occured!';
             $status = 'error';
         }
         die(json_encode(['status'=>$status, 'message'=>$msg]));
