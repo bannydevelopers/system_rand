@@ -3,27 +3,82 @@
 $db = db::get_connection(storage::init()->system_config->database);
 $status = 'fail';
 $msg = '';
-
 $request = $_SERVER['REQUEST_URI'];
-if(isset($_POST['add-to-gallery'])){
-    $check = getimagesize($_FILES["img_name"]["tmp_name"]);
-    if($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
-    } else {
-        echo "File is not an image.";
-        $uploadOk = 0;
+
+function convert_filesize($bytes, $decimals = 2) { 
+    $size = array('B','KB','MB','GB','TB','PB','EB','ZB','YB'); 
+    $factor = floor((strlen($bytes) - 1) / 3); 
+    return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$size[$factor]; 
+}
+
+function compressImage($source, $destination, $quality) { 
+    // Get image info 
+    $imgInfo = getimagesize($source); 
+    $mime = $imgInfo['mime']; 
+    
+    // Create a new image from file 
+    switch($mime){ 
+        case 'image/jpeg': 
+            $image = imagecreatefromjpeg($source); 
+            break;
+        case 'image/png': 
+            $image = imagecreatefrompng($source); 
+            break; 
+        case 'image/gif': 
+            $image = imagecreatefromgif($source); 
+            break; 
+        default: 
+            $image = imagecreatefromjpeg($source); 
+    } 
+    // Save image 
+    imagejpeg($image, $destination, $quality); 
+    // Return compressed image 
+    return $destination; 
+}
+
+if(isset($_POST["upload-images"])){ 
+    $uploadPath = "rand/system/assets/uploads/gallery/";
+    $images = array_filter($_FILES['images']["name"]);
+    if(!empty($images)) { 
+        foreach($_FILES['images']['name'] as $key => $val){
+            $fileName = basename($_FILES["images"]["name"][$key]);
+            $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+            $imageUploadPath = $uploadPath . $fileName;
+
+            $allowTypes = array('jpg','png','jpeg','gif'); 
+            if(in_array($fileType, $allowTypes)){ 
+                
+                // if (!file_exists($imageUploadPath)) {
+                    $imgSize = $_FILES["images"]["size"][$key];
+                    $imageSize = convert_filesize($imgSize); 
+                    if($imageSize > 1600000) {$setQuality = 50;}
+                    else if($imageSize > 1600000) $setQuality = 60;
+                    else if($imageSize > 800000) $setQuality = 70;
+                    else if($imageSize > 400000) $setQuality = 80;
+                    else if($imageSize > 200000) $setQuality = 90;
+                    else $setQuality = 100;
+
+                    // Image temp source and size
+                    $imageTemp = $_FILES["images"]["tmp_name"][$key]; 
+                    // Compress size and upload image 
+                    $compressedImage = compressImage($imageTemp, $imageUploadPath, $setQuality); 
+                    
+                    if($compressedImage){ 
+                        $k = $db->insert('gallery', ['img_name'=>$fileName]);
+                        if(!$db->error() && $k) {
+                            $status = 'success'; 
+                            $msg = "Image uploaded successfully."; 
+                        }
+                        else $msg = "Something went wrong! Try another time.";
+                    }
+                    else $msg = "Something went wrong! Try another image."; 
+                // }
+                // else  $msg = "Sorry, image already exists."; 
+            }
+            else $msg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
+        }
     }
-    // $img_names = $_POST['img_names'];
-    // foreach($img_names as $img_name){
-    //     // upload_image($img_name, '', '');
-    //     $k = $db->insert('gallery', ['img_name'=>$img_name]);
-    // }
-    // if(!$db->error() && $k) {
-    //     $msg = 'image added successful';
-    //     $status = 'success';
-    // }
-    // else $msg = 'Error adding image';
+    else $msg = 'Please select an image file to upload.';  
 }
 
 if(isset($_POST['ajax_del_gallery'])){
@@ -51,7 +106,8 @@ $apartment_categories = $db->select('apartment_category', 'category_id,category_
 
 $data = [
     'images'=>$images, 
-    'msg'=>$msg, 'status'=>$status, 
+    'msg'=>$msg, 
+    'status'=>$status, 
     'request_uri'=>$request,
     'apartment_categories' => $apartment_categories
 ];

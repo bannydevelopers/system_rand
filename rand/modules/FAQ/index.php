@@ -57,5 +57,8 @@ $faqs = $db->select('faq')
 
 $data = [
     'faqs'=>$faqs, 
-    'msg'=>$msg, 'status'=>$status, 'request_uri'=>$request];
+    'msg'=>$msg, 
+    'status'=>$status, 
+    'request_uri'=>$request
+];
 echo helper::find_template('faq', $data);

@@ -1,6 +1,8 @@
 <?php 
-
+$status = 'fail';
+$msg = '';
 $db = db::get_connection(storage::init()->system_config->database);
+
 if(helper::init()->user_can('can_add_requests')){
     $user = $db->select('user')
     ->join('tenants','user_id=user_reference', 'left')
@@ -13,80 +15,82 @@ if(helper::init()->user_can('can_add_requests')){
     ->fetch();
 }
 
-if(isset($_POST['set-avatar'])){
+if(isset($_POST["upload-image"])){ 
+
     function convert_filesize($bytes, $decimals = 2) { 
-    $size = array('B','KB','MB','GB','TB','PB','EB','ZB','YB'); 
-    $factor = floor((strlen($bytes) - 1) / 3); 
-    return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$size[$factor]; 
+        $size = array('B','KB','MB','GB','TB','PB','EB','ZB','YB'); 
+        $factor = floor((strlen($bytes) - 1) / 3); 
+        return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$size[$factor]; 
     }
 
     function compressImage($source, $destination, $quality) { 
-    // Get image info 
-    $imgInfo = getimagesize($source); 
-    $mime = $imgInfo['mime']; 
-    
-    // Create a new image from file 
-    switch($mime){ 
-        case 'image/jpeg': 
-            $image = imagecreatefromjpeg($source); 
-            break; 
-        case 'image/png': 
-            $image = imagecreatefrompng($source); 
-            break; 
-        case 'image/gif': 
-            $image = imagecreatefromgif($source); 
-            break; 
-        default: 
-            $image = imagecreatefromjpeg($source); 
-    } 
-    
-    // Save image 
-    imagejpeg($image, $destination, $quality); 
-    
-    // Return compressed image 
-    return $destination; 
+        // Get image info 
+        $imgInfo = getimagesize($source); 
+        $mime = $imgInfo['mime']; 
+        
+        // Create a new image from file 
+        switch($mime){ 
+            case 'image/jpeg': 
+                $image = imagecreatefromjpeg($source); 
+                break;
+            case 'image/png': 
+                $image = imagecreatefrompng($source); 
+                break; 
+            case 'image/gif': 
+                $image = imagecreatefromgif($source); 
+                break; 
+            default: 
+                $image = imagecreatefromjpeg($source); 
+        } 
+        // Save image 
+        imagejpeg($image, $destination, $quality); 
+        // Return compressed image 
+        return $destination; 
     }
 
-    // File upload path 
-    $uploadPath = "rand/system/assets/uploads/avatar/"; 
-    
-    $statusMsg = ''; 
-    $status = 'danger'; 
-    
-
-    // Check whether user inputs are empty 
-    if(!empty($_FILES["avatar"]["name"])) { 
-        // File info 
-        $fileName = basename($_FILES["avatar"]["name"]);  
+    $uploadPath = "rand/system/assets/uploads/avatar/";  
+    if(!empty($_FILES["image"]["name"])) { 
+        $fileName = basename($_FILES["image"]["name"]); 
         $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
+        // $imageUploadPath = $uploadPath . $fileName;
         $my = helper::init()->get_session_user();
         $imageUploadPath = $uploadPath . 'avatar_' . $my['user_id'] . '.' . $fileType;
-        
-        // Allow certain file formats 
+
         $allowTypes = array('jpg','png','jpeg','gif'); 
         if(in_array($fileType, $allowTypes)){ 
-            // Image temp source and size 
-            $imageTemp = $_FILES["avatar"]["tmp_name"]; 
-            $imageSize = convert_filesize($_FILES["avatar"]["size"]); 
             
-            // Compress size and upload image 
-            $compressedImage = compressImage($imageTemp, $imageUploadPath, 75); 
-            
-            if($compressedImage){ 
-                $compressedImageSize = filesize($compressedImage); 
-                $compressedImageSize = convert_filesize($compressedImageSize); 
+            // if (!file_exists($imageUploadPath)) {
+                $imgSize = $_FILES["image"]["size"];
+                $imageSize = convert_filesize($imgSize); 
+                if($imageSize > 1600000) {$setQuality = 50;}
+                else if($imageSize > 1200000) $setQuality = 60;
+                else if($imageSize > 800000) $setQuality = 70;
+                else if($imageSize > 400000) $setQuality = 80;
+                else $setQuality = 90;
+
+                // Image temp source and size 
+                $imageTemp = $_FILES["image"]["tmp_name"]; 
+                // Compress size and upload image 
+                $compressedImage = compressImage($imageTemp, $imageUploadPath, $setQuality); 
                 
-                $status = 'success'; 
-                $statusMsg = "Image compressed successfully."; 
-            }else{ 
-                $statusMsg = "Image compress failed!"; 
-            } 
-        }else{ 
-            $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
-        } 
-    }else{ 
-        $statusMsg = 'Please select an image file to upload.'; 
-    } 
-    
+                if($compressedImage){ 
+                    $compressedImageSize = filesize($compressedImage); 
+                    // $compressedImageSize = convert_filesize($compressedImageSize); 
+                    $status = 'success'; 
+                    $msg = "Image uploaded successfully."; 
+                }
+                else $msg = "Something went wrong! Try another image."; 
+            // }
+            // else  $msg = "Sorry, image already exists."; 
+        }
+        else $msg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
+    }
+    else $msg = 'Please select an image file to upload.'; 
 }
-echo helper::find_template('profile', ['user'=>$user]);
+
+$data = [
+    'user'=>$user,
+    'msg' => $msg,
+    'status' => $status
+];
+echo helper::find_template('profile', $data);
