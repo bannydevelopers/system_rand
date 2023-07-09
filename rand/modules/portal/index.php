@@ -31,6 +31,15 @@ function get_apartment_real_cards(){
     }
 }
 
+function get_images(){
+    $db = db::get_connection(storage::init()->system_config->database);
+    $images = $db->select('gallery')->order_by('img_id', 'desc')->fetchAll();
+    // $conf->system_currency
+    if(!$db->error()){
+        return array($images);
+    }
+}
+
 function get_welcome_data(){
     $db = db::get_connection(storage::init()->system_config->database);
     $apartments = $db->select('apartments','COUNT(apartment_id) as apartCount')->fetchAll();
