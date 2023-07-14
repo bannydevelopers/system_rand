@@ -46,7 +46,7 @@ if(isset($_POST['edit-tenant'])){
         $db->update('user', $user)->where(['user_id'=>intval($_POST['user_id'])])->commit();
         $tenants = [
             'passport_number'=>$_POST['passport_number'], 
-            'resident_adress'=>$_POST['resident_adress'], 
+            'residence_address'=>$_POST['resident_adress'], 
             'country'=>$_POST['country']
         ];
         $db->update('tenants', $tenants)->where(['tenants_id'=>intval($_POST['tenants_id'])])->commit();
@@ -101,7 +101,7 @@ if(isset($_POST['add-tenant'])){
                 $tenantsD = [
                     'user_reference' => $user_id, 
                     'passport_number'=>$_POST['passport_number'], 
-                    'resident_adress'=>$_POST['resident_adress'], 
+                    'residence_address'=>$_POST['resident_adress'], 
                     'country'=>$_POST['country']
                 ];
                 $k = $db->insert('tenants',$tenantsD);

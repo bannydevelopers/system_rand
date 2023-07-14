@@ -94,7 +94,7 @@ if(isset($_POST['edit-staff'])){
 
             $staff = [
                 'staff_registration_number'=>$reg_no,
-                'staff_residence_address'=>addslashes($_POST['residence_address']), 
+                'residence_address'=>addslashes($_POST['residence_address']), 
                 'designation'=>addslashes($_POST['designation']), 
                 'staff_date_employed'=>helper::format_time($_POST['date_employed'], 'Y-m-d H:i:s'),
             ];
@@ -145,7 +145,7 @@ if(isset($_POST['add-staff'])){
             if(intval($user_id)){
                 $staff = [
                     'staff_registration_number'=>addslashes($_POST['staff_registration_number']), 
-                    'staff_residence_address'=>addslashes($_POST['residence_address']), 
+                    'residence_address'=>addslashes($_POST['residence_address']), 
                     'designation'=>addslashes($_POST['designation']), 
                     'user_reference'=>$user_id, 
                     'staff_date_employed'=>helper::format_time($_POST['date_employed'], 'Y-m-d H:i:s'), 

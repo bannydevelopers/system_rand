@@ -137,7 +137,7 @@ if(isset($_POST['ajax-create-tenant'])){
         $data = [
             // 'passport_number'=>$_POST['passport_number'], 
             // 'country'=>$_POST['country'],
-            'resident_adress'=>$_POST['resident_adress'],
+            'residence_address'=>$_POST['resident_adress'],
             'user_reference'=>$uid
         ];
         $tenant = $db->insert('tenants', $data);

@@ -2,17 +2,48 @@
 $status = 'fail';
 $msg = '';
 $db = db::get_connection(storage::init()->system_config->database);
+$my = helper::init()->get_session_user();
 
-if(helper::init()->user_can('can_add_requests')){
-    $user = $db->select('user')
-    ->join('tenants','user_id=user_reference', 'left')
-    ->where(['user_id'=>helper::init()->get_session_user('user_id')])
-    ->fetch();
-} else {
-    $user = $db->select('user')
-    ->join('staff','user_id=user_reference', 'left')
-    ->where(['user_id'=>helper::init()->get_session_user('user_id')])
-    ->fetch();
+if(isset($_POST["update-my-profile"])){
+    if($helper->user_can('can_add_requests')){
+        var_dump('can');
+    }
+    else{
+        $names = explode(' ', addslashes($_POST['full_name']));
+        $fn = $names[0];
+        $ln = end($names);
+        array_shift($names);
+        array_pop($names);
+        $mn = implode(' ', $names);
+        $user = [
+            'first_name'=>$fn,
+            'middle_name'=>$mn,
+            'last_name'=>$ln,
+            'phone_number'=>helper::format_phone_number($_POST['phone_number']), //
+            'email'=>helper::format_email($_POST['email']), //
+            //'password'=>md5($token), 
+        ];
+        $whr ="(email='{$user['email']}' OR phone_number = '{$user['phone_number']}')";
+        $test = $db->select('staff')
+                ->join('user','user_reference=user_id')
+                ->where($whr)
+                ->and("user_id != {$my['user_id']}")
+                ->fetch();
+        if(!$test){
+            $db->update('user', $user)->where(['user_id' => $my['user_id']])->commit();
+            $staff = [
+                'residence_address'=>addslashes($_POST['residence_address']), 
+            ];
+
+            $db->update('staff', $staff)->where(['user_reference'=>$my['user_id']])->commit();
+            if(!$db->error()) {
+                $msg = 'Profile updated successful!';
+                $status = 'success';
+            }
+            else $msg = 'Something went wrong!';
+        }
+        else $msg = 'Email OR Phone number already taken!';
+    };
 }
 
 if(isset($_POST["upload-image"])){ 
@@ -53,7 +84,6 @@ if(isset($_POST["upload-image"])){
         $fileName = basename($_FILES["image"]["name"]); 
         $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
         // $imageUploadPath = $uploadPath . $fileName;
-        $my = helper::init()->get_session_user();
         $imageUploadPath = $uploadPath . 'avatar_' . $my['user_id'] . '.' . $fileType;
 
         $allowTypes = array('jpg','png','jpeg','gif'); 
@@ -86,6 +116,18 @@ if(isset($_POST["upload-image"])){
         else $msg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
     }
     else $msg = 'Please select an image file to upload.'; 
+}
+
+if(helper::init()->user_can('can_add_requests')){
+    $user = $db->select('user')
+    ->join('tenants','user_id=user_reference', 'left')
+    ->where(['user_id'=>helper::init()->get_session_user('user_id')])
+    ->fetch();
+} else {
+    $user = $db->select('user')
+    ->join('staff','user_id=user_reference', 'left')
+    ->where(['user_id'=>helper::init()->get_session_user('user_id')])
+    ->fetch();
 }
 
 $data = [
