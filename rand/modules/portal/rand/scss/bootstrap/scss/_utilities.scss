@@ -6,6 +6,17 @@ $utilities: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
 $utilities: map-merge(
   (
+    "object-fit": (
+      responsive: true,
+      property: object-fit,
+      values: (
+        contain: contain,
+        cover: cover,
+        fill: fill,
+        scale: scale-down,
+        none: none,
+      )
+    ),
     // scss-docs-start utils-vertical-align
     "align": (
       property: vertical-align,

@@ -71,17 +71,18 @@
               <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
                   <label>Adults <span class="text-red-500">*</span></label>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="Number of adults" name="adults" required>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" min="1" placeholder="Number of adults" name="adults" required>
                 </div>
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
                   <label>Children <span class="text-red-500">*</span>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="children" name="children" required>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" min="0" placeholder="children" name="children" required>
                   </label>
                 </div>
-                <!-- <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
-                  <div class="pt-4">Total amount</div>
-                  <div class="font-bold"><?=$currency?> 800000</div>
-                </div> -->
+                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                  <label>Total amount (<?=$currency?>)
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" min="0" value="0" id="order_amount" name="order_amount" readonly>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
@@ -314,28 +315,61 @@
   } );
 </script>
 <script>
-    function setMinimumDate() {
-        const today = new Date();
-        const todayString = today.toISOString().slice(0, 10);
-        document.getElementById("checkin").min = todayString;
-        const tomorrow = new Date(today.getTime() + 86400000);
-        const tomorrowString = tomorrow.toISOString().slice(0, 10);
-        document.getElementById("checkout").min = tomorrowString;
-    }
-    setMinimumDate();
+  function setMinimumDate() {
+      const today = new Date();
+      const todayString = today.toISOString().slice(0, 10);
+      document.getElementById("checkin").min = todayString;
+      const tomorrow = new Date(today.getTime() + 86400000);
+      const tomorrowString = tomorrow.toISOString().slice(0, 10);
+      document.getElementById("checkout").min = tomorrowString;
+  }
+  setMinimumDate();
 
-    function changeCheckoutDate(checkin) {
-      var checkout = document.getElementById("checkout") 
-      var checkinDateObj = new Date(checkin.value);
-      var checkoutDateObj = new Date(checkout.value);
-      var nextDay = new Date(checkinDateObj.getTime() + 86400000);
-      const nextDayString = nextDay.toISOString().slice(0, 10);
-      if(checkinDateObj > checkoutDateObj) {
-          checkout.value = nextDayString;
-          checkout.min = nextDayString;
-      }else {
-          checkout.min = nextDayString;
-      }
+  function update_price(){
+    let cats = document.getElementById('apartment_category'),
+    amount = 0,
+    price_panel = document.getElementById('order_amount');
+    cat_price = parseInt(cats.options[cats.selectedIndex].getAttribute("data-price")),
+    price_per_day = parseInt(cats.options[cats.selectedIndex].getAttribute("data-price-daily")),
+    checkin = document.getElementById("checkin").value,
+    checkout = document.getElementById("checkout").value,
+    discount_rate = 0,
+    discount = 0;
+    if(checkin == '' || checkout == '') return;
+    let days = (new Date(checkout).getTime() - new Date(checkin).getTime()) / 86400000;
+    let min_price = cat_price / 30;
+    discount_rate = (price_per_day - min_price) / 15;
+    
+    if(days > 14){
+        let discountable = days - 14;
+        if(days > 30){
+            discount = min_price;
+        }
+        else{
+            discount = price_per_day - (price_per_day * ( (discountable * discount_rate) / 100 ) );
+            if(discount < min_price) discount = min_price;
+        }
+        amount = discount * days;
+    }
+    else{
+        amount = price_per_day * days;
+    }
+    price_panel.value = Math.round(amount);
+  }
+
+  function changeCheckoutDate(checkin) {
+    var checkout = document.getElementById("checkout") 
+    var checkinDateObj = new Date(checkin.value);
+    var checkoutDateObj = new Date(checkout.value);
+    var nextDay = new Date(checkinDateObj.getTime() + 86400000);
+    const nextDayString = nextDay.toISOString().slice(0, 10);
+    if(checkinDateObj > checkoutDateObj) {
+        checkout.value = nextDayString;
+        checkout.min = nextDayString;
+    }else {
+        checkout.min = nextDayString;
+    }
+    update_price();
   }
 
   function deleteTenant(tenant) {

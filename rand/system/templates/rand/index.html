@@ -15,6 +15,11 @@
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <!-- Main Styling -->
     <link href="css/tailwind.output.css" rel="stylesheet" />  
+    <script>
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }      
+    </script>
     <script src="../../../vendor/sweetalert/sweetalert2@11.js"></script>
     <script>
       const ajax = (url, success, fail, data, method)=>{
@@ -28,7 +33,7 @@
           .catch((error) => {fail(error);});
       };
       var req_uri = document.querySelector('head').getAttribute('data-uri');
-  </script>  
+    </script>
   </head>
   
   <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-cyan-50 text-slate-800">
@@ -46,7 +51,6 @@
 
       <div class="items-center block w-auto max-h-screen overflow-y-auto h-sidenav grow basis-full">
         <ul class="flex flex-col pl-0 mb-0">
-          <?php $i = 1;?>
           <?php foreach($nav as $link){ ?>
 
             <li class="mt-0.5 w-full">
@@ -54,11 +58,11 @@
               <details class="group">
                 <summary
                   class="inline-flex w-full pr-6 items-center justify-between text-sm font-semibold transition-colors hover:text-blue-500 duration-150">
-                  <a class="py-1.5 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4">
+                  <a class="side-nav-link py-1.5 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4">
                     <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5"><i class="fa fa-<?=$link['icon']?>"></i></div>
                     <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft"><?=$link['name']?></span>
                   </a>
-                  <span class="transition group-open:rotate-180"><i class="fa fa-angle-down" id="fa-<?=$i?>"></i></span>
+                  <span class="transition group-open:rotate-180"><i class="fa fa-angle-down"></i></span>
                 </summary>
                 <div>
                   <ul
@@ -76,20 +80,19 @@
                     if(!in_array($nav->permission, $user_permission)) continue;
                   ?>
                     <li class="pl-8 ml-4">
-                      <a class="py-1.5 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" href="<?=$link['href']?>/<?=$nav->href?>"><?=$nav->name?></a>
+                      <a class="side-nav-link py-1.5 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" href="<?=$link['href']?>/<?=$nav->href?>"><?=$nav->name?></a>
                     </li>
                     <?php }?>
                   </ul>
                 </div>
               </details>
               <?php }else{ ?>
-                <a class="transition-colors hover:text-blue-500 py-1.5 text-sm font-semibold ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4" href="<?=$link['href']?>">
+                <a class="side-nav-link transition-colors hover:text-blue-500 py-1.5 text-sm font-semibold ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4" href="<?=$link['href']?>">
                   <div class="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5"><i class="fa fa-<?=$link['icon']?>"></i></div>
                   <span class="ml-1 duration-300 opacity-100 pointer-events-none ease-soft"><?=$link['name']?></span>
                 </a>
               <?php }?>
             </li>
-            <?php ++$i;?>
             <?php }?>
         </ul>
       </div>
@@ -203,4 +206,12 @@
   <script src="js/plugins/perfect-scrollbar.min.js" async></script>
   <!-- main script file  -->
   <script src="js/soft-ui-dashboard-tailwind.js?v=1.0.4" async></script>
+  <script>
+    const links = document.querySelectorAll('.side-nav-link');
+    for (const link of links) {
+      if (window.location.href === link.href || window.location.href === link.href + 'index') {
+        link.classList.add("text-blue-500");
+      }    
+    }
+  </script>
 </html>
