@@ -41,25 +41,29 @@ if(isset($_POST['ajax_activate_user'])){
     die(json_encode(['status'=>$status,'msg'=>$msg]));
 }
 
-if(isset($_POST['designation_name']) && isset($_POST['designation_details'])){
+if(isset($_POST['add-designation'])){
     if($helper->user_can('can_add_designation')){
         $data = [
             'designation_name'=>addslashes($_POST['designation_name']),
             'designation_detail'=>addslashes($_POST['designation_details'])
         ];
         $k = $db->insert('designation', $data);
-        $db_error = $db->error();
-        if(intval($k)) $msg = 'Designation added successful';
+        if(intval($k)) {
+            $msg = 'Designation added successful';
+            $status = 'success';
+        }
         else  $msg = 'Error adding designation. Possibly duplicate entry encounted';
-        //$k = $db->insert('role', ['name'=>str_replace(' ', '_', $data['designation_name'])]);
     }
     else $msg = 'You do not have permission for the action';
 }
 
-if(isset($_POST['role_name'])){
+if(isset($_POST['add-role'])){
     if($helper->user_can('can_add_role')){
         $role_id = $db->insert('role',['role_name'=>$_POST['role_name']]);
-        if(intval($role_id)) $msg = 'Role added successful';
+        if(intval($role_id)) {
+            $msg = 'Role added successful';
+            $status = 'success';
+        }
         else $msg = 'Role adding failed, possibly a duplicate already exists';
     }
     else $msg = 'Permission denied';
