@@ -10,8 +10,8 @@ $msgs = [
 if(isset($_GET['msg']) && isset($msgs[$_GET['msg']])) $msg = $msgs[$_GET['msg']];
 
 if(isset($_POST['login']) && isset($_POST['password'])){
-    $helper->login_user($_POST);
-    if(!$helper->check_user_session()) $msg = 'Login creditial mismatch';
+    $msg = $helper->login_user($_POST);
+    if(!$helper->check_user_session() && !is_string($msg)) $msg = 'Login creditial mismatch';
 }
 if(isset($_POST['logout'])){
     // Unset session
