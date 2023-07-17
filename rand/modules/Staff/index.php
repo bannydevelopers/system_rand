@@ -32,7 +32,12 @@ if(isset($_POST['ajax_activate_user'])){
                 ->where(['user_id'=>intval($_POST['ajax_activate_user'])])
                 ->commit();
         if(!$db->error() && $k){
-            $msg = 'Status updated';
+            if($_POST['status'] == 'active'){
+                $msg = 'Account activated successful';
+            }
+            else{
+                $msg = 'Account deactivated successful';
+            }
             $status = 'success';
         }
         else $msg = 'Status update failed';
