@@ -141,11 +141,13 @@
                       aria-label="Edit">
                       <i class="fa-solid fa-pen-to-square fa-lg"></i>
                     </button>
+                    <?php if($x['staff_id']!=1){ ?>
                     <button id="del-<?=$x['staff_id']?>" onclick="delStaff(this)"
                       class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-red-500 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300"
                       aria-label="Delete">
                       <i class="fa-solid fa-trash fa-lg"></i>
                     </button>
+                    <?php } ?>
                   </div> 
                 </div>
                 <div class="w-20 h-20 mt-2 rounded-full inline-flex items-center justify-center bg-gray-300 text-gray-500">
@@ -171,10 +173,12 @@
                       aria-label="Edit">
                       <i class="fa-solid fa-pen-to-square fa-lg"></i>
                     </button>
+                    <?php if($x['staff_id']!=1){ ?>
                     <button id="del-<?=$x['staff_id']?>" onclick="delStaff(this)" class="items-center justify-between px-2 text-sm font-medium text-red-600 rounded-lg focus:outline-none focus:outline-gray-300"
                       aria-label="Delete">
                       <i class="fa-solid fa-trash fa-lg"></i>
                     </button>
+                    <?php } ?>
                   </div> 
                 </div>
                 <!-- <p class="leading-relaxed text-lg mb-1"><span class="font-semibold">Role</span>: <?=$x['system_role']?></p> -->
@@ -354,18 +358,7 @@
       }
     })
     .catch(error => {
-      document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-red-700 dark:bg-opacity-20 dark:text-red-400" role="alert">
-        <span>
-          <i class="fa-solid fa-circle-exclamation fa-lg"></i>
-        </span>
-        <div class="ml-3 text-sm font-medium">
-          An error occured! Please try again later.
-        </div> 
-        <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 hover:bg-red-200 inline-flex  dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700">
-          <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
-        </button>
-      </div>`;
-      //console.error('Problem:', error);
+      document.getElementById("message").innerHTML = problem;
       delStaffBtn.disabled = false;
       delStaffBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
     });

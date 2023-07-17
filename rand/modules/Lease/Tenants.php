@@ -54,7 +54,7 @@ if(isset($_POST['edit-tenant'])){
             'check_in' => $_POST['date_in'],
             'check_out' => $_POST['date_out'],
             'adults' => $_POST['adults'],
-            'children' => $_POST['children'],
+            'children' =>  $_POST['children']?$_POST['children']:0,
             'apartment_reference' => $_POST['apartment_reference'],
         ];
         $db->update('check_scheduling', $tenantDetails)->where(['check_id'=>intval($_POST['check_id'])])->commit();
@@ -109,12 +109,12 @@ if(isset($_POST['add-tenant'])){
                     'check_in' => $_POST['date_in'],
                     'check_out' => $_POST['date_out'],
                     'adults' => $_POST['adults'],
-                    'children' => $_POST['children'],
+                    'children' => $_POST['children']?$_POST['children']:0,
                     'apartment_reference' => $_POST['apartment_reference'],
                     'check_status' => 'pending',
                     'user_ref' => $user_id
                 ];
-                $l = $db->insert('check_scheduling', $tenantDetails);
+                $l = $db->insert('check_scheduling', $tenantDetails);var_dump($db->error());
 
                 if (!$db->error() && $l) {
                     $msg = 'Tenants created';
