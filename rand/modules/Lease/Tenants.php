@@ -46,7 +46,7 @@ if(isset($_POST['edit-tenant'])){
         $db->update('user', $user)->where(['user_id'=>intval($_POST['user_id'])])->commit();
         $tenants = [
             'passport_number'=>$_POST['passport_number'], 
-            'residence_address'=>$_POST['resident_adress'], 
+            'residence_address'=>$_POST['residence_address'], 
             'country'=>$_POST['country']
         ];
         $db->update('tenants', $tenants)->where(['tenants_id'=>intval($_POST['tenants_id'])])->commit();
@@ -59,7 +59,7 @@ if(isset($_POST['edit-tenant'])){
         ];
         $db->update('check_scheduling', $tenantDetails)->where(['check_id'=>intval($_POST['check_id'])])->commit();
         if(!$db->error()) {
-            $msg = 'Updated successful!';
+            $msg = "Tenant {$user['first_name']} updated successful!";
             $status = 'success';
         }
         else $msg = 'Something went wrong!';
@@ -101,7 +101,7 @@ if(isset($_POST['add-tenant'])){
                 $tenantsD = [
                     'user_reference' => $user_id, 
                     'passport_number'=>$_POST['passport_number'], 
-                    'residence_address'=>$_POST['resident_adress'], 
+                    'residence_address'=>$_POST['residence_address'], 
                     'country'=>$_POST['country']
                 ];
                 $k = $db->insert('tenants',$tenantsD);
@@ -115,7 +115,6 @@ if(isset($_POST['add-tenant'])){
                     'user_ref' => $user_id
                 ];
                 $l = $db->insert('check_scheduling', $tenantDetails);
-                var_dump($db->error());
 
                 if (!$db->error() && $l) {
                     $msg = 'Tenants created';

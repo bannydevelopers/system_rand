@@ -15,7 +15,7 @@ if(isset($_POST['ajax_del_staff'])){
             $k = $db->delete('staff')->where(['staff_id'=>$staff_id])->commit();
             if(!$db->error() && $k) {
                 $k = $db->delete('user')->where(['user_id'=>$staff['user_id']])->commit();
-                $msg = 'Deletion succesfully';
+                $msg = "Deletion succesfully for staff {$staff['first_name']}.";
                 $status = 'success';
             }
             else $msg = 'Deletion failed';
@@ -23,7 +23,7 @@ if(isset($_POST['ajax_del_staff'])){
         else $msg = 'Staff does not exist';
     }
     else $msg = 'Permission to delete staff denied';
-    die(json_encode(['status'=>$status,'msg'=>$msg,'staff'=>$staff]));
+    die(json_encode(['status'=>$status,'msg'=>$msg]));
 }
 
 if(isset($_POST['ajax_activate_user'])){

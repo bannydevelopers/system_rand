@@ -8,7 +8,6 @@ $user = $db->select('user')
     ->where(['user_id'=>helper::init()->get_session_user('user_id')])
     ->fetch();
 $data = [
-    'user' => $user, 
-    // 'totalRequests' => $totalRequests
+    'user' => $user
 ];
 echo helper::find_template('contract', $data);

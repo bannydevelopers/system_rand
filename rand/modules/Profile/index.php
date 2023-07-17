@@ -5,45 +5,49 @@ $db = db::get_connection(storage::init()->system_config->database);
 $my = helper::init()->get_session_user();
 
 if(isset($_POST["update-my-profile"])){
-    if($helper->user_can('can_add_requests')){
-        var_dump('can');
-    }
-    else{
-        $names = explode(' ', addslashes($_POST['full_name']));
-        $fn = $names[0];
-        $ln = end($names);
-        array_shift($names);
-        array_pop($names);
-        $mn = implode(' ', $names);
-        $user = [
-            'first_name'=>$fn,
-            'middle_name'=>$mn,
-            'last_name'=>$ln,
-            'phone_number'=>helper::format_phone_number($_POST['phone_number']), //
-            'email'=>helper::format_email($_POST['email']), //
-            //'password'=>md5($token), 
-        ];
-        $whr ="(email='{$user['email']}' OR phone_number = '{$user['phone_number']}')";
-        $test = $db->select('staff')
-                ->join('user','user_reference=user_id')
-                ->where($whr)
-                ->and("user_id != {$my['user_id']}")
-                ->fetch();
-        if(!$test){
-            $db->update('user', $user)->where(['user_id' => $my['user_id']])->commit();
-            $staff = [
-                'residence_address'=>addslashes($_POST['residence_address']), 
-            ];
-
-            $db->update('staff', $staff)->where(['user_reference'=>$my['user_id']])->commit();
+    $names = explode(' ', addslashes($_POST['full_name']));
+    $fn = $names[0];
+    $ln = end($names);
+    array_shift($names);
+    array_pop($names);
+    $mn = implode(' ', $names);
+    $user = [
+        'first_name'=>$fn,
+        'middle_name'=>$mn,
+        'last_name'=>$ln,
+        'phone_number'=>helper::format_phone_number($_POST['phone_number']), //
+        'email'=>helper::format_email($_POST['email']), //
+        //'password'=>md5($token), 
+    ];
+    $whr ="(email='{$user['email']}' OR phone_number = '{$user['phone_number']}')";
+    $test = $db->select('staff')
+            ->join('user','user_reference=user_id')
+            ->where($whr)
+            ->and("user_id != {$my['user_id']}")
+            ->fetch();
+    $next = [
+        'residence_address'=>addslashes($_POST['residence_address']), 
+    ];
+    if(!$test){
+        $db->update('user', $user)->where(['user_id' => $my['user_id']])->commit();
+        if($helper->user_can('can_add_requests')){
+            $db->update('tenants', $next)->where(['user_reference'=>$my['user_id']])->commit();
             if(!$db->error()) {
                 $msg = 'Profile updated successful!';
                 $status = 'success';
             }
             else $msg = 'Something went wrong!';
         }
-        else $msg = 'Email OR Phone number already taken!';
-    };
+        else{
+            $db->update('staff', $next)->where(['user_reference'=>$my['user_id']])->commit();
+            if(!$db->error()) {
+                $msg = 'Profile updated successful!';
+                $status = 'success';
+            }
+            else $msg = 'Something went wrong!';
+        }
+    }
+    else $msg = 'Email OR Phone number already taken!';
 }
 
 if(isset($_POST["upload-image"])){ 
