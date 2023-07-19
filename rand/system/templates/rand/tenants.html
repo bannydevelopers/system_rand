@@ -52,10 +52,10 @@
               <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
                   <label>Apartment <span class="text-red-500">*</span></label>
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="apartment_reference" required>
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="apartment_reference" id="apartment-price" onchange="update_price()" required>
                       <option selected="true" disabled="disabled">Choose...</option>   
                       <?php foreach($apartment as $pp) { ?>
-                        <option value="<?=$pp['apartment_id']?>"><?=$pp['apartment_name']?></option>
+                        <option value="<?=$pp['apartment_id']?>" data-price-daily="<?=$pp['price_per_day']?>" data-price="<?=$pp['price']?>"><?=$pp['apartment_name']?></option>
                       <?php } ?>
                     </select>
                 </div>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="w-full md:w-1/3 px-3"> 
                   <label>Date out <span class="text-red-500">*</span></label>
-                    <input id="checkout" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="date_out" required>
+                    <input id="checkout" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="date_out" onchange="update_price()" required>
                 </div>
               </div>
               <div class="flex flex-wrap -mx-3 mb-6">
@@ -80,7 +80,7 @@
                 </div>
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
                   <label>Total amount (<?=$currency?>)
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" min="0" value="0" id="order_amount" name="order_amount" readonly>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" value="0" id="order_amount" name="order_amount" readonly>
                   </label>
                 </div>
               </div>
@@ -326,11 +326,11 @@
   setMinimumDate();
 
   function update_price(){
-    let cats = document.getElementById('apartment_category'),
+    let apartmentPrice = document.getElementById('apartment-price'),
     amount = 0,
     price_panel = document.getElementById('order_amount');
-    cat_price = parseInt(cats.options[cats.selectedIndex].getAttribute("data-price")),
-    price_per_day = parseInt(cats.options[cats.selectedIndex].getAttribute("data-price-daily")),
+    cat_price = parseInt(apartmentPrice.options[apartmentPrice.selectedIndex].getAttribute("data-price")),
+    price_per_day = parseInt(apartmentPrice.options[apartmentPrice.selectedIndex].getAttribute("data-price-daily")),
     checkin = document.getElementById("checkin").value,
     checkout = document.getElementById("checkout").value,
     discount_rate = 0,

@@ -114,7 +114,7 @@ if(isset($_POST['add-tenant'])){
                     'check_status' => 'pending',
                     'user_ref' => $user_id
                 ];
-                $l = $db->insert('check_scheduling', $tenantDetails);var_dump($db->error());
+                $l = $db->insert('check_scheduling', $tenantDetails);
 
                 if (!$db->error() && $l) {
                     $msg = 'Tenants created';
@@ -129,7 +129,8 @@ if(isset($_POST['add-tenant'])){
 }
             
 if($helper->user_can('can_view_tenants')){
-    $apartment = $db->select('apartments','apartment_id, apartment_name')
+    $apartment = $db->select('apartments','apartment_id, apartment_name, price_per_day, price')
+                ->join('apartment_category', 'apartment_category.category_id = apartments.apartment_category', 'right')
                 ->order_by('apartment_name', 'asc')
                 ->fetchAll();
 

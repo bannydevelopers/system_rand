@@ -2,10 +2,8 @@
     "name":"Lease",
     "icon":"users-cog",
     "nav":[
-      
         {"name":"Apartments","href":"Apartments/", "permission":"can_view_apartments"},
         {"name":"Tenants","href":"Tenants/","permission":"can_view_tenants"}
-       
     ],
     "permissions":[
         "can_add_tenants",

@@ -1,0 +1,54 @@
+
+    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+    Company profile
+    </h2>
+    <form method="post" enctype="multipart/form-data" class="w-full overflow-hidden rounded-lg shadow-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4">
+      <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+          <label for="company_legal_name">Company legal name</label>
+          <input id="company_legal_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg fobp:ring-purple-500 fobp:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text"  name="company_legal_name" value="<?=$company_data->company_legal_name?>" placeholder="Company legal name">
+        </div>
+        <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+          <label for="company_slogan">Company slogan</label>
+          <input name="company_slogan" value="<?=$company_data->company_slogan?>" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg fobp:ring-purple-500 fobp:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Slogan...r" required>
+        </div>
+        <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+          <label for="phone_number">Phone Number </label>
+          <input name="phone_number" value="<?=$company_data->phone_number?>" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg fobp:ring-purple-500 fobp:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="tel" placeholder="phone Number" required>
+        </div>
+        <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+          <label for="email">E-mail</label>
+          <input name="email" value="<?=$company_data->email?>" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg fobp:ring-purple-500 fobp:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="email" placeholder="Support email..." required>
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+          <div class="w-full mob:my-0">
+            <label for="TIN_number">TIN Number </label>
+            <input name="TIN_number" value="<?=$company_data->TIN_number?>" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg fobp:ring-purple-500 fobp:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="TIN number..." required>
+          </div>
+          <div class="w-full mob:my-0">
+            <label for="VRN_number">VRN number</label>
+            <input name="VRN_number" value="<?=$company_data->VRN_number?>" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg fobp:ring-purple-500 fobp:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="VRN number..." required>
+          </div>
+        </div>
+        <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+              <label for="company_address">Company address</label>
+              <textarea name="company_address" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg fobp:ring-purple-500 fobp:border-purple-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" placeholder="Postal address, normally..." rows="4" required><?=$company_data->company_address?></textarea>
+            </div>
+            <div class="w-full sm:w-1/2 px-3 my-2 mob:my-0">
+              <label for="company_logo">Company logo(<small>click to change</small>)</label>
+              <div style="text-align: center;">
+                <img src="../../system/assets/img/<?=$company_data->company_logo?>" width="90" onclick="document.getElementById('company_logo').click()" id="logo_preview">
+              </div>
+              <input name="company_logo" accept=".png, .jpg" type="file" style="display: none;" onchange="document.getElementById('logo_preview').setAttribute('src', window.URL.createObjectURL(this.files[0]))" id="company_logo">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pb-8">
+        <button type="submit" class="float-right text-white bg-purple-700 hover:bg-purple-800 fobp:ring-4 fobp:outline-none fobp:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:fobp:ring-purple-800">Save</button>
+      </div>
+    </form>

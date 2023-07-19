@@ -14,7 +14,7 @@
     },
     "modules": [
         "Lease",
-        "Expenses",
+        "Financials",
         "Staff",
         "Contract",
         "Requests",
