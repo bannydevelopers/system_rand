@@ -206,7 +206,7 @@
           </td>     
           <td class="px-4 py-3">
             <div class="flex items-center space-x-4 text-sm">   
-              <button onclick="preview_invoice()"  data-json='[{"id": "1", "qty": "10", "name": "B1", "price": 127000}]'
+              <button onclick="preview_invoice()" data-json='{"invoice_id": 2, "invoice_type": "tax", "created_time": "2023-07-31 11:46:12", "invoice_amount": 1808000, "customer": 8, "customer_email": "mk@gmail.com", "customer_name": "Miusu Kijako","customer_phone_number": "0789556443", "customer_physical_adress": "Somewhere", "first_name": "Root", "grand_total": 2133440, "invoice_items":[{"id": 1, "qty": 1, "name": "Apartment B1", "price": 127000}], "last_name": "User", "middle_name": "", "order_id": 6893, "sale_represantative": 1, "tin_number": 489002, "total":1808000, "vrn_number":4553}'
                 class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300" aria-label="View">
                 <i class="fa-solid fa-eye fa-lg"></i>
               </button>
@@ -227,10 +227,10 @@
 <!-- Print Template -->
 <template id="invoice-tpl">
   <div>
-    <table style="width: 100%;font-family: Arial, Helvetica, sans-serif;line-height: 1.4;font-size: 16px;">
+    <table style="width: 100%;font-family: Arial, Helvetica, sans-serif;line-height: 1.4;font-size: 12px;">
       <tr>
         <th style="text-align: left;">
-          <b style="text-transform: uppercase;">{{pay_status}} INVOICE</b><br>
+          <b style="text-transform: uppercase;">{{invoice_type}} INVOICE</b><br>
           <small>{{created_time}}</small>
         </th>
         <th>
@@ -260,7 +260,7 @@
           <table style="min-width: 60%;text-align: left;">
             <tr>
               <td>Order No.</td>
-              <td>{{order_id}}</td>
+              <td>{{invoice_id}}</td>
             </tr>
             <tr>
               <td>Sales represantantive</td>
@@ -383,13 +383,13 @@
   function preview_invoice(){
     let elem = window.event.target.tagName == 'I' ? window.event.target.parentNode : window.event.target;
 
-    let json = JSON.parse(elem.getAttribute('data-json'));console.log(json);
+    let json = JSON.parse(elem.getAttribute('data-json'));
 
     json.total = 0;
     json.grand_total = 0;
 
     let tmp = '', sn = 0;
-    let reli = json.invoice_items;
+    let reli = json.invoice_items;console.log(json);
     for(x in reli) {
       let item_total = parseInt(reli[x].qty) * parseInt(reli[x].price),
           itotal = item_total.toLocaleString('en-US'),
