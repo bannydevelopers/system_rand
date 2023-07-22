@@ -2,7 +2,7 @@
     "name":"Financials",
     "icon":"shopping-cart",
     "nav":[
-       {"name":"Invoices","href":"Invoices/", "permission":"can_view_expenses"},
+       {"name":"Invoices","href":"Invoices/", "permission":"can_view_invoice"},
         {"name":"Expenses","href":"Expenses/","permission":"can_view_expenses"}
     ],
 
@@ -12,9 +12,9 @@
         "can_delete_expenses",
         "can_view_expenses",
         
-       "can_add_apartments",
-        "can_edit_apartments",
-        "can_view_apartments",
-        "can_delete_apartments"
+       "can_add_invoice",
+        "can_edit_invoice",
+        "can_view_invoice",
+        "can_delete_invoice"
     ]
 }

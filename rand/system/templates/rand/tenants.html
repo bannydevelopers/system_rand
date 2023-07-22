@@ -1,3 +1,10 @@
+<div class="text-right pb-4">
+  <!-- Modal toggle -->
+  <a href="/admin/Financials/Invoices/" 
+  class="text-white bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mx-6 mb-3 px-3 py-1.5">
+  Create invoice
+</a>
+</div>
 <!-- Modal toggle -->
 <div id="add-user-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
   <div class="relative w-full max-w-4xl max-h-full items-center">
@@ -55,7 +62,7 @@
                     <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="apartment_reference" id="apartment-price" onchange="update_price()" required>
                       <option selected="true" disabled="disabled">Choose...</option>   
                       <?php foreach($apartment as $pp) { ?>
-                        <option value="<?=$pp['apartment_id']?>" data-price-daily="<?=$pp['price_per_day']?>" data-price="<?=$pp['price']?>"><?=$pp['apartment_name']?></option>
+                        <option value="<?=$pp['apartment_id']?>" data-price-daily="<?=$pp['price_per_day']?>" data-price="<?=$pp['price']?>"><?=$pp['apartment_name']?> - <?=$pp['apartment_floor']?></option>
                       <?php } ?>
                     </select>
                 </div>
@@ -144,13 +151,13 @@
             <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
               <tr>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Name</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Adress</th> 
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Passport #</th> 
                 <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date in</th>
                 <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date out</th>
                 <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Apartment</th>
                 <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Adults</th>
                 <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Children</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Adress</th> 
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Passport #</th> 
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Action</th>
               </tr>
             </thead>
@@ -174,20 +181,13 @@
                   </div>
                 </td>
                 <td class="px-4 py-3 text-sm">
-                  <?=$tena['country']?><br>
-                  <?=$tena['residence_address']?>
-                </td> 
-                <td class="px-4 py-3 text-sm">
-                  <?=$tena['passport_number']?>
-                </td> 
-                <td class="px-4 py-3 text-sm">
                   <?=helper::format_time($tena['check_in'],'d M, Y')?>
                 </td>
                 <td class="px-4 py-3 text-sm">
                   <?=helper::format_time($tena['check_out'],'d M, Y')?>
                 </td>
-                <td class="px-4 py-3 text-sm text-center">
-                  <?=$tena['apartment_name']?>
+                <td class="px-4 py-3 text-sm">
+                  <?=$tena['apartment_name']?> <br> <?=$pp['apartment_floor']?>
                 </td>
                 <td class="px-4 py-3 text-sm text-center">
                   <?=$tena['adults']?>
@@ -195,6 +195,13 @@
                 <td class="px-4 py-3 text-sm text-center">
                   <?=$tena['children']?>
                 </td>
+                <td class="px-4 py-3 text-sm">
+                  <?=$tena['country']?><br>
+                  <?=$tena['residence_address']?>
+                </td> 
+                <td class="px-4 py-3 text-sm">
+                  <?=$tena['passport_number']?>
+                </td> 
                 <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
                   <a href="javascript:;" data-modal-target="edit-asset-modal-<?=$tena['tenants_id']?>" data-modal-toggle="edit-asset-modal-<?=$tena['tenants_id']?>" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
                   <button id="<?=$tena['user_id']?>" class="font-semibold leading-tight text-sm text-red-500 pl-2" onclick="deleteTenant(this)">Delete</button>

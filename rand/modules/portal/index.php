@@ -257,7 +257,7 @@ if(isset($_REQUEST['OrderMerchantReference'])){
                ->where(['order_id'=>$oid])
                ->commit();
     
-    $cs = $db->update('check_scheduling', ['check_status'=>'paid'])
+    $cs = $db->update('check_scheduling', ['pay_status'=>'paid'])
              ->where("check_id IN (SELECT check_schedule FROM orders WHERE order_id = {$oid})")
              ->commit();
     header("Location: {$dash}");

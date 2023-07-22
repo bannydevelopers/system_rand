@@ -1,15 +1,15 @@
 
     <h2
-      class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+      class="my-6 text-2xl font-semibold text-gray-700"
     >
     Invoices
     </h2>
   <!-- Add invoice modal toggle -->
-  <div>
-    <button 
-    data-modal-target="add-invoice-modal" data-modal-toggle="add-invoice-modal" 
-    class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-    New invoice
+  <div class="text-right">
+    <!-- Modal toggle -->
+    <button data-modal-target="add-invoice-modal" data-modal-toggle="add-invoice-modal" 
+    class="text-white bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mx-6 mb-3 px-5 py-1.5" type="button">
+    Create invoice
     </button>
   </div>
   <!--/ Add invoice modal toggle -->
@@ -17,7 +17,7 @@
 <div>
   <button id="add-customer-modal-id"
   data-modal-target="add-customer-modal" data-modal-toggle="add-customer-modal" 
-  class="hidden float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+  class="hidden float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center" type="button">
   Add customer
   </button>
 </div>
@@ -25,8 +25,8 @@
 <div id="add-customer-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0  h-full max-h-full">
     <div class="relative w-full max-w-4xl max-h-full items-center">
         <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 text-gray-900 dark:text-white">
-            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-customer-modal">
+        <div class="relative bg-white rounded-lg shadow text-gray-900">
+            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-hide="add-customer-modal">
               <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
                 <span class="sr-only">Close modal</span>
             </button>
@@ -36,41 +36,41 @@
                 <div class="flex flex-wrap -mx-3 mb-6">
                   <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                     <label>Customer name
-                      <input name="customer_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Name" required>
+                      <input name="customer_name" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5" type="text" placeholder="Name" required>
                     </label>
                   </div>
                   <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                     <label>Phone number
-                      <input name="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="10" placeholder="Phone: 0*********" pattern="[0]{1}[6-7]{1}[1-9]{1}[0-9]{7}">
+                      <input name="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 invalid:border-red-500" type="tel" maxlength="10" placeholder="Phone: 0*********" pattern="[0]{1}[6-7]{1}[1-9]{1}[0-9]{7}">
                     </label>
                   </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-6">
                   <div class="w-full mob:w-1/2 px-3"> 
                     <label>E-mail
-                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" name="email" type="email" placeholder="E-mail">
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="email" type="email" placeholder="E-mail">
                     </label>
                   </div>
                   <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0"> 
                     <label>Residence address
-                      <input name="address" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Residence address">
+                      <input name="address" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5" type="text" placeholder="Residence address">
                     </label>
                   </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-6">
                   <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                     <label>TIN number
-                      <input name="tin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="text" maxlength="12" placeholder="TIN">
+                      <input name="tin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 invalid:border-red-500" type="text" maxlength="12" placeholder="TIN">
                     </label>
                   </div>
                   <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
                     <label>VRN
-                      <input name="vrn" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:border-red-500" type="tel" maxlength="9" placeholder="VRN">
+                      <input name="vrn" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 invalid:border-red-500" type="tel" maxlength="9" placeholder="VRN">
                     </label>
                   </div>
                 </div>
                 <div class="pb-8">
-                  <button type="submit" class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create</button>
+                  <button type="submit" class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Create</button>
                 </div>
               </form>
             </div>
@@ -82,8 +82,8 @@
 <div id="add-invoice-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
     <div class="relative w-full max-w-4xl max-h-full items-center">
         <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 text-gray-900 dark:text-white">
-            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-invoice-modal">
+        <div class="relative bg-white rounded-lg shadow">
+            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-hide="add-invoice-modal">
               <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
                 <span class="sr-only">Close modal</span>
             </button>
@@ -91,61 +91,19 @@
               <h3 class="mb-4 text-xl font-medium">New invoice </h3>
               <form class="space-y-6" method="POST">
                 <div class="flex flex-wrap -mx-3 mb-6">
-                  <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0">
-                    <label>Invoice type
-                      <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="invoice_type">
-                          <option value="proforma">Proforma invoice</option>
-                          <option value="tax">Tax invoice</option>
-                      </select>
-                    </label>
-                  </div>
                   <div class="w-full mob:w-1/2 px-3 my-1 mob:my-0"> 
                     <label>Customer</label>
-                      <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="customer" onchange="add_customer()" required>
-                        <option value="">Choose customer</option>
-                        <?php foreach($customers as $c){?>
-                        <option value="<?=$c['customer_id']?>"><?=$c['customer_name']?></option>
+                    <select class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="check_id" onchange="add_customer()" required>
+                        <option value="">Choose ...</option>
+                        <?php foreach($xinvoice as $xinv){?>
+                        <option value="<?=$xinv['check_id']?>"><?=$xinv['apartment_name']?> - <?=$xinv['full_name']?></option>
                         <?php }?>
                         <option value="add">Add customer</option>
                     </select>
                   </div>
                 </div>
-                  <div class="w-full">
-                    <div class="float-right" id="grand-total"></div>
-                    <h3 class="mb-4 text-xl font-medium">Items</h3>
-                  </div>
-                <hr>
-                <div class="flex flex-wrap -mx-3 mb-6">
-                  <div class="w-full mob:w-1/3 px-3"> 
-                    <label>Item</label>
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="item_name[]" onchange="process_product()">
-                      <option value="">Choose product...</option>
-                      <?php foreach($products as $p){?>
-                      <option value="<?=$p['product_id']?>" data-price="<?=$p['product_price']?>"><?=$p['product_name']?></option>
-                      <?php }?>
-                      <option value="add-product">Add product</option>
-                  </select>
-                  </div>
-                  <div class="flex w-full mob:w-2/3 -mx-3 mb-6">
-                    <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
-                      <label>Quantity</label>
-                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" name="item_quantity[]" min="1" value="1" onchange="update_price()" onkeyup="update_price()" required>
-                    </div>
-                    <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
-                      <label>Price per item</label>
-                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="number" value="0" readonly>
-                    </div>
-                    <div class="w-full mob:w-1/3 px-3 my-1 mob:my-0">
-                      <label>Total price</label>
-                        <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white total-prices" type="number" value="0" readonly>
-                    </div>
-                  </div>
-                </div>
                 <div class="pb-8">
-                  <button type="button" class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="replicate_items()">Add item</button>
-                </div>
-                <div class="pb-8">
-                  <button type="submit" class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                  <button type="submit" name="add-invoice" class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Save</button>
                 </div>
               </form>
             </div>
@@ -154,43 +112,58 @@
 </div> 
 <!--/ Add invoice m modal -->
 
-<?php if($msg) {?>
-  <div x-data="{ open: true }" x-show="open" class="flex p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+<?php if($msg){ 
+  if($status == 'success') {?>
+  <div x-data="{ open: true }" x-show="open" class="msg flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100" role="alert">
     <span>
       <i class="fa-solid fa-circle-info fa-lg"></i>
     </span>
     <div class="ml-3 text-sm font-medium">
       <?=$msg?>
     </div> 
-    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg foinv:ring-2 foinv:ring-green-400 hover:bg-green-200 inline-flex">
       <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
     </button>
   </div>
-<?php } ?>
+<?php } 
+  else if($status == 'fail') {?>
+<div x-data="{ open: true }" x-show="open" class="msg flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50" role="alert">
+  <span>
+    <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+  </span>
+  <div class="ml-3 text-sm font-medium">
+    <?=$msg?>
+  </div> 
+  <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex">
+    <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+  </button>
+</div>
+<?php }
+}?>
 <div id="message"></div>
 
-<div class="w-full overflow-hidden rounded-lg shadow-md">
-  <div class="w-full overflow-x-auto">
-    <table class="w-full">
+<div class="w-full overflow-hidden bg-white rounded-lg shadow-md">
+  <div class="w-full p-4 overflow-x-auto">
+    <table id="dTable" class="items-center py-4 w-full mb-0 align-top border-gray-200 text-slate-500">
       <thead>
-        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-          <th class="px-4 py-3">Ref Number</th>
-          <th class="px-4 py-3">Customer</th>
-          <th class="px-4 py-3">Apartment</th>
-          <th class="px-4 py-3">Amount</th>
-          <th class="px-4 py-3">Status</th>
-          <th class="px-4 py-3">Crete date</th>
-          <th class="px-4 py-3">Actions</th>
+        <tr>
+          <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Ref Number</th>
+          <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Customer</th>
+          <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Apartment</th>
+          <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Amount</th>
+          <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Status</th>
+          <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Crete date</th>
+          <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Actions</th>
         </tr>
       </thead>
-      <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+      <tbody class="bg-white divide-y">
       <?php if($invoice){ foreach($invoice as $inv){?>
-        <tr id="tr-<?=$inv['invoice_id']?>" class="text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+        <tr id="tr-<?=$inv['invoice_id']?>" class="text-gray-700 hover:bg-gray-100">
           <td class="px-4 py-3 text-sm">
-            Invoice<?=$inv['invoice_id']?>
+            <?=$inv['invoice_ref_number']?>
           </td>
           <td class="px-4 py-3 text-sm">
-            <?=$inv['first_name']?> <?=$inv['middle_name']?> <?=$inv['last_name']?>
+            <?=$inv['customer']?>
           </td>
           <td class="px-4 py-3 text-sm">
             <?=$inv['apartment_name']?>
@@ -206,12 +179,30 @@
           </td>     
           <td class="px-4 py-3">
             <div class="flex items-center space-x-4 text-sm">   
-              <button onclick="preview_invoice()" data-json='{"invoice_id": 2, "invoice_type": "tax", "created_time": "2023-07-31 11:46:12", "invoice_amount": 1808000, "customer": 8, "customer_email": "mk@gmail.com", "customer_name": "Miusu Kijako","customer_phone_number": "0789556443", "customer_physical_adress": "Somewhere", "first_name": "Root", "grand_total": 2133440, "invoice_items":[{"id": 1, "qty": 1, "name": "Apartment B1", "price": 127000}], "last_name": "User", "middle_name": "", "order_id": 6893, "sale_represantative": 1, "tin_number": 489002, "total":1808000, "vrn_number":4553}'
-                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300" aria-label="View">
+              <button onclick="preview_invoice()" data-json='{
+                "invoice_ref_number": "<?=$inv["invoice_ref_number"]?>", 
+                "invoice_type": "<?=$inv["pay_status"]?>", 
+                "created_time": "<?=$inv["created_time"]?>", 
+                "customer_email": "<?=$inv["email"]?>", 
+                "customer_name": "<?=$inv["customer"]?>", 
+                "customer_phone_number": "<?=$inv["phone_number"]?>", 
+                "customer_physical_adress": "<?=$inv["residence_address"]?>", 
+                "issued_by": "<?=$inv["issued_by"]?$inv["issued_by"]:"System"?>", 
+                "invoice_items":[
+                  {
+                    "id": 1, "qty": 0, 
+                    "name": "<?=$inv["apartment_name"]?>", 
+                    "price": <?=$inv["invoice_amount"]?>
+                  }
+                ],  
+                "tin_number": "NIL",
+                "vrn_number": "NIL"
+              }'
+                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-blue-600 rounded-lg focus:outline-none focus:outline-gray-300" aria-label="View">
                 <i class="fa-solid fa-eye fa-lg"></i>
               </button>
               <button id="del-<?=$inv['invoice_id']?>" onclick="delinvoice(this)" 
-                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:outline-gray-300" aria-label="Delete">
+                class="flex items-center justify-between p-2 text-sm font-medium leading-5 text-red-500 rounded-lg focus:outline-none focus:outline-gray-300" aria-label="Delete">
                 <i class="fa-sharp fa-solid fa-trash fa-lg"></i>
                 </button>
             </div>
@@ -225,12 +216,12 @@
 </div>
 
 <!-- Print Template -->
-<template id="invoice-tpl">
+<template id="invoice-tpl" style="padding: 0 20px;">
   <div>
     <table style="width: 100%;font-family: Arial, Helvetica, sans-serif;line-height: 1.4;font-size: 12px;">
       <tr>
         <th style="text-align: left;">
-          <b style="text-transform: uppercase;">{{invoice_type}} INVOICE</b><br>
+          <b style="text-transform: uppercase;">INVOICE</b><br>
           <small>{{created_time}}</small>
         </th>
         <th>
@@ -259,12 +250,12 @@
         <td>
           <table style="min-width: 60%;text-align: left;">
             <tr>
-              <td>Order No.</td>
-              <td>{{invoice_id}}</td>
+              <th>Invoice No.</th>
+              <th>{{invoice_ref_number}}</th>
             </tr>
             <tr>
               <td>Sales represantantive</td>
-              <td>{{first_name}} {{middle_name}} {{last_name}}</td>
+              <td>{{issued_by}}</td>
             </tr>
           </table>
         </td>
@@ -274,38 +265,20 @@
           <table style="width: 100%;text-align: left;margin-top: 1em;">
             <tr style="border-bottom: 1px solid #000;">
               <th>S/N</th>
-              <th>Item name</th>
-              <th>Quantity</th>
-              <th>Unit price</th>
+              <th>Description</th>
+              <th>Rental amount</th>
               <th style="text-align: right;">Total amount</th>
             </tr>
-            <tr id="items_list">
-            </tr>
-            <tr style="border-top: 1px solid #000;">
-              <td colspan="3">&nbsp;</td>
-              <th style="text-align: right;">Total</th>
-              <th style="text-align: right;">{{total}}</th>
-            </tr>
+            <tr id="items_list"></tr>
             <tr>
-              <td colspan="3">&nbsp;</td>
-              <th style="text-align: right;">VAT (18%)</th>
-              <th style="text-align: right;">{{VAT}}</th>
-            </tr>
-            <tr>
-              <td colspan="3">&nbsp;</td>
-              <th style="text-align: right;border-top: 1px solid #000;">Total including VAT</th>
-              <th style="text-align: right;border-top: 1px solid #000;">{{grand_total}}</th>
+              <td colspan="2">&nbsp;</td>
+              <th style="text-align: right;border-top: 1px solid #000; padding: 20px 0;">Total (Including Tax)</th>
+              <th style="text-align: right;border-top: 1px solid #000; padding: 20px 0;">{{grand_total}}</th>
             </tr>
           </table>
         </td>
       </tr>
-      <tr style="margin-top: 4em;">
-        <td style="text-align: left;">
-          <span style="text-align: center;display: inline-block;">
-            <span>___________________</span><br>
-            <span>Client's signature</span>
-          </span>
-        </td>
+      <tr style="margin-top: 12em;">
         <td style="text-align: right;">
           <span style="text-align: center;display: inline-block;">
             <span>___________________</span><br>
@@ -333,15 +306,91 @@
   }
 </style>
 <script>
+  problem = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-red-800 rounded-lg bg-red-50 role="alert">
+    <span>
+      <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+    </span>
+    <div class="ml-3 text-sm font-medium">
+      An error occured! Please refresh the page or try again later.
+    </div> 
+    <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 hover:bg-red-200 inline-flex">
+      <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+    </button>
+  </div>`;
+
+  async function delinvoice(values) {
+    if (!confirm("Sure you want to delete invoice?")) {
+      return;
+    }
+    delInvoiceBtn = document.getElementById(values.id);
+    delInvoiceBtn.disabled = true;
+    delInvoiceBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin fa-lg"></i>'
+
+    var invoiceId = values.id.split('-');
+    const invoiceData = new FormData();
+    invoiceData.append('ajax_del_invoice', invoiceId[1]);
+
+    let url = '<?=$request_uri?>';
+    let obj = {
+      method: "POST", 
+      body: invoiceData,
+    }
+
+    let response = await fetch(url, obj)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('The response side is not ok!');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if(data.status == 'success'){
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100" role="alert">
+          <span>
+            <i class="fa-solid fa-circle-info fa-lg"></i>
+          </span>
+          <div class="ml-3 text-sm font-medium">
+            `+data.msg+`
+          </div> 
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex">
+            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+          </button>
+        </div>`;
+        document.getElementById('tr-'+invoiceId[1]).remove();
+      }
+      if(data.status == 'fail' || data.status == 'not-exist' || data.status == 'denied'){
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50" role="alert">
+          <span>
+            <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+          </span>
+          <div class="ml-3 text-sm font-medium">
+            `+data.msg+`
+          </div> 
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex">
+            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+          </button>
+        </div>`;
+        delInvoiceBtn.disabled = false;
+        delInvoiceBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
+      }
+    })
+    .catch(error => {
+      document.getElementById("message").innerHTML = problem;
+      delInvoiceBtn.disabled = false;
+      delInvoiceBtn.innerHTML = '<i class="fa-sharp fa-solid fa-trash fa-lg"></i>';
+    });
+  }
+
   function jsprint(html, opts){
+    //var printWindow = window.open('', '', 'height=600,width=1200');
     var printWindow = window.open('', '', 'height=600,width=1200');
     printWindow.document.write('<html><head><title>Print preview</title>');
     if(opts != undefined && opts.css != undefined) printWindow.document.write(`<style>${opts.css}</style>`);
     printWindow.document.write('</head><body >');
     printWindow.document.write(html);
     printWindow.document.write('</body></html>');
-    printWindow.document.close();
     printWindow.print();
+    printWindow.close();
   }
 
   function replicate_items(){
@@ -389,24 +438,24 @@
     json.grand_total = 0;
 
     let tmp = '', sn = 0;
-    let reli = json.invoice_items;console.log(json);
+    let reli = json.invoice_items;
     for(x in reli) {
-      let item_total = parseInt(reli[x].qty) * parseInt(reli[x].price),
+      //let item_total = parseInt(reli[x].qty) * parseInt(reli[x].price),
+      let item_total = parseInt(reli[x].price),
           itotal = item_total.toLocaleString('en-US'),
           price = reli[x].price.toLocaleString('en-US');
       
       tmp += `<tr><td>${++sn}</td>
         <td>${reli[x].name}</td>
-        <td>${reli[x].qty}</td>
-        <td>${price}</td>
+        <td>${price} (Tax Included)</td>
         <td style="text-align: right;">${itotal}</td></tr>`;
       json.total += item_total;
     }
-    json.VAT = (json.total * 0.18);
-    json.grand_total = (json.total + json.VAT).toLocaleString('en-US');
-    json.VAT = json.VAT.toLocaleString('en-US');
+    //json.VAT = (json.total * 0.18);
+    json.grand_total = (json.total).toLocaleString('en-US');
+    //json.grand_total = (json.total + json.VAT).toLocaleString('en-US');
+    //json.VAT = json.VAT.toLocaleString('en-US');
     json.total = json.total.toLocaleString('en-US');
-    json.order_id = 6891+parseInt(json.invoice_id);
     let tpl = document.getElementById('invoice-tpl').content.cloneNode(true);
     tpl.getElementById('items_list').outerHTML = tmp;
     
@@ -418,4 +467,13 @@
       showConfirmButton:false
     });
   }
+
+</script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>  
+<script>
+  $(document).ready( function () {
+    $('#dTable').DataTable();
+  } );
 </script>

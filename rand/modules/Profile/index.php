@@ -50,6 +50,28 @@ if(isset($_POST["update-my-profile"])){
     else $msg = 'Email OR Phone number already taken!';
 }
 
+if(isset($_POST['update-my-password'])){
+    $chek = $db->select('user', 'user_id, password')
+            ->where([
+                'password' => helper::create_hash($_POST['old_password']), 
+                'user_id' => $my['user_id']
+                ])
+            ->fetch();
+    if($chek){
+        if($_POST['new_password1'] == $_POST['new_password2']){
+            $data = ['password'=>helper::create_hash($_POST['new_password1']),];
+            $put = $db->update('user', $data)->where(['user_id' => $my['user_id']])->commit();
+            if(!$db->error() && $put){
+                $msg = 'Password successful changed.';
+                $status = 'success';
+            }
+            else $msg = 'Unexpected error occured';
+        }
+        else $msg = 'Passwords mismatch';
+    }
+    else $msg = 'Incorrect current password';
+}
+
 if(isset($_POST["upload-image"])){ 
 
     function convert_filesize($bytes, $decimals = 2) { 

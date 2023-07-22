@@ -111,7 +111,8 @@ if(isset($_POST['add-tenant'])){
                     'adults' => $_POST['adults'],
                     'children' => $_POST['children']?$_POST['children']:0,
                     'apartment_reference' => $_POST['apartment_reference'],
-                    'check_status' => 'pending',
+                    'payment_amount' => $_POST['order_amount'],
+                    'pay_status' => 'pending',
                     'user_ref' => $user_id
                 ];
                 $l = $db->insert('check_scheduling', $tenantDetails);
@@ -129,8 +130,9 @@ if(isset($_POST['add-tenant'])){
 }
             
 if($helper->user_can('can_view_tenants')){
-    $apartment = $db->select('apartments','apartment_id, apartment_name, price_per_day, price')
+    $apartment = $db->select('apartments','apartment_id, apartment_name, apartment_floor, price_per_day, price')
                 ->join('apartment_category', 'apartment_category.category_id = apartments.apartment_category', 'right')
+                ->where('apartment_id NOT IN (SELECT DISTINCT apartment_reference FROM check_scheduling)')
                 ->order_by('apartment_name', 'asc')
                 ->fetchAll();
 
