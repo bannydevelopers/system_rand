@@ -42,7 +42,7 @@ else{
 
     $expenses = $db->select('expenses','SUM(expenses_amount) AS expenses_amount, expenses_date')
                     ->group_by('expenses_date')
-                    ->order_by('expenses_date', 'desc')
+                    ->order_by('expenses_date', 'asc')
                     ->fetchAll();
     $expensesSum = 0;
     $expensesAmount = [];

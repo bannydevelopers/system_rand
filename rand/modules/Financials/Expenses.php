@@ -7,19 +7,22 @@ $msg = '';
 $request = $_SERVER['REQUEST_URI'];
 
 if(isset($_POST['edit-expense'])){
-    $data = [
-        'expenses_date'=>$_POST['expenses_date'],
-        'expenses_description'=>$_POST['expenses_description'],
-        'expenses_amount'=>$_POST['expenses_amount']
-       ];
-    $k = $db->update('expenses', $data)
-            ->where(['expenses_id'=>intval($_POST['expenses_id'])])
-            ->commit();
-    if(!$db->error() && $k) {
-        $msg = 'Expese updated successful';
-        $status = 'success';
+    if($helper->user_can('can_edit_expenses')){
+        $data = [
+            'expenses_date'=>$_POST['expenses_date'],
+            'expenses_description'=>$_POST['expenses_description'],
+            'expenses_amount'=>$_POST['expenses_amount']
+        ];
+        $k = $db->update('expenses', $data)
+                ->where(['expenses_id'=>intval($_POST['expenses_id'])])
+                ->commit();
+        if(!$db->error() && $k) {
+            $msg = 'Expese updated successful';
+            $status = 'success';
+        }
+        else $msg = 'Error updating expense';
     }
-    else $msg = 'Error updating expense';
+    else $msg = 'Permission denied';
 }
 
 if(isset($_POST['ajax_del_exp'])){
@@ -55,6 +58,7 @@ if(isset($_POST['add-expense'])){
     }
     else $msg = 'Error adding expenses';
 }
+
 $expenses = $db->select('expenses')->order_by('expenses_id', 'desc')->fetchAll();
 $data = [
     'expenses'=>$expenses,
