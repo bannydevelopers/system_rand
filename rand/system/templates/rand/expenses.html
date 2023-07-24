@@ -71,6 +71,8 @@
 <?php }
 }?>
 
+<div id="message"></div> 
+
 <div class="flex flex-wrap -mx-3">
   <div class="flex-none w-full max-w-full pl-3">
     <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
@@ -87,24 +89,85 @@
           <table id="dTable" class="items-center py-4 w-full mb-0 align-top border-gray-200 text-slate-500">
             <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
               <tr>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Expense date</th>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Description</th>
                 <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Amount (<?=$currency?>)</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Expense date</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Created date</th>
+                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Action</th>
               </tr>
             </thead>
             <tbody>
               <?php foreach($expenses as $exp){?>
-              <tr class="border-b hover:bg-gray-200">
-                <td class="px-4 py-3 text-sm">
-                <?=helper::format_time($exp['expenses_date'],'d M, Y')?>
-                </td>
+              <tr id="expDiv-<?=$exp['expenses_id']?>" class="border-b hover:bg-gray-200">
                 <td class="px-4 py-3 text-sm">
                   <?=$exp['expenses_description']?>
                 </td>
                 <td class="px-4 py-3 text-sm">
                   <?=$exp['expenses_amount']?>
                 </td>
+                <td class="px-4 py-3 text-sm">
+                <?=helper::format_time($exp['expenses_date'],'d M, Y')?>
+                </td>
+                <td class="px-4 py-3 text-sm">
+                <?=helper::format_time($exp['create_time'],'d M, Y @ H:i:s')?>
+                </td>
+                <td>
+                  <div class="flex frex-row">
+                    <button class="text-blue-500 px-1" data-modal-target="add-expense-modal-<?=$exp['expenses_id']?>" data-modal-toggle="add-expense-modal-<?=$exp['expenses_id']?>">
+                      <span class="lg:hidden"><i class="fa-solid fa-pen-to-square"></i></span>
+                      <span class="hidden lg:flex">Edit</span>
+                    </button>
+                    <button class="text-red-500 px-1" id="del-<?=$exp['expenses_id']?>" onclick="delExp(this)">
+                      <span class="lg:hidden"><i class="fa-sharp fa-solid fa-trash"></i></span>
+                      <span class="hidden lg:flex">Delete</span>
+                    </button>
+                  </div>
+                </td>
               </tr>
+              <!-- Modal toggle -->
+<div id="add-expense-modal-<?=$exp['expenses_id']?>" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
+  <div class="relative w-full max-w-4xl max-h-full items-center">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="add-expense-modal-<?=$exp['expenses_id']?>" id="close-expense-modal-id">
+        <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+        <span class="sr-only">Close modal</span>
+      </button>
+      <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
+        <h3 class="mb-4 text-xl font-medium">Edit expense </h3>
+        <form class="space-y-6" method="POST" enctype="multipart/form-data">
+          <input type="hidden" value="<?=$exp['expenses_id']?>" name="expenses_id">
+          <div class="divide-y">
+            <div>
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full md:w-1/3 px-3"> 
+                  <label>Expenses date <span class="text-red-500">*</span>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="expenses_date" value="<?=helper::format_time($exp['expenses_date'],'Y-m-d')?>" required>
+                  </label>
+                </div>
+                <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
+                  <label>Description <span class="text-red-500">*</span>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="expense's description" name="expenses_description" value="<?=$exp['expenses_description']?>" required>
+                  </label>
+                </div>
+                <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
+                  <label>Amount <span class="text-red-500">*</span>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" name="expenses_amount" value="<?=$exp['expenses_amount']?>" required>
+                  </label>
+                </div>
+               </div>
+            </div>
+          </div>
+          <div class="pb-8">
+            <button type="submit" name="edit-expense" class="float-right text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!--/ Modal content -->
+  </div>
+</div> 
+<!--/ Modal toggle -->
               <?php }?>
             </tbody>
           </table>
@@ -120,4 +183,80 @@
   $(document).ready( function () {
     $('#dTable').DataTable();
   } );
+
+  async function delExp(values) {
+    if (!confirm("Sure you want to delete This expense? \nThis can not be undone!")) {
+      return;
+    }
+    
+    expDelBtn = document.getElementById(values.id);
+    expDelBtn.disabled = true;
+    expDelBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin fa-lg"></i>'
+
+    var expId = values.id.split('-');
+    const expData = new FormData();
+    expData.append('ajax_del_exp', expId[1]);
+    
+    let url = '<?=$request_uri?>';
+    let obj = {
+      method: "POST", 
+      body: expData,
+    }
+
+    let response = await fetch(url, obj)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('The response side is not ok!');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if(data.status == 'success'){
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+          <span>
+            <i class="fa-solid fa-circle-info fa-lg"></i>
+          </span>
+          <div class="ml-3 text-sm font-medium">
+            `+data.msg+`
+          </div> 
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+          </button>
+        </div>`;
+        document.getElementById('expDiv-'+expId[1]).remove();
+      }
+      else {
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+          <span>
+            <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+          </span>
+          <div class="ml-3 text-sm font-medium">
+            `+data.msg+`
+          </div> 
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
+            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+          </button>
+        </div>`;
+        expDelBtn.disabled = false;
+        expDelBtn.innerHTML = `<span class="lg:hidden"><i class="fa-sharp fa-solid fa-trash"></i></span>
+          <span class="hidden lg:flex">Delete</span>`;
+      }
+    })
+    .catch(error => {
+      document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-red-700 dark:bg-opacity-20 dark:text-red-400" role="alert">
+        <span>
+          <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+        </span>
+        <div class="ml-3 text-sm font-medium">
+          An error occured! Please try again later.
+        </div> 
+        <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 hover:bg-red-200 inline-flex  dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700">
+          <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+        </button>
+      </div>`;
+      expDelBtn.disabled = false;
+      expDelBtn.innerHTML = `<span class="lg:hidden"><i class="fa-sharp fa-solid fa-trash"></i></span>
+        <span class="hidden lg:flex">Delete</span>`;
+    });
+  }
 </script>

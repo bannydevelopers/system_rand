@@ -5,6 +5,41 @@ $status = 'fail';
 $msg = '';
 
 $request = $_SERVER['REQUEST_URI'];
+
+if(isset($_POST['edit-expense'])){
+    $data = [
+        'expenses_date'=>$_POST['expenses_date'],
+        'expenses_description'=>$_POST['expenses_description'],
+        'expenses_amount'=>$_POST['expenses_amount']
+       ];
+    $k = $db->update('expenses', $data)
+            ->where(['expenses_id'=>intval($_POST['expenses_id'])])
+            ->commit();
+    if(!$db->error() && $k) {
+        $msg = 'Expese updated successful';
+        $status = 'success';
+    }
+    else $msg = 'Error updating expense';
+}
+
+if(isset($_POST['ajax_del_exp'])){
+    if($helper->user_can('can_delete_expenses')){
+        $expense_id = intval($_POST['ajax_del_exp']);
+        $k = $db->delete('expenses')->where(['expenses_id'=>$expense_id])->commit();
+        if(!$db->error() && $k) {
+            $msg = 'Deletion succesfully';
+            $status = 'success';
+        }
+        else {
+            $msg = 'Deletion failed';
+        }
+    }
+    else {
+        $msg = 'Permission denied';
+    }
+    die(json_encode(['status'=>$status,'msg'=>$msg]));
+}
+
 if(isset($_POST['add-expense'])){
     $data = [
         'expenses_date'=>$_POST['expenses_date'], 
@@ -15,7 +50,7 @@ if(isset($_POST['add-expense'])){
     $k = $db->insert('expenses', $data);
    
     if(!$db->error() && $k) {
-        $msg = 'expense added successful';
+        $msg = 'Expense added successful';
         $status = 'success';
     }
     else $msg = 'Error adding expenses';
