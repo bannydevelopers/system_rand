@@ -52,12 +52,12 @@
 
       <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
         <div class="flex items-center md:ml-auto md:pr-4">
-          <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease-soft">
+          <!-- <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease-soft">
             <span class="text-sm ease-soft leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
               <i class="fas fa-search" aria-hidden="true"></i>
             </span>
             <input type="text" class="w-40 sm:w-full pl-8.75 text-sm focus:shadow-soft-primary-outline ease-soft leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder="Type here..." />
-          </div>
+          </div> -->
         </div>
         <ul class="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
           <li class="flex items-center px-2 xl:hidden">
@@ -70,12 +70,14 @@
             </a>
           </li>
           <li class="flex items-center px-2">
-            <a href="<?=$home?>?logout" class="transition-all text-sm ease-nav-brand text-white">
-              <i class="fa-solid fa-right-from-bracket"></i>
-            </a>
+            <form action="<?=$home?>" method="post">
+              <button type="submit" name="logout" class="transition-all text-sm ease-nav-brand text-white">
+                <span class="pr-2">LogOut</span><i class="fa-solid fa-right-from-bracket"></i>
+              </button>
+            </form>
           </li>
           <!-- notifications -->
-          <li class="relative flex items-center px-2">
+          <!-- <li class="relative flex items-center px-2">
             <p class="hidden transform-dropdown-show"></p>
             <a href="javascript:;" class="block transition-all text-sm ease-nav-brand text-white" dropdown-trigger aria-expanded="false">
               <i class="cursor-pointer fa fa-bell"></i>
@@ -108,7 +110,7 @@
                 </a>
               </li>
             </ul>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
@@ -321,7 +323,7 @@
             <ul class="flex flex-col pl-0 mb-0 rounded-lg">
               <li class="relative block px-0 py-2 bg-white border-0 rounded-t-lg text-inherit">
                 <div class="min-h-6 mb-0.5 block pl-0">
-                  <input id="launches projects" class="mt-0.54 rounded-10 duration-250 ease-soft-in-out after:rounded-circle after:shadow-soft-2xl after:duration-250 checked:after:translate-x-5.25 h-5 relative float-left ml-auto w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-slate-800/95 checked:bg-slate-800/95 checked:bg-none checked:bg-right" type="checkbox" />
+                  <input id="launches projects" class="mt-0.54 rounded-10 duration-250 ease-soft-in-out after:rounded-circle after:shadow-soft-2xl after:duration-250 checked:after:translate-x-5.25 h-5 relative float-left ml-auto w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-slate-800/95 checked:bg-slate-800/95 checked:bg-none checked:bg-right" type="checkbox" checked/>
                   <label for="launches projects" class="w-4/5 mb-0 ml-4 overflow-hidden font-normal cursor-pointer select-none text-sm text-ellipsis whitespace-nowrap text-slate-500" for="flexSwitchCheckDefault3">New launches and apartments</label>
                 </div>
               </li>

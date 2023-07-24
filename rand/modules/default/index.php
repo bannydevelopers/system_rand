@@ -36,7 +36,7 @@ else{
     $staff = $db->query($staff);
     $staffCount = $staff->fetchColumn();
 
-    $booked = "SELECT COUNT(payment_amount) FROM orders WHERE orders.payment_amount";
+    $booked = "SELECT COUNT(invoice_amount) FROM invoice";
     $booked = $db->query($booked);
     $bookedCount = $booked->fetchColumn();
 

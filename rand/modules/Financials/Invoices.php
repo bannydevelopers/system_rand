@@ -31,7 +31,7 @@ if($helper->user_can('can_view_invoice')){
     
     if(isset($_POST['add-invoice'])){
         if($helper->user_can('can_delete_invoice')){
-            $check_scheduling = $db->select('check_scheduling')->where(['check_id' => 35])->fetch();
+            $check_scheduling = $db->select('check_scheduling')->where(['check_id' => $_POST['check_id']])->fetch();
             if($check_scheduling){
                 $insInv = [
                     'invoice_ref_number' => 'INV12345', 
@@ -40,7 +40,7 @@ if($helper->user_can('can_view_invoice')){
                     'pay_status' => 'paid', 
                     'invoice_amount' => $check_scheduling['payment_amount']
                 ];
-                $invoice_id = $db->insert('invoice',$insInv); var_dump($db->error());
+                $invoice_id = $db->insert('invoice',$insInv);
                 if(!$db->error() && $insInv){
                     $k = $db->update('invoice', ['invoice_ref_number' => 'INV00'.$invoice_id])
                             ->where(['invoice_id'=>intval($invoice_id)])

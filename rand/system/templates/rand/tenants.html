@@ -1,9 +1,13 @@
 <div class="text-right pb-4">
   <!-- Modal toggle -->
   <a href="/admin/Financials/Invoices/" 
-  class="text-white bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mx-6 mb-3 px-3 py-1.5">
-  Create invoice
-</a>
+    class="text-blue-500 bg-white hover:underline focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mx-6 mb-3 px-3 py-2.5">
+    Invoices
+  </a>
+  <button data-modal-target="add-user-modal" data-modal-toggle="add-user-modal" 
+    class="text-white bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mb-3 px-3 py-1.5" type="button">
+    Add Tenant
+  </button>
 </div>
 <!-- Modal toggle -->
 <div id="add-user-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
@@ -139,11 +143,6 @@
     <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
       <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex">
         <h5>Tenant list</h5>
-        <!-- Modal toggle -->
-        <button data-modal-target="add-user-modal" data-modal-toggle="add-user-modal" 
-        class="text-blue-400 hover:text-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mx-6 px-2" type="button">
-          <i class="fa-solid fa-plus text-xl"></i>
-        </button>
       </div>
       <div class="px-1 pt-0 pb-2">
         <div class="py-0 px-3 overflow-x-auto">
