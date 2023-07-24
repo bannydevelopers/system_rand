@@ -8,9 +8,9 @@ if($helper->user_can('can_add_requests')){
         ->where(['requester'=>$my['user_id']])->group_by('status')
         ->fetchAll();
     $myApartments = $db->select('user','order_response, pay_status, category_name, category_description, apartment_name')
-        ->join('orders','user.user_id=orders.order_customer', 'LEFT')
-        ->join('apartment_category','orders.apartment_category=apartment_category.category_id', 'LEFT')
-        ->join('check_scheduling','orders.check_schedule=check_scheduling.check_id', 'LEFT')
+        ->join('invoices','user.user_id=invoices.order_customer', 'LEFT')
+        ->join('apartment_category','invoices.apartment_category=apartment_category.category_id', 'LEFT')
+        ->join('check_scheduling','invoices.check_schedule=check_scheduling.check_id', 'LEFT')
         ->join('apartments','check_scheduling.apartment_reference=apartments.apartment_id', 'LEFT')
         ->where(['user_id'=>$my['user_id']])
         ->fetchAll();
@@ -60,8 +60,8 @@ else{
                 ->group_by('category_id')
                 ->order_by('category_id','asc')
                 ->fetchAll();
-    $orders = $db->select('apartment_category','category_name, COUNT(payment_amount) as ordersCount, SUM(payment_amount) as ordersSum')
-                ->join('orders','orders.apartment_category=apartment_category.category_id', 'left')
+    $invoices = $db->select('apartment_category','category_name, COUNT(invoice_amount) as invoicesCount, SUM(invoice_amount) as invoicesSum')
+                ->join('invoice','apartment_category.category_id = invoice.apartment_cat_reference', 'left')
                 ->group_by('apartment_category.category_id')
                 ->order_by('category_id','asc')
                 ->fetchAll();
@@ -69,15 +69,15 @@ else{
     $aparCategories = [];
     $occupiedApartments = [];
     $freeApartments = [];
-    foreach($orders as $key => $order) {
-        $revenueSum += $order['ordersSum'];
-        array_push($aparCategories, $order['category_name']);
-        if($apartments[$key]['apartCount'] < $order['ordersCount']) {
+    foreach($invoices as $key => $invoice) {
+        $revenueSum += $invoice['invoicesSum'];
+        array_push($aparCategories, $invoice['category_name']);
+        if($apartments[$key]['apartCount'] < $invoice['invoicesCount']) {
             array_push($freeApartments, 0);
         }else {
-            array_push($freeApartments, $apartments[$key]['apartCount'] - $order['ordersCount']);
+            array_push($freeApartments, $apartments[$key]['apartCount'] - $invoice['invoicesCount']);
         }
-        array_push($occupiedApartments, $order['ordersCount']);
+        array_push($occupiedApartments, $invoice['invoicesCount']);
     }
 
     $data = [

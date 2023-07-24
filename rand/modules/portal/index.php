@@ -43,9 +43,9 @@ function get_images(){
 function get_welcome_data(){
     $db = db::get_connection(storage::init()->system_config->database);
     $apartments = $db->select('apartments','COUNT(apartment_id) as apartCount')->fetchAll();
-    $orders = $db->select('orders','COUNT(order_id) as ordersCount')->fetchAll();
+    $tenants = $db->select('tenants','COUNT(tenants_id) as tenantsCount')->fetchAll();
     $staff = $db->select('staff','COUNT(staff_id) as staffCount')->fetchAll();
-    return array($apartments, $staff, $orders);
+    return array($apartments, $staff, $tenants);
 }
 
 $storage= storage::init();
