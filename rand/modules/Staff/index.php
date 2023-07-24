@@ -197,7 +197,7 @@ if($helper->user_can('can_view_staff')){
         'status'=>$status,
         'request_uri'=>$request
     ];
-    echo helper::find_template('Staff', $data);
+    echo helper::find_template('staff', $data);
 }
 else echo helper::find_template('permission_denied');
 

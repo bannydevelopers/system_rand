@@ -17,4 +17,4 @@ if(isset($_POST['system_name'])){
     file_put_contents($fn, $json);
     header("Location: ./");
 }
-echo helper::find_template('System_config', $data);
+echo helper::find_template('system_config', $data);

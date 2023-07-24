@@ -117,7 +117,7 @@ $designations = $db->select('designation','designation_id,designation_name')->fe
     //die(helper::get_sub_template('user_permission_edit', ['permission'=>$perm_tree]));
 //}
 //var_dump('<pre>',$perm_tree);
-echo helper::find_template('User_permission', 
+echo helper::find_template('user_permission', 
     [
         'roles' => $role_tree,
         'designations'=>$designations,
