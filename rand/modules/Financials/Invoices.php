@@ -31,14 +31,17 @@ if($helper->user_can('can_view_invoice')){
     
     if(isset($_POST['add-invoice'])){
         if($helper->user_can('can_delete_invoice')){
-            $check_scheduling = $db->select('check_scheduling')->where(['check_id' => $_POST['check_id']])->fetch();
+            $check_scheduling = $db->select('check_scheduling', 'check_scheduling.payment_amount, apartments.apartment_category')
+                            ->join('apartments', 'check_scheduling.apartment_reference = apartments.apartment_id')
+                            ->where(['check_id' => $_POST['check_id']])->fetch();
             if($check_scheduling){
                 $insInv = [
-                    'invoice_ref_number' => 'INV12345', 
+                    'invoice_ref_number' => 'INV141413', 
                     'issued_by' => $my['user_id'], 
                     'check_scheduling' => $_POST['check_id'],
                     'pay_status' => 'paid', 
-                    'invoice_amount' => $check_scheduling['payment_amount']
+                    'invoice_amount' => $check_scheduling['payment_amount'],
+                    'apartment_cat_reference' => $check_scheduling['apartment_category']
                 ];
                 $invoice_id = $db->insert('invoice',$insInv);
                 if(!$db->error() && $insInv){
