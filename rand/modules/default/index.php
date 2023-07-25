@@ -1,18 +1,18 @@
 <?php 
 
 $db = db::get_connection(storage::init()->system_config->database);
-
+$my = helper::init()->get_session_user();
 if($helper->user_can('can_add_requests')){
     $my = helper::init()->get_session_user();
     $requests = $db->select('requests','status, COUNT(requests_id) as requestCount')
         ->where(['requester'=>$my['user_id']])->group_by('status')
         ->fetchAll();
-    $myApartments = $db->select('user','order_response, pay_status, category_name, category_description, apartment_name')
-        ->join('invoices','user.user_id=invoices.order_customer', 'LEFT')
-        ->join('apartment_category','invoices.apartment_category=apartment_category.category_id', 'LEFT')
-        ->join('check_scheduling','invoices.check_schedule=check_scheduling.check_id', 'LEFT')
+    $myApartments = $db->select('invoice', 'apartment_name, category_name, category_description, invoice.pay_status, user_id')
+        ->join('check_scheduling','invoice.check_scheduling=check_scheduling.check_id', 'LEFT')
         ->join('apartments','check_scheduling.apartment_reference=apartments.apartment_id', 'LEFT')
-        ->where(['user_id'=>$my['user_id']])
+        ->join('user','check_scheduling.user_ref = user.user_id', 'LEFT')
+        ->join('apartment_category','invoice.apartment_cat_reference=apartment_category.category_id', 'LEFT')
+        //->where(['user.user_id' => intval($my['user_id'])])
         ->fetchAll();
                 
     $totalRequests = 0;
@@ -24,7 +24,8 @@ if($helper->user_can('can_add_requests')){
     $data = [
         'requests' => $requests, 
         'totalRequests' => $totalRequests,
-        'myApartments' => $myApartments
+        'myApartments' => $myApartments,
+        'me' => $my['user_id']
     ];
 }
 else{
