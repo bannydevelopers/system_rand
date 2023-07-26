@@ -324,7 +324,7 @@
   function setMinimumDate() {
       const today = new Date();
       const todayString = today.toISOString().slice(0, 10);
-      document.getElementById("checkin").min = todayString;
+      //document.getElementById("checkin").min = todayString;
       const tomorrow = new Date(today.getTime() + 86400000);
       const tomorrowString = tomorrow.toISOString().slice(0, 10);
       document.getElementById("checkout").min = tomorrowString;
