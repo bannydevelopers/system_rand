@@ -82,8 +82,9 @@ $requests = $db->select('requests')
     ->order_by('requests_id', 'desc')
     ->fetchAll();
 $myApartments = $db->select('user','apartment_id, apartment_name')
-        ->join('orders','user.user_id=orders.order_customer', 'LEFT')
-        ->join('check_scheduling','orders.check_schedule=check_scheduling.check_id', 'LEFT')
+        ->join('tenants','user.user_id=user_reference')
+        ->join('check_scheduling', 'user.user_id = check_scheduling.user_ref', 'LEFT')
+        ->join('invoice', 'invoice.check_scheduling = check_scheduling.check_id')
         ->join('apartments','check_scheduling.apartment_reference=apartments.apartment_id', 'LEFT')
         ->where(['user_id'=>$my['user_id']])
         ->fetchAll();

@@ -3,21 +3,26 @@ Contract
 </h2>
     
 <div>
-  <!-- <?=var_dump('<pre>',$user)?> -->
-  <div class="w-full sm:w-5/6 ml-2 mr-auto">
+  <?php foreach($contracts as $cont) {?>
+  <div class="w-full sm:w-5/6 ml-2 mb-8 mr-auto">
     <div class="bg-gray-50 px-4 py-8 text-justify">
-      <div class="text-center text-2xl pb-4">Tenant contract</div>
-      This Residential Lease Agreement is made and entered into as of the <span class="font-semibold"><?=$user['create_time']?helper::format_time($user['create_time'],'d M, Y'):'[Date]'?></span> by and between <span class="font-semibold"><?=$user['first_name']?> <?=$user['last_name']?></span>, (“Tenant”), and <span class="font-semibold">Rand Company</span>, (“Landlord”).
+      <div class="text-center text-2xl pb-4">
+        Tenant contract 
+        <?php $currentDateTime = new DateTime('now'); $currentDate = $currentDateTime->format('Y-m-d H:i:s'); ?>
+        <span class="pl-2"><?=$cont['check_out']<$currentDate?'(expired)':''?></span>
+      </div>
+
+      This Residential Lease Agreement is made and entered into as of the <span class="font-semibold"><?=$cont['check_in']?helper::format_time($cont['check_in'],'d M, Y'):'[Date]'?></span> by and between <span class="font-semibold"><?=$cont['first_name']?> <?=$cont['last_name']?></span>, (“Tenant”), and <span class="font-semibold">Rand Company</span>, (“Landlord”).
       <br><br>
       In consideration of the mutual covenants and agreements contained herein, the parties agree as follows:
       <br><br>
-      Premises. Landlord rents to Tenant, and Tenant rents from Landlord, the premises located at <span class="font-semibold">Oysterbay</span> (the “Apartment”). The Premises consist of <span class="font-semibold"><?=$user['bathroom']?$user['bathroom']:'[Number]'?></span> bedrooms and <span class="font-semibold"><?=$user['bathroom']?$user['bathroom']:'[Number]'?></span> bathrooms.
+      Premises. Landlord rents to Tenant, and Tenant rents from Landlord, the premises located at <span class="font-semibold">Oysterbay</span> (the “Apartment”). The Premises consist of <span class="font-semibold"><?=$cont['bathroom']?$cont['bathroom']:'[Number]'?></span> bedrooms and <span class="font-semibold"><?=$cont['bathroom']?$cont['bathroom']:'[Number]'?></span> bathrooms.
       <br><br>
 
-      Term. The term of this Agreement shall commence on <span class="font-semibold"><?=$user['check_in']?helper::format_time($user['check_in'],'d M, Y'):'[Start Date]'?></span> and shall continue for a period up to <span class="font-semibold"><?=$user['check_out']?helper::format_time($user['check_out'],'d M, Y'):'[End Date]'?></span>, unless sooner terminated as provided herein.
+      Term. The term of this Agreement shall commence on <span class="font-semibold"><?=$cont['check_in']?helper::format_time($cont['check_in'],'d M, Y'):'[Start Date]'?></span> and shall continue for a period up to <span class="font-semibold"><?=$cont['check_out']?helper::format_time($cont['check_out'],'d M, Y'):'[End Date]'?></span>, unless sooner terminated as provided herein.
       <br><br>
 
-      Rent shall be due and payable before the tenant in the Apartment. Tenant shall deposit with Landlord a security deposit in the amount of days expected to live. <!--<span class="font-semibold"><?=$user['payment_amount']?$user['payment_amount']:'[Amount]'?></span>--> The payment will not be refunded under any circumstance even the termination of this Agreement.
+      Rent shall be due and payable before the tenant in the Apartment. Tenant shall deposit with Landlord a security deposit in the amount of days expected to live. <!--<span class="font-semibold"><?=$cont['payment_amount']?$cont['payment_amount']:'[Amount]'?></span>--> The payment will not be refunded under any circumstance even the termination of this Agreement.
       <br><br>
 
       Utilities. Tenant shall be responsible for the payment of all utilities for the Premises, including water, sewer, gas, and electricity.
@@ -49,4 +54,5 @@ Contract
       <!-- [Landlord Signature] -->
     </div>
   </div>
+  <?php } ?>
 </div>
