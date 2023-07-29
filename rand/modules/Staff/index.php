@@ -91,18 +91,16 @@ if(isset($_POST['edit-staff'])){
             'email'=>helper::format_email($_POST['email']), //
             //'password'=>md5($token), 
         ];
-        $reg_no = addslashes($_POST['staff_registration_number']);
-        $whr ="(email='{$user['email']}' OR staff_registration_number = '{$reg_no}')";
         $test = $db->select('staff')
                 ->join('user','user_reference=user_id')
-                ->where($whr)
+                ->where(['email'=>$user['email']])
                 ->and("staff_id != {$_POST['staff_id']}")
-                ->fetch();
+                ->fetch();var_dump($db->error());
         if(!$test){
             $db->update('user', $user)->where(['user_id' => $_POST['user_id']])->commit();
 
             $staff = [
-                'staff_registration_number'=>$reg_no,
+                //'staff_registration_number'=>addslashes($_POST['staff_registration_number']),
                 'residence_address'=>addslashes($_POST['residence_address']), 
                 'designation'=>addslashes($_POST['designation']), 
                 'staff_date_employed'=>helper::format_time($_POST['date_employed'], 'Y-m-d H:i:s'),
@@ -146,14 +144,14 @@ if(isset($_POST['add-staff'])){
                 ->join('user','user_reference=user_id')
                 ->where(['email'=>$user['email']])
                 ->or(['phone_number'=>$user['phone_number']])
-                ->or(['staff_registration_number'=>addslashes($_POST['staff_registration_number'])])
+                //->or(['staff_registration_number'=>addslashes($_POST['staff_registration_number'])])
                 ->fetch();
         if($test) $msg = 'Staff information exists, try to edit existing one if necessary';
         else {
             $user_id = $db->insert('user',$user);
             if(intval($user_id)){
                 $staff = [
-                    'staff_registration_number'=>addslashes($_POST['staff_registration_number']), 
+                    //'staff_registration_number'=>addslashes($_POST['staff_registration_number']), 
                     'residence_address'=>addslashes($_POST['residence_address']), 
                     'designation'=>addslashes($_POST['designation']), 
                     'user_reference'=>$user_id, 

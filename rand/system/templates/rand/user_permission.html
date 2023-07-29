@@ -128,17 +128,19 @@
                                 <!-- Role -->
                                 <div class=" text-gray-800">
                                   <div class="pt-2 ml-5">
-                                    <?php foreach($permissions as $sublegend=>$permission){?>
+                                    <?php foreach($permissions as $sublegend=>$permission){
+                                      if($sublegend != 'Contract'){ ?>
                                       <!-- Legend -->
                                       <div>
                                         <h4 class="my-4 font-semibold text-gray-700 py-2">
                                           <label class="text-xl text-ellipsis overflow-hidden ml-2 font-large text-gray-900">
                                             <input onchange="update_boxes()" type="checkbox"  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
-                                            <?=$sublegend?><!--pre><?php var_dump(array_column($roles[$role][$sublegend],'permission_name'))?></pre-->
+                                            <?=$sublegend?>
                                           </label>
                                         </h4>
                                         <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-                                          <?php foreach($permission as $k=>$v){?>
+                                          <?php foreach($permission as $k=>$v){
+                                            if($v['permission_name'] != 'can_add_requests') {?>
                                           <!-- Permissions -->
                                           <div class="flex justify-between mb-2 gap-2">
                                             <label class="text-ellipsis overflow-hidden ml-2 text-sm font-medium text-gray-900">
@@ -147,11 +149,11 @@
                                             </label> 
                                           </div>
                                           <!--/ Permissions -->
-                                          <?php }?>
+                                          <?php }} ?>
                                         </div>
                                       </div>
                                       <!--/ Legend -->
-                                      <?php }?>
+                                      <?php }} ?>
                                   </div>
                                 </div>
                                 <!--/ Role -->
