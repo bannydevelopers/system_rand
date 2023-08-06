@@ -1,5 +1,4 @@
 
-
         <?php if(helper::init()->user_can('can_add_requests')){?>
         <!-- row -->
         <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full">
@@ -63,7 +62,7 @@
                     <div>
                       <p class="mb-0 font-sans font-semibold leading-normal text-sm">Staff</p>
                       <h5 class="mb-0 font-bold">
-                        <?=$staffCount?>
+                        <?=$staffCount - 1?>
                       </h5>
                     </div>
                   </div>
@@ -86,7 +85,7 @@
                 <div class="flex flex-row -mx-3">
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                      <p class="mb-0 font-sans font-semibold leading-normal text-sm">New booking </p>
+                      <p class="mb-0 font-sans font-semibold leading-normal text-sm">Booking </p>
                       <h5 class="mb-0 font-bold">
                         +<?=$bookedCount?>
                       </h5>

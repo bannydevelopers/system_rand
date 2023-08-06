@@ -26,6 +26,21 @@ if(isset($_POST['ajax_del_staff'])){
     die(json_encode(['status'=>$status,'msg'=>$msg]));
 }
 
+if(isset($_POST['ajax_reset_staff_pass'])){
+    if($helper->user_can('can_edit_staff')){
+        $k = $db->update('user', ['password' =>helper::create_hash('staff123'), ])
+                ->where(['user_id'=>intval($_POST['ajax_reset_staff_pass'])])
+                ->commit();
+        if(!$db->error() && $k){
+            $msg = 'Account password reset successful';
+            $status = 'success';
+        }
+        else $msg = 'Status update failed';
+    }
+    else $msg = 'Permission denied';
+    die(json_encode(['status'=>$status,'msg'=>$msg]));
+}
+
 if(isset($_POST['ajax_activate_user'])){
     if($helper->user_can('can_edit_staff')){
         $k = $db->update('user', ['status'=>$_POST['status']])
@@ -50,14 +65,14 @@ if(isset($_POST['add-designation'])){
     if($helper->user_can('can_add_designation')){
         $data = [
             'designation_name'=>addslashes($_POST['designation_name']),
-            'designation_detail'=>addslashes($_POST['designation_details'])
+            // 'designation_detail'=>addslashes($_POST['designation_details'])
         ];
         $k = $db->insert('designation', $data);
         if(intval($k)) {
-            $msg = 'Designation added successful';
+            $msg = "Designation added successful! {$_POST['designation_name']}";
             $status = 'success';
         }
-        else  $msg = 'Error adding designation. Possibly duplicate entry encounted';
+        else  $msg = "Error adding designation! {$_POST['designation_name']}";
     }
     else $msg = 'You do not have permission for the action';
 }
@@ -66,10 +81,10 @@ if(isset($_POST['add-role'])){
     if($helper->user_can('can_add_role')){
         $role_id = $db->insert('role',['role_name'=>$_POST['role_name']]);
         if(intval($role_id)) {
-            $msg = 'Role added successful';
+            $msg = "Role added successful! {$_POST['role_name']}";
             $status = 'success';
         }
-        else $msg = 'Role adding failed, possibly a duplicate already exists';
+        else $msg = "Addition for {$_POST['role_name']}  failed!";
     }
     else $msg = 'Permission denied';
 }
@@ -87,9 +102,8 @@ if(isset($_POST['edit-staff'])){
             'middle_name'=>$mn,
             'last_name'=>$ln,
             'system_role'=>$_POST['role_id'],
-            'phone_number'=>helper::format_phone_number($_POST['phone_number']), //
-            'email'=>helper::format_email($_POST['email']), //
-            //'password'=>md5($token), 
+            'phone_number'=>helper::format_phone_number($_POST['phone_number']), 
+            'email'=>helper::format_email($_POST['email']), 
         ];
         $test = $db->select('staff')
                 ->join('user','user_reference=user_id')

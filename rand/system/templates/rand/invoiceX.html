@@ -100,9 +100,8 @@
                     <select class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" name="check_id" onchange="add_customer()" required>
                         <option value="">Choose ...</option>
                         <?php foreach($xinvoice as $xinv){?>
-                        <option value="<?=$xinv['check_id']?>"><?=$xinv['apartment_name']?> - <?=$xinv['full_name']?></option>
+                        <option value="<?=$xinv['check_id']?>"><?=$xinv['apartment_name']?> - Check in (<?=helper::format_time($xinv['check_in'], 'M d, Y')?>) - <?=$xinv['full_name']?></option>
                         <?php }?>
-                        <option value="add">Add customer</option>
                     </select>
                   </div>
                 </div>
@@ -176,7 +175,7 @@
             <?=number_format($inv['invoice_amount'])?>
           </td>
           <td class="px-4 py-3 text-sm">
-            <?=$inv['pay_status']?>
+            <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full"><?=$inv['pay_status']?></span>
           </td>
           <td class="px-4 py-3 text-sm">
             <?=helper::format_time($inv['created_time'], 'M d, Y @ H:i')?>

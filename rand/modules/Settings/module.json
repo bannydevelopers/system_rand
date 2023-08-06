@@ -27,11 +27,14 @@
         "can_add_payment_gateway",
         "can_edit_payment_gateway",
         "can_delete_payment_gateway",
+
         "can_view_system_backup",
+
         "can_add_system_configuration",
         "can_edit_system_configuration",
         "can_view_system_configuration",
         "can_delete_system_configuration",
+        
         "can_add_user_permission",
         "can_edit_user_permission",
         "can_delete_user_permission",

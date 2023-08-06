@@ -45,16 +45,15 @@ Add new role
             <h3 class="mb-4 text-xl font-medium">Add designation </h3>
             <form class="space-y-6" method="POST">
               <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-1/2 px-3">
-                  <label>Designation name <span class="text-red-500">*</span>
+                <div class="w-full px-3">
+                  <label>Designation name <span class="text-red-500">*</span></label>
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Designation" name="designation_name" required>
-                  </label>
                 </div>
-                <div class="w-1/2 px-3">
-                  <label>Designation details 
+                <!-- <div class="w-1/2 px-3">
+                  <label>Designation details
                     <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" type="text" placeholder="Details" name="designation_details">
                   </label>
-                </div>
+                </div> -->
               </div>
               <div class="pb-8">
                 <button name="add-designation" type="submit" class="float-right text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
@@ -124,9 +123,10 @@ Add new role
                   <label>Role <span class="text-red-500">*</span></label>
                     <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="role" onchange="openRoleModal(this)" required>
                       <option selected="true" disabled="disabled">Choose...</option>   
-                      <?php foreach($roles as $r) { ?>
+                      <?php foreach($roles as $r) { 
+                        if($r['role_id'] != 10){ ?>
                         <option value="<?=$r['role_id']?>"><?=$r['role_name']?></option>
-                      <?php } ?>
+                      <?php }} ?>
                       <option value="">Add role</option>
                     </select>
                 </div>
@@ -205,7 +205,8 @@ Add new role
       </div>
       <section class="text-gray-600 body-font">
         <div class="flex flex-wrap">
-          <?php foreach($staff as $x) { ?>
+          <?php foreach($staff as $x) { 
+            if($x['staff_id']!=1){ ?>
           <!-- Card -->
           <div id="tr-<?=$x['staff_id']?>" class="w-full lg:w-1/2">
             <div class="flex flex-col sm:flex-row m-2 py-2 bg-gray-100 rounded-2">
@@ -254,12 +255,12 @@ Add new role
                       <i class="fa-solid fa-pen-to-square fa-lg"></i>
                     </button>
                     <?php if($x['staff_id']!=1){ ?>
-                    <button onclick="resetPass(this)"
+                    <button id="reset2-<?=$x['user_id']?>" onclick="resetPass(this)"
                       class="items-center justify-between px-2 text-sm font-medium text-blue-600 rounded-lg focus:outline-none focus:outline-gray-300"
-                      aria-label="Edit">
+                      aria-label="Reset">
                       <i class="fa-solid fa-key fa-lg"></i>
                     </button>
-                    <button id="del-<?=$x['staff_id']?>" onclick="delStaff(this)" class="items-center justify-between px-2 text-sm font-medium text-red-600 rounded-lg focus:outline-none focus:outline-gray-300"
+                    <button id="del2-<?=$x['staff_id']?>" onclick="delStaff(this)" class="items-center justify-between px-2 text-sm font-medium text-red-600 rounded-lg focus:outline-none focus:outline-gray-300"
                       aria-label="Delete">
                       <i class="fa-solid fa-trash fa-lg"></i>
                     </button>
@@ -280,7 +281,7 @@ Add new role
   <div class="relative w-full max-w-4xl max-h-full items-center">
     <!-- Modal content -->
     <div class="relative bg-white rounded-lg shadow">
-      <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-hide="edit-staff-modal-<?=$x['staff_id']?>">
+      <button id="close-user-modal-id-<?=$x['staff_id']?>" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-hide="edit-staff-modal-<?=$x['staff_id']?>">
         <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
         <span class="sr-only">Close modal</span>
       </button>
@@ -316,17 +317,18 @@ Add new role
                       <?php foreach($designation as $d) { ?>
                         <option value="<?=$d['designation_id']?>"><?=$d['designation_name']?></option>
                       <?php } ?>
-                      <option value="">Add designation</option>
+                      <option value="add-new-des-<?=$x['staff_id']?>">Add designation</option>
                     </select>
                 </div>
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
                   <label>Role <span class="text-red-500">*</span></label>
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="role_id" onchange="openDesModal(this)" required>
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="role_id" onchange="openRoleModal(this)" required>
                       <option value="<?=$x['role_id']?>"><?=$x['role_name']?></option>   
-                      <?php foreach($roles as $r) { ?>
+                      <?php foreach($roles as $r) { 
+                        if($r['role_id'] != 10){?>
                         <option value="<?=$r['role_id']?>"><?=$r['role_name']?></option>
-                      <?php } ?>
-                      <option value="">Add role</option>
+                      <?php }} ?>
+                      <option value="add-new-role-<?=$x['staff_id']?>">Add role</option>
                     </select>
                 </div>
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
@@ -359,7 +361,7 @@ Add new role
   </div>
 </div> 
 <!--/ Modal -->
-          <?php } ?>
+          <?php }} ?>
         </div>
       </section>
         <!-- <div>
@@ -375,14 +377,22 @@ Add new role
 
 <script>
   function openDesModal(selDesVal) {
-    if(selDesVal.value == "") {
+    if(selDesVal.value == "") { 
       document.getElementById("close-user-modal-id").click();
+      document.getElementById("add-designation-modal-id").click();
+    }
+    else if(selDesVal.value.startsWith("add-new-des")) {
+      document.getElementById("close-user-modal-id-"+selDesVal.value.split('-')[3]).click();
       document.getElementById("add-designation-modal-id").click();
     }
   }
   function openRoleModal(selRoleVal) {
     if(selRoleVal.value == "") {
       document.getElementById("close-user-modal-id").click();
+      document.getElementById("add-role-modal-id").click();
+    }
+    else if(selRoleVal.value.startsWith("add-new-role")) {
+      document.getElementById("close-user-modal-id-"+selRoleVal.value.split('-')[3]).click();
       document.getElementById("add-role-modal-id").click();
     }
   }
@@ -398,11 +408,67 @@ Add new role
       <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
     </button>
   </div>`
+
   async function resetPass(values) {
     if (!confirm("Sure you want to RESET staff PASSWORD to DEFAULT?")) {
       return;
     }
+    resetStaffBtn = document.getElementById(values.id);
+    resetStaffBtn.disabled = true;
+    resetStaffBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin fa-lg"></i>'
+
+    var staffId = values.id.split('-');
+    const staffData = new FormData();
+    staffData.append('ajax_reset_staff_pass', staffId[1]);
+
+    let url = '<?=$request_uri?>';
+    let obj = {
+      method: "POST", 
+      body: staffData,
+    }
+
+    let response = await fetch(url, obj)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('The response side is not ok!');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if(data.status == 'success'){
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+          <span>
+            <i class="fa-solid fa-circle-info fa-lg"></i>
+          </span>
+          <div class="ml-3 text-sm font-medium">
+            `+data.msg+`
+          </div> 
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+          </button>
+        </div>`;
+      }
+      if(data.status == 'fail'){
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+          <span>
+            <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+          </span>
+          <div class="ml-3 text-sm font-medium">
+            `+data.msg+`
+          </div> 
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
+            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+          </button>
+        </div>`;
+      }
+    })
+    .catch(error => {
+      document.getElementById("message").innerHTML = problem;
+    });
+    resetStaffBtn.disabled = false;
+    resetStaffBtn.innerHTML = '<i class="fa-solid fa-key fa-lg"></i>';
   }
+
   async function delStaff(values) {
     if (!confirm("Sure you want to delete staff?")) {
       return;

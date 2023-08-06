@@ -1,15 +1,91 @@
 <div class="text-right pb-4">
   <!-- Modal toggle -->
-  <a href="/admin/Financials/Invoices/" 
-    class="text-blue-500 bg-white hover:underline focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mx-6 mb-3 px-3 py-2.5">
-    Invoices
+  <a href="/admin/Financials/Invoices/" >
+    <button
+    class="text-blue-500 hover:underline bg-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mb-3 mr-3 px-3 py-1.5" type="button">
+    Invoices <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    </button>
   </a>
   <button data-modal-target="add-user-modal" data-modal-toggle="add-user-modal" 
     class="text-white bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mb-3 px-3 py-1.5" type="button">
-    Add Tenant
+    Add new Tenant
+  </button>
+  <button data-modal-target="continue-user-modal" data-modal-toggle="continue-user-modal" 
+    class="text-white bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mb-3 px-3 py-1.5" type="button">
+    Continue with Tenant
   </button>
 </div>
-<!-- Modal toggle -->
+<!-- Modal -->
+<div id="continue-user-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
+  <div class="relative w-full max-w-4xl max-h-full items-center">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="continue-user-modal" id="close-user-modal-id">
+        <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+        <span class="sr-only">Close modal</span>
+      </button>
+      <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
+        <h3 class="mb-4 text-xl font-medium">For existed tenants </h3>
+        <form class="space-y-6" method="POST" enctype="multipart/form-data">
+          <div class="divide-y">
+            <div>
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3 my-1 md:my-0"> 
+                  <label>Tenant <span class="text-red-500">*</span></label>
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="user_id" required>
+                      <option selected="true" disabled="disabled">Choose...</option>   
+                      <?php foreach($tenants as $tenant) { ?>
+                        <option value="<?=$tenant['user_id']?>"><?=$tenant['first_name']?> <?=$tenant['middle_name']?> <?=$tenant['last_name']?> - <?=$tenant['email']?></option>
+                      <?php } ?>
+                    </select>
+                </div>
+              </div>
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                  <label>Apartment <span class="text-red-500">*</span></label>
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="apartment_reference" id="apartment-price" onchange="update_price()" required>
+                      <option selected="true" disabled="disabled">Choose...</option>   
+                      <?php foreach($apartment as $pp) { ?>
+                        <option value="<?=$pp['apartment_id']?>" data-price-daily="<?=$pp['price_per_day']?>" data-price="<?=$pp['price']?>"><?=$pp['category_name']?> - <?=$pp['apartment_name']?> - <?=$pp['apartment_floor']?></option>
+                      <?php } ?>
+                    </select>
+                </div>
+                <div class="w-full md:w-1/3 px-3"> 
+                  <label>Date in <span class="text-red-500">*</span></label>
+                    <input id="checkin" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="date_in" onchange="changeCheckoutDate(this)" required>
+                </div>
+                <div class="w-full md:w-1/3 px-3"> 
+                  <label>Date out <span class="text-red-500">*</span></label>
+                    <input id="checkout" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="date_out" onchange="update_price()" required>
+                </div>
+              </div>
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                  <label>Adults <span class="text-red-500">*</span></label>
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" min="1" placeholder="Number of adults" name="adults" required>
+                </div>
+                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                  <label>Children
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" min="0" placeholder="children" name="children">
+                  </label>
+                </div>
+                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                  <label>Total amount (<?=$currency?>)
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" value="0" id="order_amount" name="order_amount">
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pb-8">
+            <button type="submit" name="add-tenant" class="float-right text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!--/ Modal content -->
+  </div>
+</div> 
 <div id="add-user-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
   <div class="relative w-full max-w-4xl max-h-full items-center">
     <!-- Modal content -->
@@ -19,7 +95,7 @@
         <span class="sr-only">Close modal</span>
       </button>
       <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
-        <h3 class="mb-4 text-xl font-medium">Add tenants </h3>
+        <h3 class="mb-4 text-xl font-medium">Add new tenants </h3>
         <form class="space-y-6" method="POST" enctype="multipart/form-data">
           <div class="divide-y">
             <div>
@@ -63,20 +139,20 @@
               <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
                   <label>Apartment <span class="text-red-500">*</span></label>
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="apartment_reference" id="apartment-price" onchange="update_price()" required>
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="apartment_reference" id="apartment-price1" onchange="update_price1()" required>
                       <option selected="true" disabled="disabled">Choose...</option>   
                       <?php foreach($apartment as $pp) { ?>
-                        <option value="<?=$pp['apartment_id']?>" data-price-daily="<?=$pp['price_per_day']?>" data-price="<?=$pp['price']?>"><?=$pp['apartment_name']?> - <?=$pp['apartment_floor']?></option>
+                        <option value="<?=$pp['apartment_id']?>" data-price-daily="<?=$pp['price_per_day']?>" data-price="<?=$pp['price']?>"><?=$pp['category_name']?> - <?=$pp['apartment_name']?> - <?=$pp['apartment_floor']?></option>
                       <?php } ?>
                     </select>
                 </div>
                 <div class="w-full md:w-1/3 px-3"> 
                   <label>Date in <span class="text-red-500">*</span></label>
-                    <input id="checkin" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="date_in" onchange="changeCheckoutDate(this)" required>
+                    <input id="checkin1" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="date_in" onchange="changeCheckoutDate1(this)" required>
                 </div>
                 <div class="w-full md:w-1/3 px-3"> 
                   <label>Date out <span class="text-red-500">*</span></label>
-                    <input id="checkout" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="date_out" onchange="update_price()" required>
+                    <input id="checkout1" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="date_out" onchange="update_price1()" required>
                 </div>
               </div>
               <div class="flex flex-wrap -mx-3 mb-6">
@@ -91,7 +167,7 @@
                 </div>
                 <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
                   <label>Total amount (<?=$currency?>)
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" value="0" id="order_amount" name="order_amount">
+                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" value="0" id="order_amount1" name="order_amount">
                   </label>
                 </div>
               </div>
@@ -106,7 +182,7 @@
     <!--/ Modal content -->
   </div>
 </div> 
-<!--/ Modal toggle -->
+
 <?php if($msg){ 
   if($status == 'success') {?>
   <div x-data="{ open: true }" x-show="open" class="msg flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
@@ -140,176 +216,363 @@
 
 <div class="flex flex-wrap -mx-3">
   <div class="flex-none w-full max-w-full pl-3">
-    <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-      <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent flex">
-        <h5>Tenant list</h5>
+
+
+    <?php $currentDateTime = new DateTime('now'); $currentDate = $currentDateTime->format('Y-m-d H:i:s'); ?>
+
+    <div class="py-2 bg-white">
+      <!-- Tabs -->
+      <div class="border-b border-gray-200 dark:border-gray-700 mb-4">
+        <ul class="flex flex-wrap -mb-px" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+            <li class="mr-2" role="presentation">
+              <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg p-4 text-md font-bold text-center border-transparent border-b-2" id="current-tab" data-tabs-target="#current-tenant" type="button" role="tab" aria-controls="current-tenant">Current Tenants</button>
+            </li>
+            <li class="mr-2" role="presentation">
+              <button class="inline-block text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg p-4 text-md font-bold text-center border-transparent border-b-2" id="prev-tab" data-tabs-target="#prev-tenant" type="button" role="tab" aria-controls="prev-tenant">Previous Tenants</button>
+            </li>
+        </ul>
       </div>
-      <div class="px-1 pt-0 pb-2">
-        <div class="py-0 px-3 overflow-x-auto">
-          <table id="dTable" class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
-            <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
-              <tr>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Name</th>
-                <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date in</th>
-                <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date out</th>
-                <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Apartment</th>
-                <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Adults</th>
-                <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Children</th>
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Adress</th> 
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Passport #</th> 
-                <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-                if (is_array($tenants) || is_object($tenants))
-                foreach ($tenants as $tena)
-              {?>
-              <tr id="tr-<?=$tena['user_id']?>" class="border-b border-gray-200 border-b-solid hover:bg-gray-200">
-                <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
-                  <div class="flex px-2 py-1">
-                      <div class="relative h-10 w-10 mr-4">
-                        <img class="rounded-full border border-gray-100 shadow-sm h-10 w-10" src="../assets/img/no-profile.jpg" alt="user image" /> 
-                        <div class="absolute top-0 right-0 h-3 w-3 my-1 border-2 border-white rounded-full bg-green-400 z-2"></div>
-                      </div>
-                      <div class="text-sm">
-                        <span style="white-space: nowrap;"><?=$tena['first_name']?> <?=$tena['middle_name']?> <?=$tena['last_name']?></span><br>
-                        <a href="mailto:<?=$tena['email']?>" class="hover:text-blue-500 hover:underline"><?=$tena['email']?></a><br>
-                        <a href="tel:+<?=$tena['phone_number']?>" class="hover:text-blue-500 hover:underline">+<?=$tena['phone_number']?></a><br>
-                      </div>
+      <!-- Tabs -->
+      <!-- Details -->
+      <div id="myTabContent">
+        <div class="px-4 rounded-lg" id="current-tenant" role="tabpanel" aria-labelledby="current-tab">
+          <div class="">
+            <table id="d1Table" class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
+              <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
+                <tr>
+                  <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Name</th>
+                  <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date in</th>
+                  <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date out</th>
+                  <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Apartment</th>
+                  <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Adults</th>
+                  <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Children</th>
+                  <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Adress</th> 
+                  <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Passport #</th> 
+                  <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                  if (is_array($tenants) || is_object($tenants)) foreach ($tenants as $tena){
+                    if($tena['check_out'] > $currentDate) { ?>
+                <tr id="tr-<?=$tena['check_id']?>" class="border-b border-gray-200 border-b-solid hover:bg-gray-200">
+                  <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
+                    <div class="flex px-2 py-1">
+                        <div class="relative h-10 w-10 mr-4">
+                          <img class="rounded-full border border-gray-100 shadow-sm h-10 w-10" src="../assets/img/no-profile.jpg" alt="user image" /> 
+                          <div class="absolute top-0 right-0 h-3 w-3 my-1 border-2 border-white rounded-full bg-green-400 z-2"></div>
+                        </div>
+                        <div class="text-sm">
+                          <span style="white-space: nowrap;"><?=$tena['first_name']?> <?=$tena['middle_name']?> <?=$tena['last_name']?></span><br>
+                          <a href="mailto:<?=$tena['email']?>" class="hover:text-blue-500 hover:underline"><?=$tena['email']?></a><br>
+                          <a href="tel:+<?=$tena['phone_number']?>" class="hover:text-blue-500 hover:underline">+<?=$tena['phone_number']?></a><br>
+                        </div>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-sm">
+                    <?=helper::format_time($tena['check_in'],'d M, Y')?>
+                  </td>
+                  <td class="px-4 py-3 text-sm">
+                    <?=helper::format_time($tena['check_out'],'d M, Y')?>
+                  </td>
+                  <td class="px-4 py-3 text-sm">
+                    <?=$tena['apartment_name']?> <br> <?=$tena['apartment_floor']?>
+                  </td>
+                  <td class="px-4 py-3 text-sm text-center">
+                    <?=$tena['adults']?>
+                  </td>
+                  <td class="px-4 py-3 text-sm text-center">
+                    <?=$tena['children']?>
+                  </td>
+                  <td class="px-4 py-3 text-sm">
+                    <?=$tena['country']?><br>
+                    <?=$tena['residence_address']?>
+                  </td> 
+                  <td class="px-4 py-3 text-sm">
+                    <?=$tena['passport_number']?>
+                  </td> 
+                  <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
+                    <a href="javascript:;" data-modal-target="edit-tenant-modal-<?=$tena['check_id']?>" data-modal-toggle="edit-tenant-modal-<?=$tena['check_id']?>" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
+                    <button id="<?=$tena['user_id']?>" checkId="<?=$tena['check_id']?>" class="font-semibold leading-tight text-sm text-red-500 pl-2" onclick="deleteTenant(this)">Delete</button>
+                  </td>
+                </tr>
+                <!-- Modal toggle -->
+  <div id="edit-tenant-modal-<?=$tena['check_id']?>"  tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
+    <div class="relative w-full max-w-4xl max-h-full items-center">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="edit-tenant-modal-<?=$tena['check_id']?>"  id="close-user-modal-id">
+          <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+          <span class="sr-only">Close modal</span>
+        </button>
+        <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
+          <h3 class="mb-4 text-xl font-medium">Edit tenants </h3>
+          <form class="space-y-6" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="tenants_id" value="<?=$tena['tenants_id']?>">
+            <input type="hidden" name="user_id" value="<?=$tena['user_id']?>">
+            <input type="hidden" name="check_id" value="<?=$tena['check_id']?>">
+            <div class="divide-y">
+              <div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
+                    <label>Full name <span class="text-red-500">*</span>
+                      <input  class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="User's full name" name="full_name" value="<?=$tena['first_name'] . ' ' . $tena['middle_name'] . ' ' . $tena['last_name']?>"
+                      required>
+                    </label>
                   </div>
-                </td>
-                <td class="px-4 py-3 text-sm">
-                  <?=helper::format_time($tena['check_in'],'d M, Y')?>
-                </td>
-                <td class="px-4 py-3 text-sm">
-                  <?=helper::format_time($tena['check_out'],'d M, Y')?>
-                </td>
-                <td class="px-4 py-3 text-sm">
-                  <?=$tena['apartment_name']?> <br> <?=$tena['apartment_floor']?>
-                </td>
-                <td class="px-4 py-3 text-sm text-center">
-                  <?=$tena['adults']?>
-                </td>
-                <td class="px-4 py-3 text-sm text-center">
-                  <?=$tena['children']?>
-                </td>
-                <td class="px-4 py-3 text-sm">
-                  <?=$tena['country']?><br>
-                  <?=$tena['residence_address']?>
-                </td> 
-                <td class="px-4 py-3 text-sm">
-                  <?=$tena['passport_number']?>
-                </td> 
-                <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
-                  <a href="javascript:;" data-modal-target="edit-asset-modal-<?=$tena['tenants_id']?>" data-modal-toggle="edit-asset-modal-<?=$tena['tenants_id']?>" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
-                  <button id="<?=$tena['user_id']?>" class="font-semibold leading-tight text-sm text-red-500 pl-2" onclick="deleteTenant(this)">Delete</button>
-                </td>
-              </tr>
-              <!-- Modal toggle -->
-<div id="edit-asset-modal-<?=$tena['tenants_id']?>"  tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
-  <div class="relative w-full max-w-4xl max-h-full items-center">
-    <!-- Modal content -->
-    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-      <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="edit-asset-modal-<?=$tena['tenants_id']?>"  id="close-user-modal-id">
-        <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
-        <span class="sr-only">Close modal</span>
-      </button>
-      <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
-        <h3 class="mb-4 text-xl font-medium">Edit tenants </h3>
-        <form class="space-y-6" method="POST" enctype="multipart/form-data">
-          <input type="hidden" name="tenants_id" value="<?=$tena['tenants_id']?>">
-          <input type="hidden" name="user_id" value="<?=$tena['user_id']?>">
-          <input type="hidden" name="check_id" value="<?=$tena['check_id']?>">
-          <div class="divide-y">
-            <div>
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
-                  <label>Full name <span class="text-red-500">*</span>
-                    <input  class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="User's full name" name="full_name" value="<?=$tena['first_name'] . ' ' . $tena['middle_name'] . ' ' . $tena['last_name']?>"
-                    required>
-                  </label>
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
+                    <label>Email address <span class="text-red-500">*</span>
+                      <input type="email" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="Email address" name="tenants_email" value="<?=$tena['email']?>" required>
+                    </label>
+                  </div>
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
+                    <label class="flex flex-col"><div>Phone number <span class="text-red-500">*</span></div>
+                      <input id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" type="tel" name="phone_number" value="<?=$tena['phone_number']?>" required>
+                    </label>
+                  </div>
                 </div>
-                <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
-                  <label>Email address <span class="text-red-500">*</span>
-                    <input type="email" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="Email address" name="tenants_email" value="<?=$tena['email']?>" required>
-                  </label>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                    <label>Country <span class="text-red-500">*</span>
+                      <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="country" required>
+                        <option value="<?=$tena['country']?>"><?=$tena['country']?></option>
+                        <?php include('countries.html') ?>
+                      </select>
+                    </label>
+                  </div>
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                    <label>Resident adress
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="Resident adress" name="residence_address" value="<?=$tena['residence_address']?>">
+                    </label>
+                  </div>
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                    <label>Passport number 
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" value="<?=$tena['passport_number']?>" placeholder="passport number" name="passport_number">
+                    </label>
+                  </div>
                 </div>
-                <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
-                  <label class="flex flex-col"><div>Phone number <span class="text-red-500">*</span></div>
-                    <input id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" type="tel" name="phone_number" value="<?=$tena['phone_number']?>" required>
-                  </label>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                    <label>Apartment <span class="text-red-500">*</span></label>
+                      <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="apartment_reference" required>
+                        <option value="<?=$tena['apartment_id']?>"><?=$tena['apartment_name']?></option>   
+                        <?php foreach($apartment as $pp) { ?>
+                          <option value="<?=$pp['apartment_id']?>"><?=$pp['apartment_name']?></option>
+                        <?php } ?>
+                      </select>
+                  </div>
+                  <div class="w-full md:w-1/3 px-3"> 
+                    <label>Date in <span class="text-red-500">*</span></label>
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="date_in" value="<?=helper::format_time($tena['check_in'], 'Y-m-d')?>" required>
+                  </div>
+                  <div class="w-full md:w-1/3 px-3"> 
+                    <label>Date out <span class="text-red-500">*</span></label>
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="date_out" value="<?=helper::format_time($tena['check_out'], 'Y-m-d')?>" required>
+                  </div>
                 </div>
-              </div>
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
-                  <label>Country <span class="text-red-500">*</span>
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="country" required>
-                      <option value="<?=$tena['country']?>"><?=$tena['country']?></option>
-                      <?php include('countries.html') ?>
-                    </select>
-                  </label>
-                </div>
-                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
-                  <label>Resident adress
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="Resident adress" name="residence_address" value="<?=$tena['residence_address']?>">
-                  </label>
-                </div>
-                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
-                  <label>Passport number 
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" value="<?=$tena['passport_number']?>" placeholder="passport number" name="passport_number">
-                  </label>
-                </div>
-              </div>
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
-                  <label>Apartment <span class="text-red-500">*</span></label>
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="apartment_reference" required>
-                      <option value="<?=$tena['apartment_id']?>"><?=$tena['apartment_name']?></option>   
-                      <?php foreach($apartment as $pp) { ?>
-                        <option value="<?=$pp['apartment_id']?>"><?=$pp['apartment_name']?></option>
-                      <?php } ?>
-                    </select>
-                </div>
-                <div class="w-full md:w-1/3 px-3"> 
-                  <label>Date in <span class="text-red-500">*</span></label>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="date_in" value="<?=helper::format_time($tena['check_in'], 'Y-m-d')?>" required>
-                </div>
-                <div class="w-full md:w-1/3 px-3"> 
-                  <label>Date out <span class="text-red-500">*</span></label>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="date_out" value="<?=helper::format_time($tena['check_out'], 'Y-m-d')?>" required>
-                </div>
-              </div>
-              <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
-                  <label>Adults <span class="text-red-500">*</span>
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="adults" name="adults" value="<?=$tena['adults']?>" required>
-                  </label>
-                </div>
-                <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
-                  <label>Children 
-                    <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="children" name="children" value="<?=$tena['children']?>">
-                  </label>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                    <label>Adults <span class="text-red-500">*</span>
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="adults" name="adults" value="<?=$tena['adults']?>" required>
+                    </label>
+                  </div>
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                    <label>Children 
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="children" name="children" value="<?=$tena['children']?>">
+                    </label>
+                  </div>
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                    <label>Total amount (<?=$currency?>)
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" value="<?=$tena['payment_amount']?>" name="order_amount">
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="pb-8">
-            <button type="submit" name="edit-tenant" class="float-right text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Save</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <!--/ Modal content -->
-  </div>
-</div> 
-<!--/ Modal toggle -->
-              <?php }?>
-            </tbody>
-          </table>
+            <div class="pb-8">
+              <button type="submit" name="edit-tenant" class="float-right text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Save</button>
+            </div>
+          </form>
         </div>
       </div>
+      <!--/ Modal content -->
     </div>
+  </div> 
+  <!--/ Modal toggle -->
+                <?php }} ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="px-4 rounded-lg" id="prev-tenant" role="tabpanel" aria-labelledby="prev-tab">
+          <div class="">
+            <table id="d2Table" class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
+              <thead class="align-bottom uppercase text-slate-800 text-sm text-left">
+                <tr>
+                  <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Name</th>
+                  <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date in</th>
+                  <th class="px-3 py-3 font-bold text-center bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Date out</th>
+                  <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Apartment</th>
+                  <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Adults</th>
+                  <th class="px-3 py-3 pl-2 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Children</th>
+                  <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Adress</th> 
+                  <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Passport #</th> 
+                  <th class="px-3 py-3 font-bold bg-transparent border-b border-gray-200 shadow-none border-b-solid tracking-none whitespace-nowrap opacity-70">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                  if (is_array($tenants) || is_object($tenants)) foreach ($tenants as $tena){
+                    if($tena['check_out'] < $currentDate) { ?>
+                <tr id="tr-<?=$tena['check_id']?>" class="border-b border-gray-200 border-b-solid hover:bg-gray-200">
+                  <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
+                    <div class="flex px-2 py-1">
+                        <div class="relative h-10 w-10 mr-4">
+                          <img class="rounded-full border border-gray-100 shadow-sm h-10 w-10" src="../assets/img/no-profile.jpg" alt="user image" /> 
+                          <div class="absolute top-0 right-0 h-3 w-3 my-1 border-2 border-white rounded-full bg-gray-400 z-2"></div>
+                        </div>
+                        <div class="text-sm">
+                          <span style="white-space: nowrap;"><?=$tena['first_name']?> <?=$tena['middle_name']?> <?=$tena['last_name']?></span><br>
+                          <a href="mailto:<?=$tena['email']?>" class="hover:text-blue-500 hover:underline"><?=$tena['email']?></a><br>
+                          <a href="tel:+<?=$tena['phone_number']?>" class="hover:text-blue-500 hover:underline">+<?=$tena['phone_number']?></a><br>
+                        </div>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-sm">
+                    <?=helper::format_time($tena['check_in'],'d M, Y')?>
+                  </td>
+                  <td class="px-4 py-3 text-sm">
+                    <?=helper::format_time($tena['check_out'],'d M, Y')?>
+                  </td>
+                  <td class="px-4 py-3 text-sm">
+                    <?=$tena['apartment_name']?> <br> <?=$tena['apartment_floor']?>
+                  </td>
+                  <td class="px-4 py-3 text-sm text-center">
+                    <?=$tena['adults']?>
+                  </td>
+                  <td class="px-4 py-3 text-sm text-center">
+                    <?=$tena['children']?>
+                  </td>
+                  <td class="px-4 py-3 text-sm">
+                    <?=$tena['country']?><br>
+                    <?=$tena['residence_address']?>
+                  </td> 
+                  <td class="px-4 py-3 text-sm">
+                    <?=$tena['passport_number']?>
+                  </td> 
+                  <td class="p-2 bg-transparent whitespace-nowrap shadow-transparent">
+                    <a href="javascript:;" data-modal-target="edit-tenant-modal-<?=$tena['check_id']?>" data-modal-toggle="edit-tenant-modal-<?=$tena['check_id']?>" class="font-semibold leading-tight text-sm text-blue-500"> Edit </a>
+                    <button id="<?=$tena['user_id']?>" checkId="<?=$tena['check_id']?>" class="font-semibold leading-tight text-sm text-red-500 pl-2" onclick="deleteTenant(this)">Delete</button>
+                  </td>
+                </tr>
+                <!-- Modal toggle -->
+  <div id="edit-tenant-modal-<?=$tena['check_id']?>"  tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
+    <div class="relative w-full max-w-4xl max-h-full items-center">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="edit-tenant-modal-<?=$tena['check_id']?>"  id="close-user-modal-id">
+          <i class="fa-solid fa-xmark fa-2xl w-5 h-2 mt-3"></i>
+          <span class="sr-only">Close modal</span>
+        </button>
+        <div class="px-6 py-6 lg:px-8 text-gray-900 dark:text-white">
+          <h3 class="mb-4 text-xl font-medium">Edit tenants </h3>
+          <form class="space-y-6" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="tenants_id" value="<?=$tena['tenants_id']?>">
+            <input type="hidden" name="user_id" value="<?=$tena['user_id']?>">
+            <input type="hidden" name="check_id" value="<?=$tena['check_id']?>">
+            <div class="divide-y">
+              <div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
+                    <label>Full name <span class="text-red-500">*</span>
+                      <input  class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="User's full name" name="full_name" value="<?=$tena['first_name'] . ' ' . $tena['middle_name'] . ' ' . $tena['last_name']?>"
+                      required>
+                    </label>
+                  </div>
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
+                    <label>Email address <span class="text-red-500">*</span>
+                      <input type="email" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="Email address" name="tenants_email" value="<?=$tena['email']?>" required>
+                    </label>
+                  </div>
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0">
+                    <label class="flex flex-col"><div>Phone number <span class="text-red-500">*</span></div>
+                      <input id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" type="tel" name="phone_number" value="<?=$tena['phone_number']?>" required>
+                    </label>
+                  </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                    <label>Country <span class="text-red-500">*</span>
+                      <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="country" required>
+                        <option value="<?=$tena['country']?>"><?=$tena['country']?></option>
+                        <?php include('countries.html') ?>
+                      </select>
+                    </label>
+                  </div>
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                    <label>Resident adress
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" placeholder="Resident adress" name="residence_address" value="<?=$tena['residence_address']?>">
+                    </label>
+                  </div>
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                    <label>Passport number 
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="text" value="<?=$tena['passport_number']?>" placeholder="passport number" name="passport_number">
+                    </label>
+                  </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                    <label>Apartment <span class="text-red-500">*</span></label>
+                      <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="apartment_reference" required>
+                        <option value="<?=$tena['apartment_id']?>"><?=$tena['apartment_name']?></option>   
+                        <?php foreach($apartment as $pp) { ?>
+                          <option value="<?=$pp['apartment_id']?>"><?=$pp['apartment_name']?></option>
+                        <?php } ?>
+                      </select>
+                  </div>
+                  <div class="w-full md:w-1/3 px-3"> 
+                    <label>Date in <span class="text-red-500">*</span></label>
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="date_in" value="<?=helper::format_time($tena['check_in'], 'Y-m-d')?>" required>
+                  </div>
+                  <div class="w-full md:w-1/3 px-3"> 
+                    <label>Date out <span class="text-red-500">*</span></label>
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="date" name="date_out" value="<?=helper::format_time($tena['check_out'], 'Y-m-d')?>" required>
+                  </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                    <label>Adults <span class="text-red-500">*</span>
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="adults" name="adults" value="<?=$tena['adults']?>" required>
+                    </label>
+                  </div>
+                  <div class="w-full md:w-1/3 px-3 my-1 md:my-0"> 
+                    <label>Children 
+                      <input class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" type="number" placeholder="children" name="children" value="<?=$tena['children']?>">
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pb-8">
+              <button type="submit" name="edit-tenant" class="float-right text-white bg-blue-500 hover:bg-blue-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!--/ Modal content -->
+    </div>
+  </div> 
+  <!--/ Modal toggle -->
+                <?php }} ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    
+      </div>
+      <!-- Details -->
+    </div>
+
   </div>
 </div>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
@@ -317,7 +580,8 @@
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>  
 <script>
   $(document).ready( function () {
-    $('#dTable').DataTable();
+    $('#d1Table').DataTable();
+    $('#d2Table').DataTable();
   } );
 </script>
 <script>
@@ -378,6 +642,63 @@
     update_price();
   }
 
+  ///////
+  function setMinimumDate1() {
+    const today = new Date();
+    const todayString = today.toISOString().slice(0, 10);
+    //document.getElementById("checkin").min = todayString;
+    const tomorrow = new Date(today.getTime() + 86400000);
+    const tomorrowString = tomorrow.toISOString().slice(0, 10);
+    document.getElementById("checkout1").min = tomorrowString;
+  }
+  setMinimumDate1();
+
+  function update_price1(){
+    let apartmentPrice = document.getElementById('apartment-price1'),
+    amount = 0,
+    price_panel = document.getElementById('order_amount1');
+    cat_price = parseInt(apartmentPrice.options[apartmentPrice.selectedIndex].getAttribute("data-price")),
+    price_per_day = parseInt(apartmentPrice.options[apartmentPrice.selectedIndex].getAttribute("data-price-daily")),
+    checkin = document.getElementById("checkin1").value,
+    checkout = document.getElementById("checkout1").value,
+    discount_rate = 0,
+    discount = 0;
+    if(checkin == '' || checkout == '') return;
+    let days = (new Date(checkout).getTime() - new Date(checkin).getTime()) / 86400000;
+    let min_price = cat_price / 30;
+    discount_rate = (price_per_day - min_price) / 15;
+    
+    if(days > 14){
+        let discountable = days - 14;
+        if(days > 30){
+            discount = min_price;
+        }
+        else{
+            discount = price_per_day - (price_per_day * ( (discountable * discount_rate) / 100 ) );
+            if(discount < min_price) discount = min_price;
+        }
+        amount = discount * days;
+    }
+    else{
+        amount = price_per_day * days;
+    }
+    price_panel.value = Math.round(amount);
+  }
+  function changeCheckoutDate1(checkin) {
+    var checkout = document.getElementById("checkout1") 
+    var checkinDateObj = new Date(checkin.value);
+    var checkoutDateObj = new Date(checkout.value);
+    var nextDay = new Date(checkinDateObj.getTime() + 86400000);
+    const nextDayString = nextDay.toISOString().slice(0, 10);
+    if(checkinDateObj > checkoutDateObj) {
+        checkout.value = nextDayString;
+        checkout.min = nextDayString;
+    }else {
+        checkout.min = nextDayString;
+    }
+    update_price1();
+  }
+
   function deleteTenant(tenant) {
     if (!confirm("Sure you want to delete tenant? \nThis action can not be undone!")) {
       return;
@@ -387,7 +708,8 @@
     tenantDelBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin fa-lg"></i>'
 
     const formData = new FormData();
-    formData.append('tenantId', tenant.id)
+    formData.append('userId', tenant.id)
+    formData.append('check_id', tenant.getAttribute('checkId'))
     fetch('<?=$request_uri?>', {
       method: 'POST',
       body: formData
@@ -406,7 +728,7 @@
             <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
           </button>
         </div>`;
-        document.getElementById('tr-'+tenant.id).remove();
+        document.getElementById('tr-'+tenant.getAttribute('checkId')).remove();
       }
       else {
         document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">

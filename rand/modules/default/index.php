@@ -8,10 +8,10 @@ if($helper->user_can('can_add_requests')){
         ->where(['requester'=>$my['user_id']])->group_by('status')
         ->fetchAll();
     $myApartments = $db->select('invoice', 'apartment_name, category_name, category_description, invoice.pay_status, user_id')
-        ->join('check_scheduling','invoice.check_scheduling=check_scheduling.check_id', 'LEFT')
-        ->join('apartments','check_scheduling.apartment_reference=apartments.apartment_id', 'LEFT')
+        ->join('check_scheduling','invoice.check_scheduling = check_scheduling.check_id', 'LEFT')
+        ->join('apartments','check_scheduling.apartment_reference = apartments.apartment_id', 'LEFT')
         ->join('user','check_scheduling.user_ref = user.user_id', 'LEFT')
-        ->join('apartment_category','invoice.apartment_cat_reference=apartment_category.category_id', 'LEFT')
+        ->join('apartment_category','invoice.apartment_cat_reference = apartment_category.category_id', 'LEFT')
         //->where(['user.user_id' => intval($my['user_id'])])
         ->fetchAll();
                 
@@ -37,7 +37,7 @@ else{
     $staff = $db->query($staff);
     $staffCount = $staff->fetchColumn();
 
-    $booked = "SELECT COUNT(invoice_amount) FROM invoice";
+    $booked = "SELECT COUNT(check_id) FROM check_scheduling WHERE check_out > NOW()";
     $booked = $db->query($booked);
     $bookedCount = $booked->fetchColumn();
 
@@ -61,8 +61,18 @@ else{
                 ->group_by('category_id')
                 ->order_by('category_id','asc')
                 ->fetchAll();
-    $invoices = $db->select('apartment_category','category_name, COUNT(invoice_amount) as invoicesCount, SUM(invoice_amount) as invoicesSum')
-                ->join('invoice','apartment_category.category_id = invoice.apartment_cat_reference', 'left')
+    // $takenApartments = $db->select('apartment_category','category_name, COUNT(invoice_amount) as invoicesCount, SUM(invoice_amount) as invoicesSum')
+    //             ->join('invoice','apartment_category.category_id = invoice.apartment_cat_reference', 'left')
+    //             ->join('check_scheduling','invoice.check_scheduling = check_scheduling.check_id')
+    //             //->where('check_out >= CURRENT_TIMESTAMP')
+    //             ->group_by('apartment_category.category_id')
+    //             ->order_by('category_id','asc')
+    //             ->fetchAll();var_dump($takenApartments);
+    $takenApartments = $db->select('check_scheduling', 'category_name, COUNT(invoice_amount) as invoicesCount, SUM(invoice_amount) as invoicesSum')
+                ->join('apartments', 'check_scheduling.apartment_reference = apartments.apartment_id', 'left')
+                ->join('apartment_category' ,'apartments.apartment_category = apartment_category.category_id', 'left')
+                ->join('invoice' ,'invoice.check_scheduling = check_scheduling.check_id', 'left')
+                //->where('check_out >= CURRENT_TIMESTAMP')
                 ->group_by('apartment_category.category_id')
                 ->order_by('category_id','asc')
                 ->fetchAll();
@@ -70,15 +80,17 @@ else{
     $aparCategories = [];
     $occupiedApartments = [];
     $freeApartments = [];
-    foreach($invoices as $key => $invoice) {
-        $revenueSum += $invoice['invoicesSum'];
-        array_push($aparCategories, $invoice['category_name']);
-        if($apartments[$key]['apartCount'] < $invoice['invoicesCount']) {
-            array_push($freeApartments, 0);
-        }else {
-            array_push($freeApartments, $apartments[$key]['apartCount'] - $invoice['invoicesCount']);
+    if($takenApartments && $apartments){
+        foreach($takenApartments as $key => $invoice) {
+            $revenueSum += $invoice['invoicesSum'];
+            array_push($aparCategories, $invoice['category_name']);
+            if($apartments[$key]['apartCount'] < $invoice['invoicesCount']) {
+                array_push($freeApartments, 0);
+            }else {
+                array_push($freeApartments, $apartments[$key]['apartCount'] - $invoice['invoicesCount']);
+            }
+            array_push($occupiedApartments, $invoice['invoicesCount']);
         }
-        array_push($occupiedApartments, $invoice['invoicesCount']);
     }
 
     $data = [

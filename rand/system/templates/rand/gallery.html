@@ -4,8 +4,8 @@
     class="text-white bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mx-6 mb-3 px-3 py-1.5" type="button">
       Add Image
     </button>
-    <button
-    class="text-white bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mr-6 mb-3 px-3 py-1.5" type="button">
+    <button id="del-photo" onclick="delPhoto()" form="gallery-form"
+    class="text-white bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-center mr-6 mb-3 px-3 py-1.5" type="button">
       Delete
     </button>
 </div>
@@ -98,11 +98,12 @@
 <!-- component -->
 <section class="text-gray-600 body-font">
     <div class="container p-5 mx-auto">
+      <form id="gallery-form" class="w-full">
       <div class="flex flex-wrap -m-4">
         <?php foreach ($images as $image) { ?>
-          <div class="lg:w-1/4 md:1/3 sm:w-1/2 w-full p-4 relative">
+          <div id="photoDiv-<?=$image['img_id']?>" class="lg:w-1/4 md:1/3 sm:w-1/2 w-full p-4 relative">
             <div class="absolute top-5 left-5 z-20">
-              <input type="checkbox" value="<?=$v['permission_id']?>" name="images[]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+              <input type="checkbox" value="<?=$image['img_id']?>" name="images[]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
             </div>
             <div class="flex relative h-32">
               <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="uploads/gallery/<?=$image['img_name']?>">
@@ -113,6 +114,7 @@
           </div>
         <?php } ?>
       </div>
+    </form>
     </div>
   </section>
 
@@ -173,4 +175,83 @@
         multiUploadDeleteButton.classList.add("hidden");
         multiUploadDeleteButton.classList.remove("z-100", "p-2", "my-auto");
     }
+
+    async function delPhoto() {
+      if (!confirm("Sure you want to delete Selected Photo?")) {
+        return;
+      }
+      
+      photoDelBtn = document.getElementById("del-photo");
+      photoDelBtn.disabled = true;
+      photoDelBtn.innerHTML = 'Deleting...';
+
+      const formElement = document.getElementById("gallery-form")
+      const photoData = new URLSearchParams();
+      for (const pair of new FormData(formElement)) {
+        photoData.append(pair[0], pair[1]);
+      }
+      photoData.append('ajax_del_photo', 1);
+      //for (let obj of photoData) {console.log(obj);}
+
+      let url = '<?=$request_uri?>';
+      let obj = {
+        method: "POST", 
+        body: photoData,
+      }
+  
+      let response = await fetch(url, obj)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('The response side is not ok!');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if(data.status == 'success'){
+          document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-green-800 rounded-lg bg-green-100 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <span>
+              <i class="fa-solid fa-circle-info fa-lg"></i>
+            </span>
+            <div class="ml-3 text-sm font-medium">
+              `+data.msg+`
+            </div> 
+            <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 hover:bg-green-200 inline-flex  dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700">
+              <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+            </button>
+          </div>`;
+          document.getElementById('photoDiv-'+photoId[1]).remove();
+        }
+        else {
+          document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
+            <span>
+              <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+            </span>
+            <div class="ml-3 text-sm font-medium">
+              `+data.msg+`
+            </div> 
+            <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 hover:bg-yellow-200 inline-flex  dark:bg-gray-800 dark:text-yellow-400 dark:hover:bg-gray-700">
+              <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+            </button>
+          </div>`;
+          photoDelBtn.disabled = false;
+          photoDelBtn.innerHTML = `Delete`;
+        }
+      })
+      .catch(error => {
+        document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-red-700 dark:bg-opacity-20 dark:text-red-400" role="alert">
+          <span>
+            <i class="fa-solid fa-circle-exclamation fa-lg"></i>
+          </span>
+          <div class="ml-3 text-sm font-medium">
+            An error occured! Please try again later.
+          </div> 
+          <button type="button" @click="open = false" class="ml-auto -mx-1.5 px-1 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 hover:bg-red-200 inline-flex  dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700">
+            <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
+          </button>
+        </div>`;
+        photoDelBtn.disabled = false;
+        photoDelBtn.innerHTML = `Delete`;
+      });
+    }
+  
 </script>

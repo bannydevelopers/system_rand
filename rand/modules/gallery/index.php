@@ -81,16 +81,18 @@ if(isset($_POST["upload-images"])){
     else $msg = 'Please select an image file to upload.';  
 }
 
-if(isset($_POST['ajax_del_gallery'])){
-    if($helper->user_can('can_delete_gallery')){
-        $img_id = intval($_POST['ajax_del_gallery']);
-        $k = $db->delete('gallery')->where(['img_id'=>$img_id])->commit();
-        if(!$db->error() && $k) {
-            $msg = 'Deletion succesfully';
-            $status = 'success';
-        }
-        else {
-            $msg = 'Deletion failed';
+if(isset($_POST['ajax_del_photo'])){
+    if($helper->user_can('can_delete_on_gallery')){
+        foreach($_POST['images'] as $val){
+            $img_id = 1111;
+            $k = $db->delete('gallery')->where(['img_id'=>$img_id])->commit();
+            if(!$db->error() && $k) {
+                $msg = 'Deletion succesfully';
+                $status = 'success';
+            }
+            else {
+                $msg = 'Deletion failed';
+            }
         }
     }
     else {

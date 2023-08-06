@@ -66,7 +66,7 @@ if($helper->user_can('can_view_invoice')){
                 ->join('tenants','tenants.user_reference = cust.user_id', 'left')
                 ->order_by('invoice_id', 'desc')->fetchAll(); 
 
-    $xinvoice = $db->select('check_scheduling', 'check_id, payment_amount, apartment_name, CONCAT_WS(" ", first_name, last_name) as full_name')
+    $xinvoice = $db->select('check_scheduling', 'check_id, check_in, payment_amount, apartment_name, CONCAT_WS(" ", first_name, last_name) as full_name')
                 ->join('user', 'check_scheduling.user_ref = user.user_id')
                 ->join('apartments', 'check_scheduling.apartment_reference = apartments.apartment_id', 'left')
                 ->where('check_id NOT IN (SELECT check_scheduling FROM invoice WHERE invoice.check_scheduling = check_scheduling.check_id)')
