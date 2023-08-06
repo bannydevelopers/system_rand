@@ -83,22 +83,28 @@ if(isset($_POST["upload-images"])){
 
 if(isset($_POST['ajax_del_photo'])){
     if($helper->user_can('can_delete_on_gallery')){
-        foreach($_POST['images'] as $val){
-            $img_id = 1111;
-            $k = $db->delete('gallery')->where(['img_id'=>$img_id])->commit();
+        $uploadPath = "rand/system/assets/uploads/gallery/";
+        $countSuccess = 0;
+        $countFail = 0;
+        foreach($_POST['images'] as $filename){
+            $k = $db->delete('gallery')->where(['img_name'=>$filename])->commit();
             if(!$db->error() && $k) {
-                $msg = 'Deletion succesfully';
+                if(file_exists($uploadPath.$filename)) {
+                    unlink($uploadPath.$filename);
+                    $countSuccess++;
+                }
+            }
+            else $countFail++;
+            if($countSuccess > 0) {
+                $msg = $countSuccess.' Images has been deleted succesfully.';
                 $status = 'success';
             }
-            else {
-                $msg = 'Deletion failed';
-            }
+            else if($countFail > 0) $msg = $countFail.' Images fails to be deleted!';
+            else $msg = 'Select Images to delete.';
         }
     }
-    else {
-        $msg = 'Permission denied';
-    }
-    die(json_encode(['status'=>$status,'msg'=>$msg]));
+    else $msg = 'Permission denied';
+    die(json_encode(['status'=>$status,'msg'=> $msg]));
 }
 
 $images = $db->select('gallery')

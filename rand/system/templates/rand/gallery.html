@@ -101,9 +101,9 @@
       <form id="gallery-form" class="w-full">
       <div class="flex flex-wrap -m-4">
         <?php foreach ($images as $image) { ?>
-          <div id="photoDiv-<?=$image['img_id']?>" class="lg:w-1/4 md:1/3 sm:w-1/2 w-full p-4 relative">
+          <div id="photoDiv-<?=$image['img_name']?>" class="lg:w-1/4 md:1/3 sm:w-1/2 w-full p-4 relative">
             <div class="absolute top-5 left-5 z-20">
-              <input type="checkbox" value="<?=$image['img_id']?>" name="images[]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+              <input type="checkbox" value="<?=$image['img_name']?>" name="images[]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
             </div>
             <div class="flex relative h-32">
               <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="uploads/gallery/<?=$image['img_name']?>">
@@ -183,7 +183,7 @@
       
       photoDelBtn = document.getElementById("del-photo");
       photoDelBtn.disabled = true;
-      photoDelBtn.innerHTML = 'Deleting...';
+      photoDelBtn.innerHTML = 'Deleting <i class="fa-solid fa-spinner fa-spin fa-lg"></i>';
 
       const formElement = document.getElementById("gallery-form")
       const photoData = new URLSearchParams();
@@ -191,7 +191,6 @@
         photoData.append(pair[0], pair[1]);
       }
       photoData.append('ajax_del_photo', 1);
-      //for (let obj of photoData) {console.log(obj);}
 
       let url = '<?=$request_uri?>';
       let obj = {
@@ -219,7 +218,9 @@
               <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
             </button>
           </div>`;
-          document.getElementById('photoDiv-'+photoId[1]).remove();
+          for (const pair of new FormData(formElement)) {
+            document.getElementById('photoDiv-'+pair[1]).remove();
+          }
         }
         else {
           document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-700 dark:bg-opacity-20 dark:text-yellow-400" role="alert">
@@ -233,11 +234,9 @@
               <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
             </button>
           </div>`;
-          photoDelBtn.disabled = false;
-          photoDelBtn.innerHTML = `Delete`;
         }
       })
-      .catch(error => {
+      .catch(error => {console.log(error);
         document.getElementById("message").innerHTML = `<div x-data="{ open: true }" x-show="open" class="flex items-center p-3 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-red-700 dark:bg-opacity-20 dark:text-red-400" role="alert">
           <span>
             <i class="fa-solid fa-circle-exclamation fa-lg"></i>
@@ -249,9 +248,9 @@
             <span class="font-bold px-1"><i class="fa-solid fa-xmark fa-xl"></i></span>
           </button>
         </div>`;
-        photoDelBtn.disabled = false;
-        photoDelBtn.innerHTML = `Delete`;
       });
+      photoDelBtn.disabled = false;
+      photoDelBtn.innerHTML = `Delete`;
     }
   
 </script>
