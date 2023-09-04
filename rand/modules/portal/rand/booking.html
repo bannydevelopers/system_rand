@@ -121,9 +121,13 @@
         </div>
         <!-- Page Header End -->
         <?php if($msg){ ?>
-        <div>
-            <?=$msg?>
-        </div>
+            <div class="text-center mx-5 px-5 ">
+                <p class="">
+                    <div class="alert alert-warning" role="alert">
+                        <?=$msg?>
+                    </div>
+                </p>
+            </div>
         <?php }?>
           
         <?php if(!helper::init()->user_can('can_view_tenants')){?>
@@ -199,7 +203,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="text" value="0" class="form-control" id="order_amount" name="order_amount" readonly>
+                                            <input type="text" value="0" class="form-control" id="order_amount" name="order_amount" min="100" readonly>
                                             <label for="order_amount">Order amount</label>
                                         </div>
                                     </div>
@@ -256,8 +260,12 @@
         </div>
         <!-- Booking End -->
         <?php } else { ?>
-            <div class="text-center">
-                <p class="">LogOut and use a defferent account for booking. Not staff one.</p>
+            <div class="text-center mx-5 px-5 ">
+                <p class="">
+                    <div class="alert alert-warning" role="alert">
+                        LogOut and use a defferent account for booking. Not staff one.!
+                    </div>
+                </p>
             </div>
         <?php } ?>
 

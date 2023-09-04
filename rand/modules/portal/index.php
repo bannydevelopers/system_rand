@@ -184,22 +184,28 @@ if(isset($_GET['book'])){
 
 if(isset($_POST['book-an-apar'])){
     if(strtotime($_POST['checkout']) > strtotime($_POST['checkin'])){
-        $whr = "apartment_category = '{$_POST['apartment_category']}' AND apartment_id NOT IN (SELECT apartment_reference FROM check_scheduling WHERE check_out < '{$_POST['checkin']}')";
+        $check_in = helper::format_time($_POST['checkin'],'Y-m-d H:i:s');
+        $whr = "apartment_category = '{$_POST['apartment_category']}' AND apartment_id NOT IN (SELECT apartment_reference FROM check_scheduling WHERE check_out < '{$check_in}')";
         $available = $db->select('apartments', 'apartment_id')
-                        ->where($whr)
-                        ->fetchAll();
+                        ->where($whr)->fetchAll();
+        $availableCount = $db->select('apartments', 'COUNT(apartment_id) AS availableCount')
+                        ->where($whr)->fetchAll();
+        print_r($availableCount[0]['availableCount']);
+        print_r($available[0]);
+        print_r($check_in);
         if($available){
             shuffle($available);
             // insert into check_schedule
             $schedule = [
                 'check_in'=>$_POST['checkin'], 
                 'check_out'=>$_POST['checkout'], 
-                'check_status'=>'pending', 
+                'pay_status'=>'pending', 
                 'apartment_reference'=>$available[0]['apartment_id'],
-                'user_ref'=>$user['user_id']
+                'user_ref'=>$user['user_id'],
+                'payment_amount' => $_POST['order_amount']
             ];
             $check_schedule = $db->insert('check_scheduling', $schedule);
-            //var_dump($db->error());
+            // var_dump($db->error());
             if(!$db->error() && $check_schedule){
                 $order = [
                     'special_requests'=>$_POST['special_request'], 
