@@ -28,7 +28,7 @@ if(isset($_POST['userId'])){
                 $status = 'success';
             }
             else {
-                $msg = 'Tenant deletion failed';
+                $msg = 'Tenant deletion failed!';
             }
         }
         else{
@@ -170,9 +170,10 @@ if(isset($_POST['add-tenant'])){
 }
             
 if($helper->user_can('can_view_tenants')){
+
     $apartment = $db->select('apartments','apartment_id, apartment_name, apartment_floor, category_name, price_per_day, price')
                 ->join('apartment_category', 'apartment_category.category_id = apartments.apartment_category', 'right')
-                ->where('apartment_id NOT IN (SELECT DISTINCT apartment_reference FROM check_scheduling)')
+                ->where("apartment_id NOT IN (SELECT DISTINCT check_scheduling.apartment_reference FROM check_scheduling WHERE check_scheduling.check_out > NOW())")
                 ->order_by('category_name', 'asc')
                 ->fetchAll();
 
@@ -183,12 +184,6 @@ if($helper->user_can('can_view_tenants')){
                 ->order_by('user.user_id', 'desc')
                 ->fetchAll();
 
-    $tenants = $db->select('user')
-                ->join('tenants', 'user.user_id = tenants.user_reference')
-                ->join('check_scheduling', 'user.user_id = check_scheduling.user_ref', 'left')
-                ->join('apartments', 'check_scheduling.apartment_reference = apartments.apartment_id', 'left')
-                ->order_by('user.user_id', 'desc')
-                ->fetchAll();
     $data = [
         'apartment' => $apartment,
         'tenants' => $tenants,
