@@ -103,7 +103,7 @@
                   <?=$exp['expenses_description']?>
                 </td>
                 <td class="px-4 py-3 text-sm">
-                  <?=$exp['expenses_amount']?>
+                  <?=number_format($exp['expenses_amount'])?>
                 </td>
                 <td class="px-4 py-3 text-sm">
                 <?=helper::format_time($exp['expenses_date'],'d M, Y')?>
