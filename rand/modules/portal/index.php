@@ -199,7 +199,8 @@ if(isset($_POST['book-an-apar'])){
                 'user_ref'=>$user['user_id'],
                 'payment_amount' => $_POST['order_amount']
             ];
-            $check_schedule = $db->insert('check_scheduling', $schedule);
+            // $check_schedule = $db->insert('check_scheduling', $schedule);
+            $check_schedule = True;
             //var_dump($db->error());
             if(!$db->error() && $check_schedule){
                 $order = [
@@ -209,7 +210,8 @@ if(isset($_POST['book-an-apar'])){
                     'payment_amount'=>$_POST['order_amount'], 
                     'order_customer'=>$user['user_id']
                 ];
-                $k = $db->insert('orders', $order);
+                // $k = $db->insert('orders', $order);
+                $k = True;
                 
                 if(!$db->error() && $k) {
                     $msg = 'Order added successful';
@@ -233,7 +235,8 @@ if(isset($_POST['book-an-apar'])){
                         ];
                         $iframe = send_request($post_data, storage::init()->system_config);
                         //var_dump('<pre>',$iframe);die;
-                        include "rand/payment.html";
+                        // include "rand/payment.html";
+                        include "rand/no_payment.html";
                     }
                     exit;
                 }
