@@ -1,3 +1,11 @@
+<div class="text-right">
+
+  <button onclick="exportTableToExcel('dTable')"
+  class="text-white bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-center mx-6 mb-3 px-5 py-1.5" type="button">
+  Print Expenses
+  </button>
+</div>
+
 <!-- Modal toggle -->
 <div id="add-expense-modal" tabindex="-1" aria-hidden="true" class="bg-black bg-opacity-50  fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full max-h-full">
   <div class="relative w-full max-w-4xl max-h-full items-center">
@@ -179,6 +187,8 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
 <script>
   $(document).ready( function () {
     $('#dTable').DataTable();
@@ -258,5 +268,30 @@
       expDelBtn.innerHTML = `<span class="lg:hidden"><i class="fa-sharp fa-solid fa-trash"></i></span>
         <span class="hidden lg:flex">Delete</span>`;
     });
+  }
+
+
+  function exportTableToExcel(tableID, filename = "table.xlsx") {
+    // Clone the original table
+    var originalTable = document.getElementById(tableID);
+    var clonedTable = originalTable.cloneNode(true);  // Deep clone
+
+    // Remove the third column from the cloned table (in this case, the Address column)
+    var allRows = clonedTable.rows;
+    for (var i = 0; i < allRows.length; i++) {
+        if (allRows[i].cells.length > 4) {  // If there's a third cell
+            allRows[i].deleteCell(4);  // Delete the third cell
+        }
+    }
+
+    // Create a new workbook and worksheet using the cloned table
+    var wb = XLSX.utils.book_new();
+    var ws = XLSX.utils.table_to_sheet(clonedTable);
+
+    // Append the worksheet to the workbook
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+    // Write the workbook to a file
+    XLSX.writeFile(wb, filename);
   }
 </script>
