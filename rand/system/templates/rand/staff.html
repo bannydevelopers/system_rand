@@ -470,7 +470,7 @@ Add new role
   }
 
   async function delStaff(values) {
-    if (!confirm("Sure you want to delete staff?")) {
+    if (!confirm("Sure you want to delete staff? THIS CAN NOT BE UNDONE!")) {
       return;
     }
     delStaffBtn = document.getElementById(values.id);

@@ -734,7 +734,7 @@
   }
 
   function deleteTenant(tenant) {
-    if (!confirm("Sure you want to delete tenant? \nThis action can not be undone!")) {
+    if (!confirm("Sure you want to delete tenant? \nThis will delete all Tenant related data and CAN NOT BE UNDONE!")) {
       return;
     }
     tenantDelBtn = document.getElementById(tenant.id);
