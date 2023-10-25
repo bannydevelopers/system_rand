@@ -615,7 +615,9 @@
 <script>
   $(document).ready( function () {
     $('#d1Table').DataTable();
-    $('#d2Table').DataTable();
+    $('#d2Table').DataTable({ 
+      order: [[0, 'desc']]
+    });
   } );
 </script>
 <script>
