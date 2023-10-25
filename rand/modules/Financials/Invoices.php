@@ -12,12 +12,15 @@ if($helper->user_can('can_view_invoice')){
     if(isset($_POST['ajax_del_invoice'])){
         if($helper->user_can('can_delete_invoice')){
             $invoice_id = intval($_POST['ajax_del_invoice']);
-            $invoice = $db->select('invoice', 'invoice_ref_number')
+            $invoice = $db->select('invoice', 'invoice_ref_number, check_scheduling')
                         ->where(['invoice_id'=>$invoice_id])
                         ->fetch();
             if($invoice){
                 $k = $db->delete('invoice')->where(['invoice_id'=>$invoice_id])->commit();
                 if(!$db->error() && $k) {
+                    $k2 = $db->update('check_scheduling', ['pay_status' => 'pending'])
+                        ->where(['check_id'=>intval($invoice['check_scheduling'])])
+                        ->commit();
                     $msg = "Deletion succesfully for invoice {$invoice['invoice_ref_number']}.";
                     $status = 'success';
                 }
@@ -48,6 +51,9 @@ if($helper->user_can('can_view_invoice')){
                     $k = $db->update('invoice', ['invoice_ref_number' => 'INV00'.$invoice_id])
                             ->where(['invoice_id'=>intval($invoice_id)])
                             ->commit();
+                    $k2 = $db->update('check_scheduling', ['pay_status' => 'paid'])
+                            ->where(['check_id'=>intval($_POST['check_id'])])
+                            ->commit();
                     $msg = 'Invoice created';
                     $status = 'success';
                 }
@@ -64,7 +70,7 @@ if($helper->user_can('can_view_invoice')){
                 ->join('apartments','check_scheduling.apartment_reference = apartments.apartment_id', 'left')
                 ->join('user cust','check_scheduling.user_ref = cust.user_id', 'left')
                 ->join('tenants','tenants.user_reference = cust.user_id', 'left')
-                ->order_by('invoice_id', 'desc')->fetchAll(); 
+                ->order_by('created_time', 'asc')->fetchAll(); 
 
     $xinvoice = $db->select('check_scheduling', 'check_id, check_in, payment_amount, apartment_name, CONCAT_WS(" ", first_name, last_name) as full_name')
                 ->join('user', 'check_scheduling.user_ref = user.user_id')
@@ -75,6 +81,7 @@ if($helper->user_can('can_view_invoice')){
 
     $data = [
         'invoice'=>$invoice,
+        'invoicep'=>$invoicep,
         'xinvoice'=>$xinvoice,
         'company'=>$settings->config->company_profile,
         'msg'=>$msg, 
